@@ -3,7 +3,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
 	 <head>
-		  <title>Allround Handwerkbetrieb</title>
+		  <title>Maurer</title>
 		  <meta http-equiv="content-type" content="text/plain; charset=utf-8" />
 		  <meta http-equiv="content-language" content="de" />
 		  <link type = "text/css" rel = "stylesheet" href = "../style.css" />
@@ -12,7 +12,7 @@
 <body bgcolor="#101010">
 
         <div id="heading">
-            <h1> Allround Handwerkerbetrieb! </h1>
+            <h1> Maurer </h1>
 
 
         </div>
@@ -21,13 +21,13 @@
                 <li class="topmenu">
                     <a href=""><img src="../pictures/Drei Striche.png" alt="Drei Striche"/></a>
                     
-                    <ul>
-                    <li class="submenu"><a href="index.php">Startseite</a></li>
-                        <li class="submenu"><a href="pages/Über uns.php">Über uns</a></li>
-						<li class="submenu"><a href="pages/Ticketsystem.php">Tätigkeiten</a></li>
-						<li class="submenu"><a href="pages/Forum.php">FAQ</a></li>
-						<li class="submenu"><a href="pages/Kontakte.php">Kontakte</a></li>
-						<li class="submenu"><a href="pages/Impressum.php">Impressum</a></li>
+					<ul>
+                    <li class="submenu"><a href="../index.php">Startseite</a></li>
+						<li class="submenu"><a href="Ticketsystem.php">Ticketsystem</a></li>
+						<li class="submenu"><a href="Forum.php">Forum</a></li>
+						<li class="submenu"><a href="Kontakte.php">Kontakte</a></li>
+						<li class="submenu"><a href="Impressum.php">Impressum</a></li>
+						
                     </ul>
                 </li>
                 
@@ -43,7 +43,7 @@
 		?>
 
         <form action="" method="post">
-		<div class="headline"><h1><u>Maler</u></h1></div>
+		<div class="headline"><h1><u>Maurer</u></h1></div>
 		<div class="form">
 			<center>	
 			<p>
@@ -54,16 +54,8 @@
 				<br /><br />
 				Vorname:<input type="text" name="vorname"  <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['vorname']. '"';} else {echo "placeholder='Max'";} ?> /><br /><br />
 				Nachname:<input type="text" name="nachname" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['nachname']. '"';} else {echo "placeholder='Mustermann'";} ?>/><br /><br />      
-				Strasse:<input type="text" name="strasse" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['strasse']. '"';} else {echo "placeholder='Musterstrasse'";} ?>/><br /><br />
-				Hausnummer:<input type="number" name="hausnummer" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['hausnummer']. '"';} else {echo "placeholder='3'";} ?>/><br /><br />
-				Stadt:<input type="text" name="stadt" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['stadt']. '"';} else {echo "placeholder='Musterstadt'";} ?>/><br /><br />
-				Postleitzahl:<input type="number" name="postleitzahl" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['postleitzahl']. '"';} else {echo "placeholder='12345'";} ?>/><br /><br />
 				Telefon:<input type="tel" name="telefon"<?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['telefon']. '"';} else {echo "placeholder='+12345678'";} ?> require/><br /><br />
 				E-Mail:<input type="text" name="e-mail" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['e-mail']. '"';} else {echo "placeholder='Muster.mail@mail.com'";} ?>/><br /><br />
-				<h3>Wunsch Termin</h3>
-				Wunschtermin 1:<input type="date" name="TerminW1" value="<?php echo $_POST['TerminW1'] ?>" required/><br />
-				Wunschtermin 2:<input type="date" name="TerminW2" value="<?php echo $_POST['TerminW2'] ?>" required/><br />
-				Wunschtermin 3:<input type="date" name="TerminW3" value="<?php echo $_POST['TerminW3'] ?>" required/><br />
 				<h3>Nachricht</h3>
 				<textarea name="message" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['message']. '"';} else {echo "placeholder='Malen Sie bitte alle Wände in Weiß an.'";} ?>cols="50" rows="10" require> 
 				</textarea>

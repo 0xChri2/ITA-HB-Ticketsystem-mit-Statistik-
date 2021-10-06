@@ -7,7 +7,7 @@
 		  <meta http-equiv="content-language" content="de" />
 		  <link type = "text/css" rel = "stylesheet" href = "../style.css" />
 	</head>
-
+<!-- dakro-->
     <body>
     <div id="heading">
             <h1> Allround Handwerkerbetrieb! </h1>

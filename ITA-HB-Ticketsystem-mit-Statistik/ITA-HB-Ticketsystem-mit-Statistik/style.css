@@ -1,0 +1,195 @@
+
+    body 
+    {
+        height: 100%;
+        width: auto;
+        color: whitesmoke;
+
+   }
+   .centertext
+   {
+       text-align: center;
+   }
+
+   .headline
+   {
+       text-align: center;
+       font-size: 20px;
+   }
+
+   #heading 
+   {    
+       position: absolute;
+       top: 0%;
+       text-align: center;
+       width: 101%;
+       background-color: #292929;
+       margin-left: -15px;
+   }
+   /* Navigation */       
+   #menu 
+   {
+       font-size:14px;
+       position:absolute;
+       top:15px;
+   }
+
+   #menu ul 
+   {
+       list-style-type:none;
+       list-style-image:none;
+       margin:0;
+       padding:0;
+       
+   }
+
+   #menu li.topmenu 
+   {
+       float:left;
+       margin-left: 10px;
+   }
+
+   .topmenu a 
+   {
+       float:left;
+       width:35px;
+       height: 30px;
+       text-align:left;
+       
+   }
+
+   .topmenu ul
+   {
+       display:none;
+   }
+
+   .topmenu a, .submenu a
+   {
+       padding:8px;
+       color:white;
+       font-weight:bold;
+       text-decoration:none;
+       background-color:#3f3f3f;
+       margin:0;
+   }
+
+   .submenu a
+   {
+       font-size: 15px;
+       width:1920px;
+       position:relative;
+       clear:both; /* special IE6 */
+       margin-left: -15px;
+   }
+
+   #menu a:hover, .topmenu.on a 
+   {
+       color:white;
+       background-color:rgb(71, 71, 73) ;
+   }
+
+   .topmenu:hover ul 
+   {
+       display:block;
+       z-index:500;
+   }
+   /* end of Navigation */   
+
+   #banner
+   {
+        width: auto;
+        height: 200px;
+        background-image: url("pictures/tools.jpg");
+        margin-left: -15px;
+        margin-right: -15px;
+   }
+
+   #footer 
+   {
+       text-align: center;
+       background-color: #292929;
+       color: rgb(255, 255, 255);
+       padding-top: 30px;
+       padding-bottom: 30px;
+       width: 101%;
+       position: fixed;
+       bottom: 0%;
+       margin-left: -15px;
+
+   }
+
+   #footer a 
+   {
+       color: rgb(255, 255, 255);
+       text-decoration: none;
+       
+       
+   }
+
+   #footer:hover a 
+   {
+       color: rgb(255, 255, 255);
+       text-decoration: none;
+       
+
+
+   }
+
+   #footer:link a 
+   {
+       color: rgb(255, 255, 255);
+       text-decoration: none;
+       
+
+   }
+
+   #footer:active a 
+   {
+       color: rgb(255, 255, 255);
+       text-decoration: none;
+       
+
+   }
+
+   #footer:visited a 
+   {
+       color: rgb(255, 255, 255);
+       text-decoration: none;
+       
+
+   }
+
+   #article
+   {
+        width: auto;
+        position: static;
+        margin-left: 25px;
+        margin-right: 25px;
+        margin-bottom: 100px;
+        font-size: 20px;
+   }
+
+   #article a 
+   {
+       color: rgb(255, 255, 255);
+   }
+
+   #article:hover a 
+   {
+       color: rgb(255, 255, 255);
+   }
+
+   #article:link a 
+   {
+       color: rgb(255, 255, 255);
+   }
+
+   #article:active a 
+   {
+       color: rgb(255, 255, 255);
+   }
+
+   #article:visited a 
+   {
+       color: rgb(255, 255, 255); 
+   }

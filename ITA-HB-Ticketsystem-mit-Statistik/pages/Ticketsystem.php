@@ -54,14 +54,13 @@
 				<br /><br />
 				Vorname:<input type="text" name="vorname"  <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['vorname']. '"';} else {echo "placeholder='Max'";} ?> /><br /><br />
 				Nachname:<input type="text" name="nachname" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['nachname']. '"';} else {echo "placeholder='Mustermann'";} ?>/><br /><br />      
-				Telefon:<input type="tel" name="telefon"<?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['telefon']. '"';} else {echo "placeholder='+12345678'";} ?> require/><br /><br />
+				Telefon:<input type="tel" size="16" name="telefon"<?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['telefon']. '"';} else {echo "placeholder='+12345678'";} ?> require/><br /><br />
 				E-Mail:<input type="text" name="e-mail" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['e-mail']. '"';} else {echo "placeholder='Muster.mail@mail.com'";} ?>/><br /><br />
 				<h3>Nachricht</h3>
 				<textarea name="message" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['message']. '"';} else {echo "placeholder='Malen Sie bitte alle Wände in Weiß an.'";} ?>cols="50" rows="10" require> 
 				</textarea>
 				
 			<hr />
-			
 			<input type="submit" name="Senden" value="Anfrage abschicken!"/>
 			<input type="reset"/>
 			<input type="submit" name="Logdata" value="Log Datei"/>

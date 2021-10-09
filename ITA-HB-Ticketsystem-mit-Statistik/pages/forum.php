@@ -11,7 +11,7 @@
 
 <body>
     <div id="background">
-        <div class="logincontainer">
+        <div class="login-container">
             <h1>LOGIN</h1>
 
             <form>
@@ -27,7 +27,31 @@
 
                 <button type="button" class="btn">submit</button>
             </form>
+
+            <!-- 
+                TODO:
+
+                Add picture transition
+                Make class="input-container" responsive
+            -->
+
         </div>
+    </div>
+
+
+    <div class="ranking-container">
+        <h1>UNSERE TOP 3 EINTRÄGE</h1>
+        <table border="0" cellspacing="40">
+            <tr>
+                <td>Rank 1</td>
+                <td>Rank 2</td>
+                <td>Rank 3</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="footer">
+        hallo
     </div>
 </body>
 

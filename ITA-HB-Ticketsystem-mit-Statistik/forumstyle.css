@@ -23,11 +23,11 @@ body
     right: 0;
     text-align: center;
     overflow: hidden;
-    padding-top: 30%;
-    padding-bottom: 250px;
+    padding-top: 22%;
+    padding-bottom: 30%;
 }
 
-.logincontainer
+.login-container
 {
     background-color: rgba(0, 0, 0, 0.703);
     width: 40%;
@@ -49,20 +49,25 @@ body
     color: white;
 }
 
-.logincontainer h1 
+.login-container h1 
 {
     margin-bottom: 30%;
     font-size: 250%;
     font-weight: 500;
 }
 
-.logincontainer hr 
+.login-container hr 
 {
     border: 0;
     height: 1px;
     margin-bottom: 7%;
     background: #a7500a;
     background-image: linear-gradient(to right, #683103, rgb(160, 100, 11), rgb(241, 186, 102));
+}
+
+::selection
+{
+    background: orange;
 }
 
 .input-container{
@@ -117,5 +122,65 @@ body
 .input-container input:valid ~ label{
 	top:-12px;
 	font-size:12px;
-	
+}
+
+/*///////////////////////////////////////////////////////////*/
+
+.a {
+    height: 200px;
+    width: 200px;
+    background-color:rgba(0, 0, 0, 0.651);
+  }
+
+.ranking-container {
+    background-color: black;
+    color: white;
+    font-size: 150%;
+    overflow-wrap: break-word;
+    align-content: space-between;
+    padding: 5%;
+}
+
+.ranking-container h1 
+{
+    font-size: 200%;
+    font-weight: 500;
+    text-align: left;
+}
+
+.ranking-container table 
+{
+    position: relative;
+    left: 50%;
+    padding-left: 13%;
+    padding-right: 13%;
+    margin-right: -50%;
+    margin-top: 10%;
+    transform: translate(-50%, -50%);
+}
+
+.ranking-container td
+{
+    padding-right: 20px;
+}
+
+/*///////////////////////////////////////////////////////////*/
+
+#footer
+{
+    background: url(pictures/blackbricks.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    overflow: hidden;
+    color: white;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }

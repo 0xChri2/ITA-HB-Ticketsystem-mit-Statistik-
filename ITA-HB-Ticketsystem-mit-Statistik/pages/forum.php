@@ -14,19 +14,52 @@
         <div class="login-container">
             <h1>LOGIN</h1>
 
-            <form>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" name="myForm" id="myForm">
                 <div class="input-container">
-                    <input type="text" required="" />
+                    <input type="text" name="vorgangsnummer" required="" />
                     <label>Full Name</label>
                 </div>
 
                 <div class="input-container">
-                    <input type="mail" required="" />
+                    <input type="mail" name="email" required="" />
                     <label>Email</label>
                 </div>
 
-                <button type="button" class="btn">submit</button>
+                <input type="submit" name="senden" value="submit" class="btn"/>
             </form>
+
+            <?php
+                if(isset($_POST['senden']))
+                { 
+                    require __DIR__ . '/functions/form_validation.php';
+
+                    $vorgangsnummer = strtoupper($_POST['vorgangsnummer']);
+                    $email = strtolower($_POST['email']);
+
+                    $vorgangsnummer = trim($vorgangsnummer, " ");
+                    $email = trim($email, " ");
+                    
+                    $success = 1;
+                
+                    $fehler_nachricht = array();
+                
+                    if(field_empty($vorgangsnummer, "Vorgangsnummer", $fehler_nachricht) == 0)
+                        $success = 0;
+
+                    if(field_email($email, $fehler_nachricht) == 0)
+                        $success = 0;
+
+                    if($success == 1)
+                    {
+                        echo "Erfolg!";
+                    }
+                
+                    foreach($fehler_nachricht as $fehler)
+                    {
+                        echo $fehler . "<br />";
+                    }
+                }
+            ?>
 
             <!-- 
                 TODO:

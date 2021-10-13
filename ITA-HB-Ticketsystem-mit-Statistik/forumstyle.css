@@ -68,6 +68,18 @@ body
     background-image: linear-gradient(to right, #683103, rgb(160, 100, 11), rgb(241, 186, 102));
 }
 
+a
+{
+    color: white;
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: orange;
+    text-decoration: underline;
+}
+
 ::selection
 {
     background: orange;
@@ -125,6 +137,45 @@ body
 .input-container input:valid ~ label{
 	top:-12px;
 	font-size:12px;
+}
+
+#error-box
+{
+    float: left;
+    background-color: rgba(139, 20, 20, 0.703);
+    color: white;
+    position: fixed;
+    left: 10px;
+    z-index: 999;
+    font-size: 20px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.success-box {
+    background-color: #659218d0;
+    color: white;
+    top: 50px;
+    position: relative;
+    z-index: 999;
+    font-size: 20px;
+    max-width: 350px;
+    user-select: none;
+}
+
+.success-box a
+{
+    text-decoration: none;
+    color:  white;
+}
+
+.success-box a:hover
+{
+    text-decoration: underline;
 }
 
 /*///////////////////////////////////////////////////////////*/

@@ -28,7 +28,15 @@
                 <input type="submit" name="senden" value="submit" class="btn"/>
             </form>
 
-            <?php
+            <!-- 
+                TODO:
+
+                Add picture transition
+                Make class="input-container" responsive
+            -->
+
+        </div>
+        <?php
                 if(isset($_POST['senden']))
                 { 
                     require __DIR__ . '/functions/form_validation.php';
@@ -51,29 +59,25 @@
 
                     if($success == 1)
                     {
-                        echo "Erfolg!";
+                        echo '<center><div class="success-box">';
+                        echo 'ERFOLG!<br> Drücken Sie  <b><a href="#top3">HIER</a></b> um Forum zu sehen.';
+                        echo '</center></div>';
                     }
                 
                     foreach($fehler_nachricht as $fehler)
                     {
-                        echo $fehler . "<br />";
+                        echo '<div id="error-box">';
+                        echo  "<p>" . $fehler . "</p>";
+                        echo "</div><br><br>";
                     }
                 }
             ?>
-
-            <!-- 
-                TODO:
-
-                Add picture transition
-                Make class="input-container" responsive
-            -->
-
-        </div>
     </div>
 
 
     <div class="ranking-container">
         <h1>UNSERE TOP 3 EINTRÄGE</h1>
+        <section id="top3">
         <table border="0" cellspacing="40">
             <tr>
                 <td>Rank 1</td>
@@ -81,6 +85,7 @@
                 <td>Rank 3</td>
             </tr>
         </table>
+        </section>
     </div>
 
     <div id="footer">

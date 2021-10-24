@@ -16,7 +16,7 @@
 
             <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" name="myForm" id="myForm">
                 <div class="input-container">
-                    <input type="text" name="vorgangsnummer" required="" />
+                    <input type="text" name="username" required="" />
                     <label>Username</label>
                 </div>
 
@@ -42,17 +42,17 @@
                 { 
                     require __DIR__ . '/functions/form_validation.php';
 
-                    $vorgangsnummer = strtoupper($_POST['vorgangsnummer']);
+                    $username = $_POST['username'];
                     $email = strtolower($_POST['email']);
 
-                    $vorgangsnummer = trim($vorgangsnummer, " ");
+                    $username = trim($username, " ");
                     $email = trim($email, " ");
                     
                     $success = 1;
                 
                     $fehler_nachricht = array();
                 
-                    if(field_empty($vorgangsnummer, "Vorgangsnummer", $fehler_nachricht) == 0)
+                    if(field_empty($username, "username", $fehler_nachricht) == 0)
                         $success = 0;
 
                     if(field_email($email, $fehler_nachricht) == 0)
@@ -64,21 +64,34 @@
                         echo 'ERFOLG!<br> Drücken Sie  <b><a href="#rating">HIER</a></b> um uns zu bewerten.';
                         echo '</center></div>';
 
+                        $f = fopen("forum-data/login-time.csv", "a+");
+                        $c = new SplFileObject("forum-data/login-time.csv", "r");
+                        $c->seek(PHP_INT_MAX);
+                        $counter = $c->key() + 1;
+
+                        $date = date("d.m.y");
+                        $time = date("H:i");
+
+                        $login_data = array($counter, $username, $email, $date, $time);
+                        fputcsv($f, $login_data, ";");
+
+                        fclose($f);
+
                         echo '    <div id="rating-section">
                         <section id ="rating">
                         <div class="rating-container">
                       <div class="feedback">
                       <form method="post" action="forum.php" name="rating">
                         <div class="rating">
-                          <input type="radio" name="rating" id="rating-5" required>
+                          <input type="radio" name="rating" id="rating-5" value="5" required>
                           <label for="rating-5"></label>
-                          <input type="radio" name="rating" id="rating-4" required>
+                          <input type="radio" name="rating" id="rating-4" value="4" required>
                           <label for="rating-4"></label>
-                          <input type="radio" name="rating" id="rating-3" required>
+                          <input type="radio" name="rating" id="rating-3" value="3" required>
                           <label for="rating-3"></label>
-                          <input type="radio" name="rating" id="rating-2" required>
+                          <input type="radio" name="rating" id="rating-2" value="2" required>
                           <label for="rating-2"></label>
-                          <input type="radio" name="rating" id="rating-1" required>
+                          <input type="radio" name="rating" id="rating-1" value="1" required>
                           <label for="rating-1"></label>
                           <div class="emoji-wrapper">
                             <div class="emoji">
@@ -184,8 +197,29 @@
                         echo "</div><br><br>";
                     }
                 }
+
+                if(isset($_POST['send']))
+                {
+                    $t = fopen("forum-data/threads.csv", "a+");
+                    $c = new SplFileObject("forum-data/threads.csv", "r");
+          
+                    $c->seek(PHP_INT_MAX);
+                    $counter = $c->key() + 1;
+          
+                    $rate_data = array($_POST['rating'], $_POST['comment']);
+                    fputcsv($t, $rate_data, ";");
+          
+                    fclose($t);
+                    echo '<center><div class="success-box">';
+                    echo 'ABGESENDET!<br> Drücken Sie  <b><a href="#top3">HIER</a></b> um weitere Threads zu lesen';
+                    echo '</center></div>';
+                }
             ?>
     </div>
+
+    <?php
+
+    ?>
 
     <div class="ranking-container">
         <h1>UNSERE TOP 3 EINTRÄGE</h1>

@@ -213,8 +213,8 @@
 				//Read
 				$year = time();
 				$year = date("Y",$year);
-				$pfad = "../data/";
-                $messagetxt = "Ticket.docx";
+				$pfad = "../data/ticketsystem/";
+                $messagetxt = "ticket.docx";
 				$zeiger = fopen($pfad.$messagetxt,"r");
 
 			
@@ -229,15 +229,15 @@
 						//Log Write	
 						$today = time();
 						$today = date("d.m.Y - H:i",$today);
-        		        $messagetxt = "Ticketlog.";
+        		        $messagetxt = "ticketlog.csv";
 						$formdata = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
 						$zeiger = fopen($pfad.$messagetxt,"a+");
 						fputs($zeiger,$formdata);
 						fclose($zeiger);	
 
 						//Write Ticket
-						$pfad = "../data/";
-                		$messagetxt = "Ticket.docx";
+						$pfad = "../data/ticketsystem/";
+                		$messagetxt = "ticket.docx";
 						$TicketNr = $TicketNr +1;
 						$zeiger = fopen($pfad.$messagetxt,"w");
 						$formdata = $TicketNr ."\t";
@@ -252,8 +252,8 @@
 			//Log Datei ausgabe
 			if(isset($_POST['Logdata'])==true)
 			{
-				$pfad = "../data/";
-                $messagetxt = "Ticketlog.docx";
+				$pfad = "../data/ticketsystem/";
+                $messagetxt = "ticketlog.csv";
 				$zeiger = fopen($pfad.$messagetxt,"r");
 				if($zeiger)
 				{	

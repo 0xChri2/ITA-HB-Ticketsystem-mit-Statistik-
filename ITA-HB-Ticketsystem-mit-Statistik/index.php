@@ -41,7 +41,7 @@
             <div class="headline"><h1>Allgemeines</h1></div>
             <div class="centertext">
             <h4>Maurerbetrieb </h4><br />
-            <h1><a href="pages/Ticketsystem.php">Ticketsystem</a></h1>
+            <h1><a href="pages/ticketsystem.php">Ticketsystem</a></h1>
         </div>
         </div>
 

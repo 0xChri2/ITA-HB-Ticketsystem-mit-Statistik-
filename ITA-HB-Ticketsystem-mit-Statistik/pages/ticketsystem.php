@@ -265,7 +265,7 @@
 					echo"<td><u><b>E-Mail</u></b></td>";
 					echo"<td><u><b>Nachricht</u></b></td>";
 					echo"<td><u><b>Datum</u></b></td>";
-					echo"<td><u><b>Ticket Nummer</u></b></td>";
+					echo"<tf><u><b>Ticket Nummer</u></b></td>";
 					while(!feof($zeiger))
 					{	
 						echo '<tr>';

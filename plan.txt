@@ -1,6 +1,0 @@
-When Username & Email submitted, then the possibility to rate opens.
-
-If the user rates, then the Username, Email and Ratings should be saved in a file.
-Also, the forum should display 15 newest ratings + 3 top liked ones.
-
-Only logged-in users should have the possibility to like.

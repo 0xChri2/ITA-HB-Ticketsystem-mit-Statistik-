@@ -21,10 +21,11 @@
                     <a href=""><img src="../pictures/Drei Striche.png"></a>
                     <ul>
                         <li class="submenu"><a href="../index.php">Startseite</a></li>
-						<li class="submenu"><a href="Ticketsystem.php">Ticketsystem</a></li>
-						<li class="submenu"><a href="Forum.php">Forum</a></li>
-						<li class="submenu"><a href="Kontakte.php">Kontakte</a></li>
-						<li class="submenu"><a href="Impressum.php">Impressum</a></li>
+						<li class="submenu"><a href="ticketsystem.php">Ticketsystem</a></li>
+						<li class="submenu"><a href="forum.php">Forum</a></li>
+						<li class="submenu"><a href="umfrage.php">Umfrage</a></li>
+						<li class="submenu"><a href="statistik.php">Statistik</a></li>
+						
                     </ul>
                 </li>
                 

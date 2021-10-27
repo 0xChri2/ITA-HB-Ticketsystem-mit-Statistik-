@@ -22,12 +22,11 @@
                     <a href=""><img src="../pictures/Drei Striche.png" alt="Drei Striche"/></a>
                     
 					<ul>
-                    <li class="submenu"><a href="../index.php">Startseite</a></li>
-						<li class="submenu"><a href="Ticketsystem.php">Ticketsystem</a></li>
-						<li class="submenu"><a href="Forum.php">Forum</a></li>
-						<li class="submenu"><a href="Kontakte.php">Kontakte</a></li>
-						<li class="submenu"><a href="Impressum.php">Impressum</a></li>
-						
+					<li class="submenu"><a href="../index.php">Startseite</a></li>
+						<li class="submenu"><a href="ticketsystem.php">Ticketsystem</a></li>
+						<li class="submenu"><a href="forum.php">Forum</a></li>
+						<li class="submenu"><a href="umfrage.php">Umfrage</a></li>
+						<li class="submenu"><a href="statistik.php">Statistik</a></li>
                     </ul>
                 </li>
                 
@@ -110,53 +109,6 @@
 				$fehler_nachricht[]="Bitte nutzen Sie nur ein Pluszeichen in der Telefonnummer.";
 				}
 
-
-				//strasse
-				$strasse = $_POST['strasse'];
-				if($strasse=="")
-				{
-				$error = true;
-				$fehler_nachricht[]="Geben Sie bitte Ihren Strassennamen an";
-				}
-
-
-				//hausnummer
-				$hausnummer = $_POST['hausnummer'];
-				if($hausnummer=="")
-				{
-				$error = true;
-				$fehler_nachricht[]="Geben Sie bitte Ihren Hausnummer an";
-				}
-
-
-				//stadt
-				$stadt = trim($_POST['stadt']);
-				if($stadt=="")
-				{
-				$error = true;
-				$fehler_nachricht[]="Geben Sie bitte Ihren Stadtnamen an";
-				}
-				
-
-				//postleitzahl
-				$postleitzahl = trim($_POST['postleitzahl']);
-				if($postleitzahl=="")
-				{
-				$error = true;
-				$fehler_nachricht[]="Geben Sie bitte Ihren Postleitzahl an";
-				}
-				if(strlen($postleitzahl) < "5") 
-				{
-					$error = true;
-					$fehler_nachricht[]="Ihre Postleitzahl ist zu kurz.";
-				}
-				if(strlen($postleitzahl) > "5") 
-				{
-					$error = true;
-					$fehler_nachricht[]="Ihre Postleitzahl ist zu lang.";
-				}
-
-
 				//email
 				$email = trim($_POST['e-mail']);
 				if($email=="")
@@ -231,73 +183,6 @@
 					
 				}
 
-
-					//Wunschtermin
-					$TerminW1 = strtotime($_POST['TerminW1']);
-					$TerminW2 = strtotime($_POST['TerminW2']);
-					$TerminW3 = strtotime($_POST['TerminW3']);
-				
-					$DateA = date("d.m.Y",$TerminW1);
-					$DateB = date("d.m.Y",$TerminW2);
-					$DateC = date("d.m.Y",$TerminW3);
-					$today = time();
-					$todaydate = strtotime($today);
-					
-
-					//Zeit bis zum Wunschtermin
-					$daysleftA = (strtotime($DateA)-$today)/60/60/24;
-					$daysleftB = (strtotime($DateB)-$today)/60/60/24;
-					$daysleftC = (strtotime($DateC)-$today)/60/60/24;
-
-
-					//Tag des Termins 
-					$dayk = array("Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag");
-					$TermintagA = date("d", strtotime($daysleftA));
-					$TermintagB = date("d", strtotime($daysleftB));
-					$TermintagC = date("d", strtotime($daysleftC));
-					$dayA = $dayk [date("w", $TerminW1)];
-					$dayB = $dayk [date("w", $TerminW2)];
-					$dayC = $dayk [date("w", $TerminW3)];
-
-
-					//Wunschtermin check 
-					if($today > strtotime($DateA))
-					{
-						$error = true;
-						$fehler_nachricht[]="Ihr 1. Wunschtermin ist in der Vergangenheit.";
-					}
-
-					if($today > strtotime($DateB))
-					{
-						$error = true;
-						$fehler_nachricht[]="Ihr 2. Wunschtermin ist in der Vergangenheit.";
-					}
-
-					if($today > strtotime($DateC))
-					{
-						$error = true;
-						$fehler_nachricht[]="Ihr 3. Wunschtermin ist in der Vergangenheit.";
-					}
-
-					if($dayA == "Sonntag")
-					{
-						$error = true;
-						$fehler_nachricht[]="Ein Sonntag als Wunschtermin ist leider nicht möglich.";
-					}
-
-					if($dayB == "Sonntag")
-					{
-						$error = true;
-						$fehler_nachricht[]="Ein Sonntag als Wunschtermin ist leider nicht möglich.";
-					}
-
-					if($dayC == "Sonntag")
-					{
-						$error = true;
-						$fehler_nachricht[]="Ein Sonntag als Wunschtermin ist leider nicht möglich.";
-					}
-
-
 				//Textbox
 				$message = trim($_POST['message']);
 					
@@ -323,31 +208,6 @@
 				echo"<br /><h3>Ihre Name ist: ".$vorname." ".$nachname."</h3>";
 				echo"<h3>Ihre Telfonnummer ist: ".$telefon."</h3>";
 				echo"<h3>Ihre E-Mail ist: ".$email."</h3>";
-				echo"<h3>Ihre Adresse ist: ".$strasse." ".$hausnummer." in ".$stadt." ".$postleitzahl."</h3>";
-				echo"<br /><h3>Ihre Wunsch Termin 1 ist <br />". $DateA ."</h3>";
-				echo"<h3> Tage bis zum 1.Termin ist: ". ceil($daysleftA) ."</h3>";
-				echo"<h3> Tag des 1. Termins: ". $dayA ."</h3>";
-
-				echo"<br /><br /><h3>Ihre Wunsch Termin 2 ist <br />". $DateB ."</h3>";
-				echo"<h3> Tage bis zum 2.Termin ist: ". ceil($daysleftB) ."</h3>";
-				echo"<h3> Tag des 2. Termins: ". $dayB ."</h3>";
-
-				echo"<br /><br/><h3>Ihre Wunsch Termin 3 ist <br />". $DateC ."</h3>";
-				echo"<h3> Tage bis zum 3.Termin ist: ". ceil($daysleftC) ."</h3>";
-				echo"<h3> Tag des 3. Termins: ". $dayC ."</h3>";
-				
-				if($dayA == "Samstag")
-				{
-					echo"<h2>Bitte beachten Sie, dass Samstage extra Kosten verursachen.</h2>";
-				}
-				if($dayB == "Samstag")
-				{
-					echo"<h2>Bitte beachten Sie, dass Samstage extra kosten verursachen.</h2>";
-				}if($dayC == "Samstag")
-				{
-					echo"<h2>Bitte beachten Sie, dass Samstage extra kosten verursachen.</h2></div>";
-				}
-
 
 				//Ticket System
 				//Read
@@ -369,11 +229,8 @@
 						//Log Write	
 						$today = time();
 						$today = date("d.m.Y - H:i",$today);
-						$TerminW1 = date("d.m-Y", $TerminW1);
-						$TerminW2 = date("d.m-Y", $TerminW2);
-						$TerminW3 = date("d.m-Y", $TerminW3);
-        		        $messagetxt = "Ticketlog.docx";
-						$formdata = $vorname ."\t". $nachname ."\t". $strasse."\t".$hausnummer."\t".$stadt."\t".$postleitzahl."\t".$telefon."\t".$email."\t".$TerminW1."\t".$TerminW2."\t".$TerminW3."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
+        		        $messagetxt = "Ticketlog.";
+						$formdata = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
 						$zeiger = fopen($pfad.$messagetxt,"a+");
 						fputs($zeiger,$formdata);
 						fclose($zeiger);	
@@ -404,15 +261,8 @@
 					echo'<center><table border = "3">';
 					echo"<td><u><b>Varname</u></b></td>";
 					echo"<td><u><b>Nachname</u></b></td>";
-					echo"<td><u><b>Strasse</u></b></td>";
-					echo"<td><u><b>Hausnummer</u></b></td>";
-					echo"<td><u><b>Stadt</u></b></td>";
-					echo"<td><u><b>Postleitzahl</u></b></td>";
 					echo"<td><u><b>Telefon</u></b></td>";
 					echo"<td><u><b>E-Mail</u></b></td>";
-					echo"<td><u><b>Wunschtermin1</u></b></td>";
-					echo"<td><u><b>Wunschtermin2</u></b></td>";
-					echo"<td><u><b>Wunschtermin3</u></b></td>";
 					echo"<td><u><b>Nachricht</u></b></td>";
 					echo"<td><u><b>Datum</u></b></td>";
 					echo"<td><u><b>Ticket Nummer</u></b></td>";

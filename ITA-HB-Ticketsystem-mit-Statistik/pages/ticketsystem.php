@@ -214,7 +214,7 @@
 				$year = time();
 				$year = date("Y",$year);
 				$pfad = "../data/ticketsystem/";
-                $messagetxt = "ticket.csv";
+                $messagetxt = "ticket.docx";
 				$zeiger = fopen($pfad.$messagetxt,"r");
 
 			
@@ -229,7 +229,7 @@
 						//Log Write	
 						$today = time();
 						$today = date("d.m.Y - H:i",$today);
-        		        $messagetxt = "ticketlog.";
+        		        $messagetxt = "ticketlog.csv";
 						$formdata = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
 						$zeiger = fopen($pfad.$messagetxt,"a+");
 						fputs($zeiger,$formdata);
@@ -237,7 +237,7 @@
 
 						//Write Ticket
 						$pfad = "../data/ticketsystem/";
-                		$messagetxt = "ticket.csv";
+                		$messagetxt = "ticket.docx";
 						$TicketNr = $TicketNr +1;
 						$zeiger = fopen($pfad.$messagetxt,"w");
 						$formdata = $TicketNr ."\t";

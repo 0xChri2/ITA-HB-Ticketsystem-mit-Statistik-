@@ -185,6 +185,26 @@ a:hover
 
 /*///////////////////////////////////////////////////////////*/
 
+#forum-section
+{
+  background: url(pictures/forumbg-black.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  overflow: hidden;
+  padding-top: 6%;
+  padding-bottom: 4%;
+}
+
+/*///////////////////////////////////////////////////////////*/
+
 #rating-section
 {
     background: url(pictures/forumbg-black.jpg) no-repeat center center fixed;
@@ -346,40 +366,6 @@ a:hover
     box-shadow: 0 4px 30px rgba(0,0,0,.05);
   }
   
-
-/*///////////////////////////////////////////////////////////*/
-
-.ranking-container {
-    background-color: black;
-    color: white;
-    font-size: 150%;
-    overflow-wrap: break-word;
-    align-content: space-between;
-    padding: 5%;
-}
-
-.ranking-container h1 
-{
-    font-size: 200%;
-    font-weight: 500;
-    text-align: left;
-}
-
-.ranking-container table 
-{
-    position: relative;
-    left: 50%;
-    padding-left: 13%;
-    padding-right: 13%;
-    margin-right: -50%;
-    margin-top: 10%;
-    transform: translate(-50%, -50%);
-}
-
-.ranking-container td
-{
-    padding-right: 20px;
-}
 
 /*///////////////////////////////////////////////////////////*/
 

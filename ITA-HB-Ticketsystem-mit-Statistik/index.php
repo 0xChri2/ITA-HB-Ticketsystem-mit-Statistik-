@@ -23,10 +23,10 @@
                     
                     <ul>
                     <li class="submenu"><a href="index.php">Startseite</a></li>
-						<li class="submenu"><a href="pages/Ticketsystem.php">Ticketsystem</a></li>
-						<li class="submenu"><a href="pages/Forum.php">FAQ</a></li>
-						<li class="submenu"><a href="pages/Kontakte.php">Kontakte</a></li>
-						<li class="submenu"><a href="pages/Impressum.php">Impressum</a></li>
+						<li class="submenu"><a href="pages/ticketsystem.php">Ticketsystem</a></li>
+						<li class="submenu"><a href="pages/forum.php">Forum</a></li>
+						<li class="submenu"><a href="pages/umfrage.php">Umfrage</a></li>
+						<li class="submenu"><a href="pages/statistik.php">Statistik</a></li>
 						
                     </ul>
                 </li>

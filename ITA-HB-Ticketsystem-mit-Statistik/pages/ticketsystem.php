@@ -72,6 +72,14 @@
 			
 			if(isset($_POST['Senden'])==true)
 			{			
+				//countsenden
+				$send = $send + 1;
+				$pfad = "../data/ticketsystem";
+				$datei = "sendcount.txt";
+				$message = $send ."\t";
+				$zeiger = fopen($pfad.$datei,"w");
+				fputs($zeiger,$message);
+				fclose($zeiger);
 
 				//error message 
 				$error = false;
@@ -246,7 +254,9 @@
 				}
 				}				
 
-			}
+				
+
+			}	
 
 
 			//Log Datei ausgabe
@@ -283,6 +293,15 @@
 			}
 			}
 		
+			//BesucherGesamt
+			$usercount = $usercount + 1;
+			$pfad = "../data/ticketsystem";
+			$datei = "usercount.txt";
+			$message = $usercount ."\t";
+			$zeiger = fopen($pfad.$datei,"w");
+			fputs($zeiger,$message);
+			fclose($zeiger);
+
 		?>      
 
 

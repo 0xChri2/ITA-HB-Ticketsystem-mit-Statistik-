@@ -29,17 +29,28 @@
         <br />
 
         <?php 
-        echo"<h2>Ticketsystem</h2>";
-        echo"<h3>Gesamt Besucherzahl:</h3>";
-        $pfad = "../data/ticketsystem";
-		$datei = "usercount.txt";
-        $zeiger = fopen($pfad.$datei,"w");
-        $dieseZeile = fgets($zeiger,4096);
-		$besuchergesamt = explode("\t",$dieseZeile);
-        echo $besuchergesamt;
+        //Besuchergesamt
+         $pfad = "../data/ticketsystem/";
+         $datei = "usercount.txt";
+         $zeiger = fopen($pfad.$datei,"r");
+         $dieseZeile = fgets($zeiger);
+         $besuchergesamt = explode("\t",$dieseZeile);
+         fclose($zeiger);
         
+         //Abgeschickte Tickets
+         $datei = "sendcount.txt";
+         $zeiger = fopen($pfad.$datei,"r");
+         $dieseZeile = fgets($zeiger);
+         $sendcount = explode("\t",$dieseZeile);
+         fclose($zeiger);
+         
+        echo"<h2>Ticketsystem</h2>";
+        echo"<h3>Gesamt Besucherzahl: ".$besuchergesamt[0]."</h3>";
+
         echo"<h3>Beuscherzahl pro Tag:</h3>";
-        echo"<h3>Abgeschickte Tickets:</h3>";
+
+
+        echo"<h3>Abgeschickte Tickets: ".$sendcount[0]."</h3>";
         ?>
        
         </body>

@@ -44,6 +44,13 @@
          $sendcount = explode("\t",$dieseZeile);
          fclose($zeiger);
          
+         //Besucher pro Tag
+         $today = time();
+         $today = date("d.m.Y",$today); 
+         $datei = $today." useraday.txt";
+         $zeiger = fopen($pfad.$datei,"a+");
+
+
         echo"<h2>Ticketsystem</h2>";
         echo"<h3>Gesamt Besucherzahl: ".$besuchergesamt[0]."</h3>";
 

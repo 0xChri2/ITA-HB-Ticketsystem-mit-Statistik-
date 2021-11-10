@@ -4,8 +4,8 @@
         height: 100%;
         width: auto;
         color: whitesmoke;
+    }
 
-   }
    .centertext
    {
        text-align: center;
@@ -115,7 +115,6 @@
        position: fixed;
        bottom: 0%;
        margin-left: -15px;
-
    }
 
    #footer a 

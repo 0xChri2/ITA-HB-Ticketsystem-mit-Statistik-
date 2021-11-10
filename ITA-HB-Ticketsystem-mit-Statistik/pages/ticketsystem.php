@@ -210,49 +210,49 @@
 				$anrede = $_POST['Anrede'];
 				if($error == false)
 				{
-				echo"<br /><br /><div class='centertext'><h2> Vielen Dank, ". $_POST['Anrede'] . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
-				echo "<h4>Wenn Sie fragen oder Probleme haben Kontakieren sie uns über +49 12345678</h4>";
-				echo"<br /><h3>Ihre Nachricht an uns ist: <br />".$message."</h3>";
-				echo"<br /><h3>Ihre Name ist: ".$vorname." ".$nachname."</h3>";
-				echo"<h3>Ihre Telfonnummer ist: ".$telefon."</h3>";
-				echo"<h3>Ihre E-Mail ist: ".$email."</h3>";
+					echo"<br /><br /><div class='centertext'><h2> Vielen Dank, ". $_POST['Anrede'] . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
+					echo "<h4>Wenn Sie fragen oder Probleme haben Kontakieren sie uns über +49 12345678</h4>";
+					echo"<br /><h3>Ihre Nachricht an uns ist: <br />".$message."</h3>";
+					echo"<br /><h3>Ihre Name ist: ".$vorname." ".$nachname."</h3>";
+					echo"<h3>Ihre Telfonnummer ist: ".$telefon."</h3>";
+					echo"<h3>Ihre E-Mail ist: ".$email."</h3>";
 
-				//Ticket System
-				//Read
-				$year = time();
-				$year = date("Y",$year);
-				$pfad = "../data/ticketsystem/";
-                $messagetxt = "ticket.docx";
-				$zeiger = fopen($pfad.$messagetxt,"r");
+					//Ticket System
+					//Read
+					$year = time();
+					$year = date("Y",$year);
+					$pfad = "../data/ticketsystem/";
+					$messagetxt = "ticket.docx";
+					$zeiger = fopen($pfad.$messagetxt,"r");
 
-			
-				if($zeiger)
-				{	
-						$dieseZeile = fgets($zeiger,4096);
-						$zeilenarray = explode("\t",$dieseZeile);
-						echo'<br /><br /><div class="centertext"><h2>Ticket Nummer:<br />'.$year.'.'.$zeilenarray[0].'</h2></div>';
-						fclose($zeiger);
-						$TicketNr = $zeilenarray[0];
+				
+					if($zeiger)
+					{	
+							$dieseZeile = fgets($zeiger,4096);
+							$zeilenarray = explode("\t",$dieseZeile);
+							echo'<br /><br /><div class="centertext"><h2>Ticket Nummer:<br />'.$year.'.'.$zeilenarray[0].'</h2></div>';
+							fclose($zeiger);
+							$TicketNr = $zeilenarray[0];
 
-						//Log Write	
-						$today = time();
-						$today = date("d.m.Y - H:i",$today);
-        		        $messagetxt = "ticketlog.csv";
-						$formdata = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
-						$zeiger = fopen($pfad.$messagetxt,"a+");
-						fputs($zeiger,$formdata);
-						fclose($zeiger);	
+							//Log Write	
+							$today = time();
+							$today = date("d.m.Y - H:i",$today);
+							$messagetxt = "ticketlog.csv";
+							$formdata = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
+							$zeiger = fopen($pfad.$messagetxt,"a+");
+							fputs($zeiger,$formdata);
+							fclose($zeiger);	
 
-						//Write Ticket
-						$pfad = "../data/ticketsystem/";
-                		$messagetxt = "ticket.docx";
-						$TicketNr = $TicketNr +1;
-						$zeiger = fopen($pfad.$messagetxt,"w");
-						$formdata = $TicketNr ."\t";
-						fputs($zeiger,$formdata);
-						fclose($zeiger);
-				}
-				}				
+							//Write Ticket
+							$pfad = "../data/ticketsystem/";
+							$messagetxt = "ticket.docx";
+							$TicketNr = $TicketNr +1;
+							$zeiger = fopen($pfad.$messagetxt,"w");
+							$formdata = $TicketNr ."\t";
+							fputs($zeiger,$formdata);
+							fclose($zeiger);
+					}
+				}					
 
 				
 
@@ -260,47 +260,72 @@
 
 
 			//Log Datei ausgabe
-			if(isset($_POST['Logdata'])==true)
-			{
-				$pfad = "../data/ticketsystem/";
-                $messagetxt = "ticketlog.csv";
-				$zeiger = fopen($pfad.$messagetxt,"r");
-				if($zeiger)
-				{	
-
-					echo'<center><table border = "3">';
-					echo"<td><u><b>Varname</u></b></td>";
-					echo"<td><u><b>Nachname</u></b></td>";
-					echo"<td><u><b>Telefon</u></b></td>";
-					echo"<td><u><b>E-Mail</u></b></td>";
-					echo"<td><u><b>Nachricht</u></b></td>";
-					echo"<td><u><b>Datum</u></b></td>";
-					echo"<tf><u><b>Ticket Nummer</u></b></td>";
-					while(!feof($zeiger))
+				if(isset($_POST['Logdata'])==true)
+				{
+					$pfad = "../data/ticketsystem/";
+					$messagetxt = "ticketlog.csv";
+					$zeiger = fopen($pfad.$messagetxt,"r");
+					if($zeiger)
 					{	
-						echo '<tr>';
-						$dieseZeile = fgets($zeiger,4096);
-						$zeilenarray = explode("\t",$dieseZeile);
-						foreach($zeilenarray as $TicketNr)
-						{
-							echo'<td>'.$TicketNr.'</td>';
+
+						echo'<center><table border = "3">';
+						echo"<td><u><b>Varname</u></b></td>";
+						echo"<td><u><b>Nachname</u></b></td>";
+						echo"<td><u><b>Telefon</u></b></td>";
+						echo"<td><u><b>E-Mail</u></b></td>";
+						echo"<td><u><b>Nachricht</u></b></td>";
+						echo"<td><u><b>Datum</u></b></td>";
+						echo"<tf><u><b>Ticket Nummer</u></b></td>";
+						while(!feof($zeiger))
+						{	
+							echo '<tr>';
+							$dieseZeile = fgets($zeiger,4096);
+							$zeilenarray = explode("\t",$dieseZeile);
+							foreach($zeilenarray as $TicketNr)
+							{
+								echo'<td>'.$TicketNr.'</td>';
+							}
+							echo'</tr>';	
 						}
-						echo'</tr>';	
-					}
-					
-					echo'</table></center><br />';
-					fclose($zeiger);
-			}
-			}
-		
-			//BesucherGesamt
-			$usercount = $usercount + 1;
-			$pfad = "../data/ticketsystem";
+						
+						echo'</table></center><br />';
+						fclose($zeiger);
+				
+				}
+			}	
+			//BesucherGesamt read
+			$pfad = "../data/ticketsystem/";
 			$datei = "usercount.txt";
+			$zeiger = fopen($pfad.$datei,"r");
+			$usercount = fgets($zeiger);
+			fclose($zeiger);
+
+			//BeucherGesamt write
+			$usercount = $usercount + 1;
 			$message = $usercount ."\t";
 			$zeiger = fopen($pfad.$datei,"w");
 			fputs($zeiger,$message);
 			fclose($zeiger);
+
+			//Besucher pro Tag
+			$time = time();
+			$today = date("d.m.Y", time());
+			$day = date("d",$time); 
+			$month = date("m", $time);
+			$year = date("Y", $time);
+			$lastday = time() - 86400;
+			$lastday = date("d.m.Y",$test);
+			
+			if($lastday != $today)
+			{
+				unlink("../data/ticketsystem/".$lastday."usercount.txt");
+			}
+
+			// wenn datei existiert von gestern und ist != mit today ist dann soll alte gelöscht werden und neue erstellt
+
+			/*$datei = $today."useraday.txt";
+			$zeiger = fopen($pfad.$datei,"w");*/
+			
 
 		?>      
 
@@ -308,7 +333,7 @@
         </div>
 
 
-        <div id="footer">
+       <div id="footer">
               <a href="Impressum.php">Impressum</a> | <a href="Kontakte.php"> Kontakt </a>
         </div>
 

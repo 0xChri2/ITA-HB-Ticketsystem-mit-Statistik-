@@ -33,31 +33,25 @@
          $pfad = "../data/ticketsystem/";
          $datei = "usercount.txt";
          $zeiger = fopen($pfad.$datei,"r");
-         $dieseZeile = fgets($zeiger);
-         $besuchergesamt = explode("\t",$dieseZeile);
+         $besuchergesamt = fgets($zeiger);
          fclose($zeiger);
         
          //Abgeschickte Tickets
          $datei = "sendcount.txt";
          $zeiger = fopen($pfad.$datei,"r");
-         $dieseZeile = fgets($zeiger);
-         $sendcount = explode("\t",$dieseZeile);
+         $sendcount = fgets($zeiger);
          fclose($zeiger);
          
-         //Besucher pro Tag
-         $today = time();
-         $today = date("d.m.Y",$today); 
-         $datei = $today." useraday.txt";
-         $zeiger = fopen($pfad.$datei,"a+");
+         
 
 
         echo"<h2>Ticketsystem</h2>";
-        echo"<h3>Gesamt Besucherzahl: ".$besuchergesamt[0]."</h3>";
+        echo"<h3>Gesamt Besucherzahl: ".$besuchergesamt."</h3>";
 
         echo"<h3>Beuscherzahl pro Tag:</h3>";
 
 
-        echo"<h3>Abgeschickte Tickets: ".$sendcount[0]."</h3>";
+        echo"<h3>Abgeschickte Tickets: ".$sendcount."</h3>";
         ?>
        
         </body>

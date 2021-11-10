@@ -64,15 +64,6 @@ html
     font-weight: 500;
 }
 
-.login-container hr 
-{
-    border: 0;
-    height: 1px;
-    margin-bottom: 7%;
-    background: #a7500a;
-    background-image: linear-gradient(to right, #683103, rgb(160, 100, 11), rgb(241, 186, 102));
-}
-
 a
 {
     color: white;
@@ -191,16 +182,64 @@ a:hover
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
+  width: 100%;
   background-size: cover;
   position: relative;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
   overflow: hidden;
-  padding-top: 6%;
-  padding-bottom: 4%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.thread-box
+{
+  background-color: rgba(16, 18, 19, 0.849);
+  box-shadow: 3px 5px 18px 5px rgba(0, 0, 0, 0.664);
+  width: 70%;
+  margin: 0 auto;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.thread-box p
+{
+  color: rgb(235, 233, 233);
+}
+
+.thread-add
+{
+  
+}
+
+.user
+{
+  color: rgb(235, 233, 233);
+  font-size: larger;
+  font-weight: 600;
+  right: 2px;
+}
+
+.thread-date
+{
+  color: rgb(235, 233, 233);
+  font-size: small;
+}
+
+.thread
+{
+  border-top: solid thin rgb(94, 86, 86);
+  border-bottom: solid thin rgb(94, 86, 86);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 6px;
+  padding-bottom: 10px;
+  color: rgb(235, 233, 233);
+  word-break: normal;
+  word-spacing: 3px;
 }
 
 /*///////////////////////////////////////////////////////////*/
@@ -387,3 +426,14 @@ a:hover
     padding-top: 5%;
     padding-bottom: 5%;
 }
+
+/*.thread-date hr 
+{
+    border: 0;
+    height: 1px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    background: #a7500a;
+    background-image: linear-gradient(to right, #683103, rgb(160, 100, 11), rgb(241, 186, 102));
+    width: 30%;
+}*/

@@ -340,7 +340,7 @@
 			fputs($zeiger,$message);
 			fclose($zeiger);
 			
-			// Schreib Datei für count nicht 
+			
 			
 
 		?>      

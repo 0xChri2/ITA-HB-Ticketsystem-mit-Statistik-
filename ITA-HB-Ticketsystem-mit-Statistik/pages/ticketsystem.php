@@ -308,23 +308,34 @@
 			fclose($zeiger);
 
 			//Besucher pro Tag
+			$useraday = 0;
 			$time = time();
 			$today = date("d.m.Y", time());
-			$day = date("d",$time); 
-			$month = date("m", $time);
-			$year = date("Y", $time);
 			$lastday = time() - 86400;
-			$lastday = date("d.m.Y",$test);
+			$lastday = date("d.m.Y",$lastday);
 			
-			if($lastday != $today)
+			if(file_exists("../data/ticketsystem/".$lastday."useraday.txt") == true)
 			{
-				unlink("../data/ticketsystem/".$lastday."usercount.txt");
+				unlink("../data/ticketsystem/".$lastday."useraday.txt");
 			}
-
-			// wenn datei existiert von gestern und ist != mit today ist dann soll alte gelöscht werden und neue erstellt
-
-			/*$datei = $today."useraday.txt";
-			$zeiger = fopen($pfad.$datei,"w");*/
+			if(file_exists("../data/ticketsystem/".$today."useraday.txt") == true)
+			{
+				$pfad = "../data/ticketsystem/";
+				$datei = $today."useraday.txt";
+				$zeiger = fopen($pfad.$datei,"r");
+				$useraday = fgets($zeiger);
+				fclose($zeiger);
+				
+			}
+			$pfad = "../data/ticketsystem/";
+			$datei = $today."useraday.txt";
+			$useraday = $useraday +1;
+			$message = $useraday ."\t";
+			$zeiger = fopen($pfad.$datei,"w+");
+			fputs($zeiger,$message);
+			fclose($zeiger);
+			
+			// Schreib Datei für count nicht 
 			
 
 		?>      

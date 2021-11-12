@@ -314,10 +314,13 @@
 			$lastday = time() - 86400;
 			$lastday = date("d.m.Y",$lastday);
 			
+			//Datei von Gestern Löschen alter werden noch nicht gelöscht.
 			if(file_exists("../data/ticketsystem/".$lastday."useraday.txt") == true)
 			{
 				unlink("../data/ticketsystem/".$lastday."useraday.txt");
 			}
+
+			//Besucher Pro Tag read
 			if(file_exists("../data/ticketsystem/".$today."useraday.txt") == true)
 			{
 				$pfad = "../data/ticketsystem/";
@@ -327,6 +330,8 @@
 				fclose($zeiger);
 				
 			}
+
+			//Besucher Pro Tag write
 			$pfad = "../data/ticketsystem/";
 			$datei = $today."useraday.txt";
 			$useraday = $useraday +1;

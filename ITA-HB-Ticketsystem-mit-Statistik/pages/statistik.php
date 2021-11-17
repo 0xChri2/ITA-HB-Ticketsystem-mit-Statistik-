@@ -46,11 +46,19 @@
          //Besuche Pro Tag
          $today = date("d.m.Y", time());
          $pfad = "../data/ticketsystem/";
-		 $datei = $today."useraday.txt";
+		 $datei = "useraday.txt";
 	     $zeiger = fopen($pfad.$datei,"r");
 		 $useraday = fgets($zeiger);
 		 fclose($zeiger);
-
+         $useraday = substr($useraday,10,4);
+        
+         //Besuche per week
+         $pfad = "../data/ticketsystem/";
+		 $datei = "useraweek.txt";
+	     $zeiger = fopen($pfad.$datei,"r");
+		 $useraweek = fgets($zeiger);
+		 fclose($zeiger);
+         $useraweek = substr($useraweek,10,4);
 
         echo"<h2>Ticketsystem</h2>";
         echo"<h3>Gesamt Besucherzahl: ".$besuchergesamt."</h3>";
@@ -59,6 +67,9 @@
 
 
         echo"<h3>Abgeschickte Tickets: ".$sendcount."</h3>";
+
+        echo"<h3>Besucherzahl pro Woche: ".$useraweek."</h3>"
+
         ?>
        
         </body>

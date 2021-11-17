@@ -293,6 +293,7 @@
 				
 				}
 			}	
+
 			//BesucherGesamt read
 			$pfad = "../data/ticketsystem/";
 			$datei = "usercount.txt";
@@ -314,28 +315,55 @@
 			$lastday = time() - 86400;
 			$lastday = date("d.m.Y",$lastday);
 
-			//Besucher Pro Tag read
-			$pfad = "../data/ticketsystem/";
-			$datei = "useraday.txt";
-			$zeiger = fopen($pfad.$datei,"r");
-			$useraday = fgets($zeiger);
-			fclose($zeiger);
-			$useradaydate = substr($useraday,0,10);
-			$useraday = substr($useraday,10,4);
-			
-			if(date("d.m.Y",strtotime($useradaydate)) != $today)
-			{
-				$useraday = 0;
-			}
+				//Besucher per day read
+				$pfad = "../data/ticketsystem/";
+				$datei = "useraday.txt";
+				$zeiger = fopen($pfad.$datei,"r");
+				$useraday = fgets($zeiger);
+				fclose($zeiger);
+				$useradaydate = substr($useraday,0,10);
+				$useraday = substr($useraday,10,4);
+				
+				if(date("d.m.Y",strtotime($useradaydate)) != $today)
+				{
+					$useraday = 0;
+				}
 
-			//Besucher Pro Tag write
-			$pfad = "../data/ticketsystem/";
-			$datei = "useraday.txt";
-			$useraday = $useraday + 1;
-			$message = $today ."\t". $useraday. "\n";
-			$zeiger = fopen($pfad.$datei,"w+");
-			fputs($zeiger,$message);
-			fclose($zeiger);
+				//Besucher per day write
+				$pfad = "../data/ticketsystem/";
+				$datei = "useraday.txt";
+				$useraday = $useraday + 1;
+				$message = $today ."\t". $useraday. "\n";
+				$zeiger = fopen($pfad.$datei,"w+");
+				fputs($zeiger,$message);
+				fclose($zeiger);
+
+
+			//Besucher per week
+			$month = date("m",time());
+
+				//Besucher per week read
+				$pfad = "../data/ticketsystem/";
+				$datei = "useraweek.txt";
+				$zeiger = fopen($pfad.$datei,"r");
+				$useraweek = fgets($zeiger);
+				fclose($zeiger);
+				$useraweekdate = substr($useraweek,0,10);
+				$useraweek = substr($useraweek,10,4);
+				
+				if(date("m",strtotime($useraweekdate)) != $month)
+				{
+					$useraweek = 0;
+				}
+				
+				//Besucher per day write
+				$pfad = "../data/ticketsystem/";
+				$datei = "useraweek.txt";
+				$useraweek = $useraweek + 1;
+				$message = $today ."\t". $useraweek. "\n";
+				$zeiger = fopen($pfad.$datei,"w+");
+				fputs($zeiger,$message);
+				fclose($zeiger);
 
 		?>      
 

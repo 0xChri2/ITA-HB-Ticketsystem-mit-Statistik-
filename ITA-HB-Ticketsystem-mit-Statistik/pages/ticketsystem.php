@@ -313,11 +313,16 @@
 			$today = date("d.m.Y", time());
 			$lastday = time() - 86400;
 			$lastday = date("d.m.Y",$lastday);
+
+			exec("find ../data/ticketsystem/*useraday.txt",$checkfile);
+
+			//Besucher Pro Tag read
 			
-			//Datei von Gestern Löschen alter werden noch nicht gelöscht.
-			if(file_exists("../data/ticketsystem/".$lastday."useraday.txt") == true)
+			
+			//Alte Dateien Löschen
+			if(file_exists($checkfile[1]) <= $checkfile[2]);
 			{
-				unlink("../data/ticketsystem/".$lastday."useraday.txt");
+				unlink($checkfile[1]);
 			}
 
 			//Besucher Pro Tag read
@@ -339,9 +344,6 @@
 			$zeiger = fopen($pfad.$datei,"w+");
 			fputs($zeiger,$message);
 			fclose($zeiger);
-			
-			
-			
 
 		?>      
 

@@ -55,7 +55,7 @@
         echo"<h2>Ticketsystem</h2>";
         echo"<h3>Gesamt Besucherzahl: ".$besuchergesamt."</h3>";
 
-        echo"<h3>Beuscherzahl pro Tag: ".$useraday."</h3>";
+        echo"<h3>Besucherzahl pro Tag: ".$useraday."</h3>";
 
 
         echo"<h3>Abgeschickte Tickets: ".$sendcount."</h3>";

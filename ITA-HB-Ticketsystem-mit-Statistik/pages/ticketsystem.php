@@ -314,42 +314,24 @@
 			$lastday = time() - 86400;
 			$lastday = date("d.m.Y",$lastday);
 
-			//exec("find ../data/ticketsystem/*useraday.txt",$checkfile);
-
 			//Besucher Pro Tag read
-			
-			
-			/*Alte Dateien Löschen useraday
-			if(($checkfile[0] < $checkfile[1]) && ($checkfile[0] != "../data/ticketsystem/".$today."useraday.txt"));
-			{
-				unlink($checkfile[0]);
-			}
-			
-			//Besucher Pro Tag read
-			if(file_exists("../data/ticketsystem/17.11.2021useraday.txt") == true)
-			{
-				$pfad = "../data/ticketsystem/";
-				$datei = $today."useraday.txt";
-				$zeiger = fopen($pfad.$datei,"r");
-				$useraday = fgets($zeiger);
-				fclose($zeiger);
-				echo "test";
-			}*/
-			
 			$pfad = "../data/ticketsystem/";
 			$datei = "useraday.txt";
 			$zeiger = fopen($pfad.$datei,"r");
 			$useraday = fgets($zeiger);
 			fclose($zeiger);
-			echo $useraday ."<br /> Test";
 			$useradaydate = substr($useraday,0,10);
 			$useraday = substr($useraday,10,4);
-			if($useradaydate != $today)
 			
+			if(date("d.m.Y",strtotime($useradaydate)) != $today)
+			{
+				$useraday = 0;
+			}
+
 			//Besucher Pro Tag write
 			$pfad = "../data/ticketsystem/";
 			$datei = "useraday.txt";
-			$useraday = "1";
+			$useraday = $useraday + 1;
 			$message = $today ."\t". $useraday. "\n";
 			$zeiger = fopen($pfad.$datei,"w+");
 			fputs($zeiger,$message);

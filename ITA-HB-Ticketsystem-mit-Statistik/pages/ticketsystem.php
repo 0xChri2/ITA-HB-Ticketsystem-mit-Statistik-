@@ -319,10 +319,10 @@
 			//Besucher Pro Tag read
 			
 			
-			//Alte Dateien Löschen
-			if(file_exists($checkfile[1]) <= $checkfile[2]);
+			//Alte Dateien Löschen useraday
+			if(($checkfile[0] < $checkfile[1]) && ($checkfile[0] != "../data/ticketsystem/".$today."useraday.txt"));
 			{
-				unlink($checkfile[1]);
+				unlink($checkfile[0]);
 			}
 
 			//Besucher Pro Tag read

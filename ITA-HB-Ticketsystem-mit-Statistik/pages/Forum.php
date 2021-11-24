@@ -3,6 +3,7 @@
 
 <head>
     <title>Maurer | Forum</title>
+    <meta name="viewport" content="width=devide-width, intital-scale=1.0">
     <meta http-equiv="content-type" content="text/plain; charset=utf-8" />
     <meta http-equiv="content-language" content="de" />
     <link type="text/css" rel="stylesheet" href="../forumstyle.css" />
@@ -39,6 +40,8 @@
 
         <?php
           $show_forum = false;
+          $username_valid = "";
+          $email_valid = "";
                 if(isset($_POST['senden']))
                 { 
                     require __DIR__ . '/../functions/form_validation.php';
@@ -63,7 +66,7 @@
                     {
                       $show_forum = true;
                         echo '<center><div class="success-box">';
-                        echo 'ERFOLG!<br> Drücken Sie  <b><a href="#rating">HIER</a></b> um uns zu bewerten.';
+                        echo 'ERFOLG!<br> Drücken Sie  <b><a href="#threads">HIER</a></b> um Threads zu lesen';
                         echo '</center></div>';
 
                         $f = fopen("../data/forum-data/login-time.csv", "a+");
@@ -78,6 +81,9 @@
                         fputcsv($f, $login_data, ";");
 
                         fclose($f);
+
+                        $username_valid = $username;
+                        $email_valid = $email;
                     }
                 
                     foreach($fehler_nachricht as $fehler)
@@ -87,32 +93,94 @@
                         echo "</div><br><br>";
                     }
                 }
-
-                if(isset($_POST['send']))
-                {
-                    $t = fopen("/../data/forum-data/threads.csv", "a+");
-                    $c = new SplFileObject("../data/forum-data/threads.csv", "r");
-          
-                    $c->seek(PHP_INT_MAX);
-                    $counter = $c->key() + 1;
-          
-                    $rate_data = array($_POST['rating'], $_POST['comment']);
-                    fputcsv($t, $rate_data, ";");
-          
-                    fclose($t);
-                    echo '<center><div class="success-box">';
-                    echo 'ABGESENDET!<br> Drücken Sie  <b><a href="#top3">HIER</a></b> um weitere Threads zu lesen';
-                    echo '</center></div>';
-                }
+                
             ?>
     </div>
 
+    <div id="forum-section">
     <?php
-      if($show_forum == true)
-      {
-        echo "was geht";
-      }
+        $lol = false;
+        if($show_forum == true)
+        {
+            echo '<div class="thread-add">
+                <h1>Eintrag erstellen</h1>
+                <div class="thread-add-submit">
+                <form method="post" action="forum.php" name="form" id="form">
+                    <textarea name="eintrag" placeholder="HIER EINTIPPEN..."></textarea>
+                    <input type="submit" value="hochladen" name="thread" class="btn">
+                </form></div></div>';
+
+            if(isset($_POST['thread']))
+            {
+                $eintrag = htmlspecialchars($_POST['eintrag']);
+                $f = fopen("../data/forum-data/threads.csv", "a");
+                $data = array($username_valid, $email_valid, $eintrag);
+                fputcsv($f, $data);
+                fclose($f);
+                echo '<center><div class="success-box">';
+                echo 'ERFOLG!';
+                echo '</center></div>';
+                $lol = true;
+            }
+        }
     ?>
+
+    <?php 
+        if($lol == true)
+        {
+            echo "NICE";
+        } 
+        else
+            echo "fuck";
+    ?>
+
+<!-- ToDo: On login, show class="thread-add", umfrage.php -->
+
+        <div class="thread-box">
+            <div class="user">
+                Darko Pizdun<br>
+            </div>
+            <div class="thread-date">
+                10.11.2021<br>
+            </div>
+            <div class="thread">
+            Anstatt ein Programm mit vielen Anweisungen zur Ausgabe von HTML zu schreiben, schreibt man etwas HTML und bettet einige Anweisungen ein, die irgendetwas tun (wie hier "Hallo, ich bin ein PHP-Skript!" auszugeben). Der PHP-Code steht zwischen speziellen Anfangs- und Abschluss-Verarbeitungsinstruktionen, mit denen man in den "PHP-Modus" und zurück wechseln kann.
+
+PHP unterscheidet sich von clientseitigen Sprachen wie Javascript dadurch, dass der Code auf dem Server ausgeführt wird und dort HTML-Ausgaben generiert, die an den Client gesendet werden. Der Client erhält also nur das Ergebnis der Skriptausführung, ohne dass es möglich ist herauszufinden, wie der eigentliche Code aussieht. Sie können Ihren Webserver auch anweisen, alle Ihre HTML-Dateien mit PHP zu parsen, denn dann gibt es wirklich nichts, das dem Benutzer sagt, was Sie in petto haben.
+            </div>
+            <button>Antworten</button>
+        </div>
+
+        <div class="thread-box">
+            <div class="user">
+                Max Mustermann<br>
+            </div>
+            <div class="thread-date">
+                10.11.2021<br>
+            </div>
+            <div class="thread">
+            Anstatt ein Programm mit vielen Anweisungen zur Ausgabe von HTML zu schreiben, schreibt man etwas HTML und bettet einige Anweisungen ein, die irgendetwas tun (wie hier "Hallo, ich bin ein PHP-Skript!" auszugeben). Der PHP-Code steht zwischen speziellen Anfangs- und Abschluss-Verarbeitungsinstruktionen, mit denen man in den "PHP-Modus" und zurück wechseln kann.
+
+PHP unterscheidet sich von clientseitigen Sprachen wie Javascript dadurch, dass der Code auf dem Server ausgeführt wird und dort HTML-Ausgaben generiert, die an den Client gesendet werden. Der Client erhält also nur das Ergebnis der Skriptausführung, ohne dass es möglich ist herauszufinden, wie der eigentliche Code aussieht. Sie können Ihren Webserver auch anweisen, alle Ihre HTML-Dateien mit PHP zu parsen, denn dann gibt es wirklich nichts, das dem Benutzer sagt, was Sie in petto haben.
+            </div>
+            <button>Antworten</button>
+        </div>
+
+        <div class="thread-box">
+            <div class="user">
+                Babura Zlivaca<br>
+            </div>
+            <div class="thread-date">
+                10.11.2021<br>
+            </div>
+            <div class="thread">
+            Anstatt ein Programm mit vielen Anweisungen zur Ausgabe von HTML zu schreiben, schreibt man etwas HTML und bettet einige Anweisungen ein, die irgendetwas tun (wie hier "Hallo, ich bin ein PHP-Skript!" auszugeben). Der PHP-Code steht zwischen speziellen Anfangs- und Abschluss-Verarbeitungsinstruktionen, mit denen man in den "PHP-Modus" und zurück wechseln kann.
+
+PHP unterscheidet sich von clientseitigen Sprachen wie Javascript dadurch, dass der Code auf dem Server ausgeführt wird und dort HTML-Ausgaben generiert, die an den Client gesendet werden. Der Client erhält also nur das Ergebnis der Skriptausführung, ohne dass es möglich ist herauszufinden, wie der eigentliche Code aussieht. Sie können Ihren Webserver auch anweisen, alle Ihre HTML-Dateien mit PHP zu parsen, denn dann gibt es wirklich nichts, das dem Benutzer sagt, was Sie in petto haben.
+            </div>
+            <button>Antworten</button>
+        </div>
+    </div>
 
     <div id="footer">
         hallo

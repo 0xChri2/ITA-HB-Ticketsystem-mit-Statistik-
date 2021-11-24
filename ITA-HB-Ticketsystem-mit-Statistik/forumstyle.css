@@ -32,6 +32,7 @@ html
     padding-bottom: 30%;
 }
 
+
 .login-container
 {
     background-color: rgba(0, 0, 0, 0.703);
@@ -468,3 +469,4 @@ a:hover
     background-image: linear-gradient(to right, #683103, rgb(160, 100, 11), rgb(241, 186, 102));
     width: 30%;
 }*/
+

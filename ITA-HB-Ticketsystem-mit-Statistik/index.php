@@ -6,7 +6,8 @@
 		  <title>Maurer</title>
 		  <meta http-equiv="content-type" content="text/plain; charset=utf-8" />
 		  <meta http-equiv="content-language" content="de" />
-		  <link type = "text/css" rel = "stylesheet" href = "style.css" />
+		  <!---<link type = "text/css" rel = "stylesheet" href = "style.css" />--->
+          <link type = "text/css" rel = "stylesheet" href = "forumstyle.css" />
 	</head>
 
 <body bgcolor="#101010">
@@ -33,10 +34,8 @@
                 
             </ul>
         </div>
-        <div id="banner">
-        </div>
                    
-        <div id="article">
+        <div class="">
             
             <div class="headline"><h1>Allgemeines</h1></div>
             <div class="centertext">

@@ -69,7 +69,7 @@
         </form>
 		
 		<?php
-			
+			include "../lib/phpqrcode/qrlib.php";
 			if(isset($_POST['Senden'])==true)
 			{			
 				//countsenden
@@ -222,8 +222,8 @@
 					$year = time();
 					$year = date("Y",$year);
 					$pfad = "../data/ticketsystem/";
-					$messagetxt = "ticket.docx";
-					$zeiger = fopen($pfad.$messagetxt,"r");
+					$file = "ticket.docx";
+					$zeiger = fopen($pfad.$file,"r");
 
 				
 					if($zeiger)
@@ -237,21 +237,24 @@
 							//Log Write	
 							$today = time();
 							$today = date("d.m.Y - H:i",$today);
-							$messagetxt = "ticketlog.csv";
-							$formdata = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
-							$zeiger = fopen($pfad.$messagetxt,"a+");
-							fputs($zeiger,$formdata);
+							$file = "ticketlog.csv";
+							$messagelog = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
+							$zeiger = fopen($pfad.$file,"a+");
+							fputs($zeiger,$messagelog);
 							fclose($zeiger);	
 
 							//Write Ticket
 							$pfad = "../data/ticketsystem/";
-							$messagetxt = "ticket.docx";
+							$file = "ticket.docx";
 							$TicketNr = $TicketNr +1;
-							$zeiger = fopen($pfad.$messagetxt,"w");
-							$formdata = $TicketNr ."\t";
-							fputs($zeiger,$formdata);
+							$zeiger = fopen($pfad.$file,"w");
+							$messageticket = $TicketNr ."\t";
+							fputs($zeiger,$messageticket);
 							fclose($zeiger);
 					}
+					//qrcode
+					$qrlink = "../data/ticketsystem/qrcode/".$TicketNr.".png";
+					QRcode::png($messagelog, $qrlink, 'L', 4, 2);
 				}					
 
 				
@@ -263,8 +266,8 @@
 				if(isset($_POST['Logdata'])==true)
 				{
 					$pfad = "../data/ticketsystem/";
-					$messagetxt = "ticketlog.csv";
-					$zeiger = fopen($pfad.$messagetxt,"r");
+					$file = "ticketlog.csv";
+					$zeiger = fopen($pfad.$file,"r");
 					if($zeiger)
 					{	
 

@@ -69,9 +69,17 @@
         </form>
 		
 		<?php
-			
+			include "../lib/phpqrcode/qrlib.php";
 			if(isset($_POST['Senden'])==true)
 			{			
+				//countsenden
+				$send = $send + 1;
+				$pfad = "../data/ticketsystem";
+				$datei = "sendcount.txt";
+				$message = $send ."\t";
+				$zeiger = fopen($pfad.$datei,"w");
+				fputs($zeiger,$message);
+				fclose($zeiger);
 
 				//error message 
 				$error = false;
@@ -187,39 +195,35 @@
 				$message = trim($_POST['message']);
 					
 
-				//error message
-				if($error == true)
-				{
-					echo"<div class='centertext'><h1>Fehlermeldung</h1></div><br/>";
-				}
-				foreach ($fehler_nachricht as $fehler)
-				{		
-					echo "<div class='centertext'><h2>".$fehler."</h2></div>";
-				}
+					//error message
+					if($error == true)
+					{
+						echo"<div class='centertext'><h1>Fehlermeldung</h1></div><br/>";
+					}
+					foreach ($fehler_nachricht as $fehler)
+					{		
+						echo "<div class='centertext'><h2>".$fehler."</h2></div>";
+					}
 				
 
-				//success message
-				$anrede = $_POST['Anrede'];
-				if($error == false)
-				{
-				echo"<br /><br /><div class='centertext'><h2> Vielen Dank, ". $_POST['Anrede'] . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
-				echo "<h4>Wenn Sie fragen oder Probleme haben Kontakieren sie uns über +49 12345678</h4>";
-				echo"<br /><h3>Ihre Nachricht an uns ist: <br />".$message."</h3>";
-				echo"<br /><h3>Ihre Name ist: ".$vorname." ".$nachname."</h3>";
-				echo"<h3>Ihre Telfonnummer ist: ".$telefon."</h3>";
-				echo"<h3>Ihre E-Mail ist: ".$email."</h3>";
+					//success message
+					$anrede = $_POST['Anrede'];
+					if($error == false)
+					{
+						echo"<br /><br /><div class='centertext'><h2> Vielen Dank, ". $_POST['Anrede'] . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
+						echo "<h4>Wenn Sie fragen oder Probleme haben Kontakieren sie uns über +49 12345678</h4>";
+						echo"<br /><h3>Ihre Nachricht an uns ist: <br />".$message."</h3>";
+						echo"<br /><h3>Ihre Name ist: ".$vorname." ".$nachname."</h3>";
+						echo"<h3>Ihre Telfonnummer ist: ".$telefon."</h3>";
+						echo"<h3>Ihre E-Mail ist: ".$email."</h3>";
 
-				//Ticket System
-				//Read
-				$year = time();
-				$year = date("Y",$year);
-				$pfad = "../data/ticketsystem/";
-                $messagetxt = "ticket.docx";
-				$zeiger = fopen($pfad.$messagetxt,"r");
-
-			
-				if($zeiger)
-				{	
+						//Ticket System
+						//Read
+						$year = time();
+						$year = date("Y",$year);
+						$pfad = "../data/ticketsystem/";
+						$file = "ticket.docx";
+						$zeiger = fopen($pfad.$file,"r");
 						$dieseZeile = fgets($zeiger,4096);
 						$zeilenarray = explode("\t",$dieseZeile);
 						echo'<br /><br /><div class="centertext"><h2>Ticket Nummer:<br />'.$year.'.'.$zeilenarray[0].'</h2></div>';
@@ -229,67 +233,144 @@
 						//Log Write	
 						$today = time();
 						$today = date("d.m.Y - H:i",$today);
-        		        $messagetxt = "ticketlog.csv";
-						$formdata = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
-						$zeiger = fopen($pfad.$messagetxt,"a+");
-						fputs($zeiger,$formdata);
+						$file = "ticketlog.csv";
+						$messagelog = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
+						$zeiger = fopen($pfad.$file,"a+");
+						fputs($zeiger,$messagelog);
 						fclose($zeiger);	
 
 						//Write Ticket
 						$pfad = "../data/ticketsystem/";
-                		$messagetxt = "ticket.docx";
+						$file = "ticket.docx";
 						$TicketNr = $TicketNr +1;
-						$zeiger = fopen($pfad.$messagetxt,"w");
-						$formdata = $TicketNr ."\t";
-						fputs($zeiger,$formdata);
+						$zeiger = fopen($pfad.$file,"w");
+						$messageticket = $TicketNr ."\t";
+						fputs($zeiger,$messageticket);
 						fclose($zeiger);
-				}
-				}				
+						//}
+						//qrcode
+						$qrlink = "../data/ticketsystem/qrcode/".$TicketNr.".png";
+						QRcode::png($messagelog, $qrlink, 'L', 4, 2);
+					}					
 
-			}
+				
+
+			}	
 
 
 			//Log Datei ausgabe
-			if(isset($_POST['Logdata'])==true)
-			{
-				$pfad = "../data/ticketsystem/";
-                $messagetxt = "ticketlog.csv";
-				$zeiger = fopen($pfad.$messagetxt,"r");
-				if($zeiger)
-				{	
-
-					echo'<center><table border = "3">';
-					echo"<td><u><b>Varname</u></b></td>";
-					echo"<td><u><b>Nachname</u></b></td>";
-					echo"<td><u><b>Telefon</u></b></td>";
-					echo"<td><u><b>E-Mail</u></b></td>";
-					echo"<td><u><b>Nachricht</u></b></td>";
-					echo"<td><u><b>Datum</u></b></td>";
-					echo"<td><u><b>Ticket Nummer</u></b></td>";
-					while(!feof($zeiger))
+				if(isset($_POST['Logdata'])==true)
+				{
+					$pfad = "../data/ticketsystem/";
+					$file = "ticketlog.csv";
+					$zeiger = fopen($pfad.$file,"r");
+					if($zeiger)
 					{	
-						echo '<tr>';
-						$dieseZeile = fgets($zeiger,4096);
-						$zeilenarray = explode("\t",$dieseZeile);
-						foreach($zeilenarray as $TicketNr)
-						{
-							echo'<td>'.$TicketNr.'</td>';
+
+						echo'<center><table border = "3">';
+						echo"<td><u><b>Varname</u></b></td>";
+						echo"<td><u><b>Nachname</u></b></td>";
+						echo"<td><u><b>Telefon</u></b></td>";
+						echo"<td><u><b>E-Mail</u></b></td>";
+						echo"<td><u><b>Nachricht</u></b></td>";
+						echo"<td><u><b>Datum</u></b></td>";
+						echo"<tf><u><b>Ticket Nummer</u></b></td>";
+						while(!feof($zeiger))
+						{	
+							echo '<tr>';
+							$dieseZeile = fgets($zeiger,4096);
+							$zeilenarray = explode("\t",$dieseZeile);
+							foreach($zeilenarray as $TicketNr)
+							{
+								echo'<td>'.$TicketNr.'</td>';
+							}
+							echo'</tr>';	
 						}
-						echo'</tr>';	
-					}
-					
-					echo'</table></center><br />';
-					fclose($zeiger);
-			}
-			}
-		
+						
+						echo'</table></center><br />';
+						fclose($zeiger);
+				
+				}
+			}	
+
+			//BesucherGesamt read
+			$pfad = "../data/ticketsystem/";
+			$datei = "usercount.txt";
+			$zeiger = fopen($pfad.$datei,"r");
+			$usercount = fgets($zeiger);
+			fclose($zeiger);
+
+			//BeucherGesamt write
+			$usercount = $usercount + 1;
+			$message = $usercount ."\t";
+			$zeiger = fopen($pfad.$datei,"w");
+			fputs($zeiger,$message);
+			fclose($zeiger);
+
+			//Besucher pro Tag
+			$useraday = 0;
+			$time = time();
+			$today = date("d.m.Y", time());
+			$lastday = time() - 86400;
+			$lastday = date("d.m.Y",$lastday);
+
+				//Besucher per day read
+				$pfad = "../data/ticketsystem/";
+				$datei = "useraday.txt";
+				$zeiger = fopen($pfad.$datei,"r");
+				$useraday = fgets($zeiger);
+				fclose($zeiger);
+				$useradaydate = substr($useraday,0,10);
+				$useraday = substr($useraday,10,4);
+				
+				if(date("d.m.Y",strtotime($useradaydate)) != $today)
+				{
+					$useraday = 0;
+				}
+
+				//Besucher per day write
+				$pfad = "../data/ticketsystem/";
+				$datei = "useraday.txt";
+				$useraday = $useraday + 1;
+				$message = $today ."\t". $useraday. "\n";
+				$zeiger = fopen($pfad.$datei,"w+");
+				fputs($zeiger,$message);
+				fclose($zeiger);
+
+
+			//Besucher per week
+			$month = date("m",time());
+
+				//Besucher per week read
+				$pfad = "../data/ticketsystem/";
+				$datei = "useraweek.txt";
+				$zeiger = fopen($pfad.$datei,"r");
+				$useraweek = fgets($zeiger);
+				fclose($zeiger);
+				$useraweekdate = substr($useraweek,0,10);
+				$useraweek = substr($useraweek,10,4);
+				
+				if(date("m",strtotime($useraweekdate)) != $month)
+				{
+					$useraweek = 0;
+				}
+				
+				//Besucher per day write
+				$pfad = "../data/ticketsystem/";
+				$datei = "useraweek.txt";
+				$useraweek = $useraweek + 1;
+				$message = $today ."\t". $useraweek. "\n";
+				$zeiger = fopen($pfad.$datei,"w+");
+				fputs($zeiger,$message);
+				fclose($zeiger);
+
 		?>      
 
 
         </div>
 
 
-        <div id="footer">
+       <div id="footer">
               <a href="Impressum.php">Impressum</a> | <a href="Kontakte.php"> Kontakt </a>
         </div>
 

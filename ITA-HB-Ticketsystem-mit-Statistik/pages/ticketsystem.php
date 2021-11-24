@@ -195,67 +195,63 @@
 				$message = trim($_POST['message']);
 					
 
-				//error message
-				if($error == true)
-				{
-					echo"<div class='centertext'><h1>Fehlermeldung</h1></div><br/>";
-				}
-				foreach ($fehler_nachricht as $fehler)
-				{		
-					echo "<div class='centertext'><h2>".$fehler."</h2></div>";
-				}
-				
-
-				//success message
-				$anrede = $_POST['Anrede'];
-				if($error == false)
-				{
-					echo"<br /><br /><div class='centertext'><h2> Vielen Dank, ". $_POST['Anrede'] . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
-					echo "<h4>Wenn Sie fragen oder Probleme haben Kontakieren sie uns über +49 12345678</h4>";
-					echo"<br /><h3>Ihre Nachricht an uns ist: <br />".$message."</h3>";
-					echo"<br /><h3>Ihre Name ist: ".$vorname." ".$nachname."</h3>";
-					echo"<h3>Ihre Telfonnummer ist: ".$telefon."</h3>";
-					echo"<h3>Ihre E-Mail ist: ".$email."</h3>";
-
-					//Ticket System
-					//Read
-					$year = time();
-					$year = date("Y",$year);
-					$pfad = "../data/ticketsystem/";
-					$file = "ticket.docx";
-					$zeiger = fopen($pfad.$file,"r");
-
-				
-					if($zeiger)
-					{	
-							$dieseZeile = fgets($zeiger,4096);
-							$zeilenarray = explode("\t",$dieseZeile);
-							echo'<br /><br /><div class="centertext"><h2>Ticket Nummer:<br />'.$year.'.'.$zeilenarray[0].'</h2></div>';
-							fclose($zeiger);
-							$TicketNr = $zeilenarray[0];
-
-							//Log Write	
-							$today = time();
-							$today = date("d.m.Y - H:i",$today);
-							$file = "ticketlog.csv";
-							$messagelog = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
-							$zeiger = fopen($pfad.$file,"a+");
-							fputs($zeiger,$messagelog);
-							fclose($zeiger);	
-
-							//Write Ticket
-							$pfad = "../data/ticketsystem/";
-							$file = "ticket.docx";
-							$TicketNr = $TicketNr +1;
-							$zeiger = fopen($pfad.$file,"w");
-							$messageticket = $TicketNr ."\t";
-							fputs($zeiger,$messageticket);
-							fclose($zeiger);
+					//error message
+					if($error == true)
+					{
+						echo"<div class='centertext'><h1>Fehlermeldung</h1></div><br/>";
 					}
-					//qrcode
-					$qrlink = "../data/ticketsystem/qrcode/".$TicketNr.".png";
-					QRcode::png($messagelog, $qrlink, 'L', 4, 2);
-				}					
+					foreach ($fehler_nachricht as $fehler)
+					{		
+						echo "<div class='centertext'><h2>".$fehler."</h2></div>";
+					}
+				
+
+					//success message
+					$anrede = $_POST['Anrede'];
+					if($error == false)
+					{
+						echo"<br /><br /><div class='centertext'><h2> Vielen Dank, ". $_POST['Anrede'] . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
+						echo "<h4>Wenn Sie fragen oder Probleme haben Kontakieren sie uns über +49 12345678</h4>";
+						echo"<br /><h3>Ihre Nachricht an uns ist: <br />".$message."</h3>";
+						echo"<br /><h3>Ihre Name ist: ".$vorname." ".$nachname."</h3>";
+						echo"<h3>Ihre Telfonnummer ist: ".$telefon."</h3>";
+						echo"<h3>Ihre E-Mail ist: ".$email."</h3>";
+
+						//Ticket System
+						//Read
+						$year = time();
+						$year = date("Y",$year);
+						$pfad = "../data/ticketsystem/";
+						$file = "ticket.docx";
+						$zeiger = fopen($pfad.$file,"r");
+						$dieseZeile = fgets($zeiger,4096);
+						$zeilenarray = explode("\t",$dieseZeile);
+						echo'<br /><br /><div class="centertext"><h2>Ticket Nummer:<br />'.$year.'.'.$zeilenarray[0].'</h2></div>';
+						fclose($zeiger);
+						$TicketNr = $zeilenarray[0];
+
+						//Log Write	
+						$today = time();
+						$today = date("d.m.Y - H:i",$today);
+						$file = "ticketlog.csv";
+						$messagelog = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
+						$zeiger = fopen($pfad.$file,"a+");
+						fputs($zeiger,$messagelog);
+						fclose($zeiger);	
+
+						//Write Ticket
+						$pfad = "../data/ticketsystem/";
+						$file = "ticket.docx";
+						$TicketNr = $TicketNr +1;
+						$zeiger = fopen($pfad.$file,"w");
+						$messageticket = $TicketNr ."\t";
+						fputs($zeiger,$messageticket);
+						fclose($zeiger);
+						//}
+						//qrcode
+						$qrlink = "../data/ticketsystem/qrcode/".$TicketNr.".png";
+						QRcode::png($messagelog, $qrlink, 'L', 4, 2);
+					}					
 
 				
 

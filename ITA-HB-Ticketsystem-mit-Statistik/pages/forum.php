@@ -40,6 +40,8 @@
 
         <?php
           $show_forum = false;
+          $username_valid = "";
+          $email_valid = "";
                 if(isset($_POST['senden']))
                 { 
                     require __DIR__ . '/../functions/form_validation.php';
@@ -79,6 +81,9 @@
                         fputcsv($f, $login_data, ";");
 
                         fclose($f);
+
+                        $username_valid = $username;
+                        $email_valid = $email;
                     }
                 
                     foreach($fehler_nachricht as $fehler)
@@ -88,19 +93,49 @@
                         echo "</div><br><br>";
                     }
                 }
+                
             ?>
     </div>
 
+    <div id="forum-section">
     <?php
-      if($show_forum == true)
-      {
-        //echo "was geht";
-      }
+        $lol = false;
+        if($show_forum == true)
+        {
+            echo '<div class="thread-add">
+                <h1>Eintrag erstellen</h1>
+                <div class="thread-add-submit">
+                <form method="post" action="forum.php" name="form" id="form">
+                    <textarea name="eintrag" placeholder="HIER EINTIPPEN..."></textarea>
+                    <input type="submit" value="hochladen" name="thread" class="btn">
+                </form></div></div>';
+
+            if(isset($_POST['thread']))
+            {
+                $eintrag = htmlspecialchars($_POST['eintrag']);
+                $f = fopen("../data/forum-data/threads.csv", "a");
+                $data = array($username_valid, $email_valid, $eintrag);
+                fputcsv($f, $data);
+                fclose($f);
+                echo '<center><div class="success-box">';
+                echo 'ERFOLG!';
+                echo '</center></div>';
+                $lol = true;
+            }
+        }
     ?>
 
-<!-- ʌv -->
+    <?php 
+        if($lol == true)
+        {
+            echo "NICE";
+        } 
+        else
+            echo "fuck";
+    ?>
 
-    <div id="forum-section">
+<!-- ToDo: On login, show class="thread-add", umfrage.php -->
+
         <div class="thread-box">
             <div class="user">
                 Darko Pizdun<br>

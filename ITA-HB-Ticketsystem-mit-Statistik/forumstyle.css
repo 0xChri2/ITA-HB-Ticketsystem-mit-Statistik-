@@ -210,8 +210,38 @@ a:hover
 
 .thread-add
 {
-  
+  background-color: rgba(16, 18, 19, 0.849);
+  box-shadow: 3px 5px 18px 5px rgba(0, 0, 0, 0.664);
+  width: 70%;
+  margin: 0 auto;
+  padding: 30px;
+  margin-bottom: 10px;
+  text-align: center;
 }
+
+.thread-add h1
+{
+  color: white;
+}
+
+.thread-add ::placeholder
+{
+  font-size: x-large;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.thread-add-submit
+{
+  width: 100%;
+}
+
+.thread-add-submit .btn
+{
+  width: 100%;
+  margin-top: 5px;
+}
+
 
 .user
 {
@@ -273,11 +303,13 @@ a:hover
 
   textarea
   {
+    background-color: rgba(16, 18, 19);
+    color: white;
     margin-top: 30px;
     padding: 5px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    width: 300px;
-    height: 100px;
+    width: 100%;
+    height: 300px;
     overflow-y: scroll;
     border: thin solid lightgray;
     resize: none;
@@ -298,7 +330,6 @@ a:hover
   {
     outline: none !important;
     border: 1px solid orange;
-    box-shadow: 0 0 10px #719ECE;
   }
   
   .rating {

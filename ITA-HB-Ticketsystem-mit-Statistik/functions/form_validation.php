@@ -1,6 +1,4 @@
 <?php
-    require_once('forum.php');
-
     function field_empty($field, $fieldname, &$fehler_nachricht)
     {
         if($field == "")

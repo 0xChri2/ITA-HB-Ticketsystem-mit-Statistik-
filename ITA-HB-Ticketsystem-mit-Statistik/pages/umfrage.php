@@ -50,7 +50,7 @@
 <?php
 				if(isset($_POST['senden']))
 				{
-					//require __DIR__ . '/../functions/form_validation.php';
+					include '../functions/form_validation.php';
 					$vorgangsnummer = strtoupper($_POST['vorgangsnummer']);
 	                    $email = strtolower($_POST['email']);
 	
@@ -59,13 +59,20 @@
 	                   
 	                    $success = 1;
 	               
-											$fehler_nachricht = array();
+						$fehler_nachricht = array();
 	               
-	                    /*if(field_empty($vorgangsnummer, "Vorgangsnummer", $fehler_nachricht) == 0)
+	                    if(field_empty($vorgangsnummer, "Vorgangsnummer", $fehler_nachricht) == 0)
 	                        $success = 0;
 	
 	                    if(field_email($email, $fehler_nachricht) == 0)
-	                        $success = 0;*/
+							$success = 0;
+							
+							foreach($fehler_nachricht as $fehler)
+							{
+								echo '<div id="error-box">';
+								echo  "<p>" . $fehler . "</p>";
+								echo "</div><br><br>";
+							}
 	
 	                    if($success == 1)
 	                    {

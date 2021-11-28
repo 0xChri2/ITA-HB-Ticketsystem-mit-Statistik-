@@ -42,7 +42,7 @@
 
                 if(isset($_POST['senden']))
                 { 
-                    require __DIR__ . '/../functions/form_validation.php';
+                    include '../functions/form_validation.php';
 
                     $username = $_POST['username'];
                     $email = strtolower($_POST['email']);

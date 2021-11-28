@@ -41,6 +41,7 @@
         <?php
             $username_valid = "";
             $email_valid = "";
+            $show_forum = false;
 
             function setUser(&$username_valid, &$email_valid, $user, $mail)
             {
@@ -56,6 +57,9 @@
 
                     $username = trim($username, " ");
                     $email = trim($email, " ");
+
+                    $username_valid = $username;
+                    $email_valid = $email;
                     
                     $success = 1;
                 
@@ -76,7 +80,6 @@
 
                     if($success == 1)
                     {
-                      $show_forum = true;
                         echo '<center><div class="success-box">';
                         echo 'ERFOLG!<br> Drücken Sie  <b><a href="#threads">HIER</a></b> um Threads zu lesen';
                         echo '</center></div></div>';
@@ -94,9 +97,6 @@
 
                         fclose($f);
 
-                        setUser($username_valid, $email_valid, $username, $email);
-
-
                         echo '<div id="forum-section"><div class="thread-add">
                             <h1>Eintrag erstellen</h1>
                             <div class="thread-add-submit">
@@ -111,22 +111,22 @@
                 if(isset($_POST['thread']))
                 {
                     $eintrag = htmlspecialchars($_POST['eintrag']);
-                    $user = getUser();
-                    $mail = getMail();
                     $f = fopen("../data/forum-data/threads.csv", "a");
-                    $data = array($user, $mail, $eintrag);
+                    $data = array($username_valid, $email_valid, $eintrag);
                     fputcsv($f, $data);
                     fclose($f);
                     echo '<center><div class="success-box">';
                     echo 'ERFOLG!';
                     echo '</center></div>';
-                    echo "sieh hier: " . $user . "<br>";
-                    echo $eintrag;
+                    
+                    echo "sieh hier: " . $username_valid . "<br>";
+                    $show_forum = true;
                 }
-                
             ?>
 
 <!-- ToDo: On login, show class="thread-add", umfrage.php -->
+</div>
+    <div id="forum-section">
         <div class="thread-box">
             <div class="user">
                 Darko Pizdun<br>

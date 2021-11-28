@@ -28,20 +28,25 @@
 
                 <input type="submit" name="senden" value="submit" class="btn"/>
             </form>
-
+            
             <!-- 
                 TODO:
-
+                
                 Add picture transition
                 Make class="input-container" responsive
             -->
-
+            
         </div>
 
         <?php
-          $show_forum = false;
-          $username_valid = "";
-          $email_valid = "";
+            $username_valid = "";
+            $email_valid = "";
+
+            function setUser(&$username_valid, &$email_valid, $user, $mail)
+            {
+                $username_valid = $user;
+                $email_valid = $mail;
+            }
                 if(isset($_POST['senden']))
                 { 
                     require __DIR__ . '/../functions/form_validation.php';
@@ -62,12 +67,19 @@
                     if(field_email($email, $fehler_nachricht) == 0)
                         $success = 0;
 
+                    foreach($fehler_nachricht as $fehler)
+                    {
+                        echo '<div id="error-box">';
+                        echo  "<p>" . $fehler . "</p>";
+                        echo "</div><br><br>";
+                    }
+
                     if($success == 1)
                     {
                       $show_forum = true;
                         echo '<center><div class="success-box">';
                         echo 'ERFOLG!<br> Drücken Sie  <b><a href="#threads">HIER</a></b> um Threads zu lesen';
-                        echo '</center></div>';
+                        echo '</center></div></div>';
 
                         $f = fopen("../data/forum-data/login-time.csv", "a+");
                         $c = new SplFileObject("../data/forum-data/login-time.csv", "r");
@@ -82,60 +94,39 @@
 
                         fclose($f);
 
-                        $username_valid = $username;
-                        $email_valid = $email;
+                        setUser($username_valid, $email_valid, $username, $email);
+
+
+                        echo '<div id="forum-section"><div class="thread-add">
+                            <h1>Eintrag erstellen</h1>
+                            <div class="thread-add-submit">
+                            <form method="post" action="forum.php" name="form" id="form">
+                                <textarea name="eintrag" placeholder="HIER EINTIPPEN..."></textarea>
+                                <input type="submit" value="hochladen" name="thread" class="btn">
+                            </form>
+                            </div></div>';
                     }
-                
-                    foreach($fehler_nachricht as $fehler)
-                    {
-                        echo '<div id="error-box">';
-                        echo  "<p>" . $fehler . "</p>";
-                        echo "</div><br><br>";
-                    }
+                }
+
+                if(isset($_POST['thread']))
+                {
+                    $eintrag = htmlspecialchars($_POST['eintrag']);
+                    $user = getUser();
+                    $mail = getMail();
+                    $f = fopen("../data/forum-data/threads.csv", "a");
+                    $data = array($user, $mail, $eintrag);
+                    fputcsv($f, $data);
+                    fclose($f);
+                    echo '<center><div class="success-box">';
+                    echo 'ERFOLG!';
+                    echo '</center></div>';
+                    echo "sieh hier: " . $user . "<br>";
+                    echo $eintrag;
                 }
                 
             ?>
-    </div>
-
-    <div id="forum-section">
-    <?php
-        $lol = false;
-        if($show_forum == true)
-        {
-            echo '<div class="thread-add">
-                <h1>Eintrag erstellen</h1>
-                <div class="thread-add-submit">
-                <form method="post" action="forum.php" name="form" id="form">
-                    <textarea name="eintrag" placeholder="HIER EINTIPPEN..."></textarea>
-                    <input type="submit" value="hochladen" name="thread" class="btn">
-                </form></div></div>';
-
-            if(isset($_POST['thread']))
-            {
-                $eintrag = htmlspecialchars($_POST['eintrag']);
-                $f = fopen("../data/forum-data/threads.csv", "a");
-                $data = array($username_valid, $email_valid, $eintrag);
-                fputcsv($f, $data);
-                fclose($f);
-                echo '<center><div class="success-box">';
-                echo 'ERFOLG!';
-                echo '</center></div>';
-                $lol = true;
-            }
-        }
-    ?>
-
-    <?php 
-        if($lol == true)
-        {
-            echo "NICE";
-        } 
-        else
-            echo "fuck";
-    ?>
 
 <!-- ToDo: On login, show class="thread-add", umfrage.php -->
-
         <div class="thread-box">
             <div class="user">
                 Darko Pizdun<br>

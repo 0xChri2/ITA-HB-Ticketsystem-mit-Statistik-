@@ -8,7 +8,6 @@
     <meta http-equiv="content-language" content="de" />
     <link type="text/css" rel="stylesheet" href="../forumstyle.css" />
 </head>
-<!-- dakro-->
 
 <body>
     <div id="login-section">
@@ -22,7 +21,7 @@
                 </div>
 
                 <div class="input-container">
-                    <input type="mail" name="email" required="" />
+                    <input type="text" name="email" required="" />
                     <label>Email</label>
                 </div>
 
@@ -39,15 +38,8 @@
         </div>
 
         <?php
-            $username_valid = "";
-            $email_valid = "";
             $show_forum = false;
 
-            function setUser(&$username_valid, &$email_valid, $user, $mail)
-            {
-                $username_valid = $user;
-                $email_valid = $mail;
-            }
                 if(isset($_POST['senden']))
                 { 
                     require __DIR__ . '/../functions/form_validation.php';
@@ -58,9 +50,6 @@
                     $username = trim($username, " ");
                     $email = trim($email, " ");
 
-                    $username_valid = $username;
-                    $email_valid = $email;
-                    
                     $success = 1;
                 
                     $fehler_nachricht = array();
@@ -97,6 +86,10 @@
 
                         fclose($f);
 
+                        $e = fopen("../data/temp/tempuser.txt", "w");
+                        fwrite($e, $username . "\t" . $email);
+                        fclose($e);
+
                         echo '<div id="forum-section"><div class="thread-add">
                             <h1>Eintrag erstellen</h1>
                             <div class="thread-add-submit">
@@ -111,16 +104,25 @@
                 if(isset($_POST['thread']))
                 {
                     $eintrag = htmlspecialchars($_POST['eintrag']);
+
+                    $e = fopen("../data/temp/tempuser.txt", "r");
+
+                    $textline = fread($e, 4096);
+                    $user = substr($textline, 0, strpos($textline, "\t"));
+                    $mail = substr($textline, strpos($textline, "\t"));
+
+                    fclose($e);
+
                     $f = fopen("../data/forum-data/threads.csv", "a");
-                    $data = array($username_valid, $email_valid, $eintrag);
-                    fputcsv($f, $data);
+                    $data = array($user, $mail, $eintrag);
+                    fputcsv($f, $data, ";");
                     fclose($f);
                     echo '<center><div class="success-box">';
                     echo 'ERFOLG!';
                     echo '</center></div>';
                     
-                    echo "sieh hier: " . $username_valid . "<br>";
                     $show_forum = true;
+                    //echo "Username: " . $user . "<br>" . "Email: " . $mail; 
                 }
             ?>
 

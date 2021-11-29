@@ -13,43 +13,43 @@
 
     .indexbackground
     {
-    background: url(pictures/forumbg.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    /*position: relative;*/
-    /*text-align: center;*/
-    overflow: hidden;
-    /*padding-top: 40%;*/
-    padding-top: 15%;
-    padding-bottom: 30%;
-    margin: -8px;
+        background: url(pictures/wall.jpeg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        /*position: relative;*/
+        /*text-align: center;*/
+        overflow: hidden;
+        padding-top: 15%;
+        padding-bottom: 50%;
+        margin: -8px;
     }
-    .index-container
-{
-    background-color: rgba(0, 0, 0, 0.703);
-    max-width: 80%;
-    min-width: 40%;
-    height: auto;
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    padding: 3%;
-    padding-left: 8%;
-    padding-right: 8%;
-    margin-right: -50%;
-    margin-top: 100px;
 
-    transform: translate(-50%, -50%);
-    box-shadow: 5px 8px 30px 8px rgba(0, 0, 0, 0.664);
-    border: solid 400 rgba(0, 0, 0, 0.466);
-    text-align: center;
-    align-items: center;
-    overflow-wrap: break-word;
-    font-size: large;
-    color: white;
-}
+    .index-container
+    {
+        background-color: rgba(0, 0, 0, 0.8);
+        max-width: 60%;
+        min-width: 50%;
+        height: auto;
+        position: relative;
+        top: 20%;
+        left: 50%;
+        padding: 3%;
+        padding-left: 8%;
+        padding-right: 8%;
+        margin-right: -50%;
+        margin-top: 100px;
+
+        transform: translate(-50%, -50%);
+        box-shadow: 5px 8px 30px 8px rgba(0, 0, 0, 0.664);
+        border: solid 400 rgba(0, 0, 0, 0.466);
+        text-align: center;
+        align-items: center;
+        overflow-wrap: break-word;
+        font-size: large;
+        color: white;
+    }
     .indexbackground .topmenu
     {
         position: relative;

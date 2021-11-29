@@ -35,9 +35,10 @@
                 
             </ul>
         </div>
-        <div class="indexbackground">           
+        <div class="indexbackground"> 
+            <div class="index-container">       
             <div class="headline"><h1>Allgemeines</h1></div>
-            <div class="index-container">    
+                
             <div class="centertext">
                 <h4>Maurerbetrieb </h4><br />
                 <h1><a href="pages/ticketsystem.php">Ticketsystem</a></h1>

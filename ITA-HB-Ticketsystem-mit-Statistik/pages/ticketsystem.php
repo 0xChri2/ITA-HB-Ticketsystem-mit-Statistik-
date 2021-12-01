@@ -234,8 +234,8 @@
 						$today = time();
 						$today = date("d.m.Y - H:i",$today);
 						$file = "ticketlog.csv";
-						$username = date("Y-m-d-H:i",time())."-". substr($nachname, 0, 3)."-".substr($vorname, 0, 3)."-".substr($telefon, -3); // weiß ich nich ob das geht
-						$messagelog = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year."\t".$username ."\n";
+						$username = date("Y-m-d-H:i",time())."-". strtoupper(substr($nachname, 0, 3))."-".strtoupper(substr($vorname, 0, 3))."-".substr($telefon, -3); // weiß ich nich ob das geht
+						$messagelog = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\t".$username ."\n";
 						$zeiger = fopen($pfad.$file,"a+");
 						fputs($zeiger,$messagelog);
 						fclose($zeiger);	
@@ -275,8 +275,8 @@
 						echo"<td><u><b>E-Mail</u></b></td>";
 						echo"<td><u><b>Nachricht</u></b></td>";
 						echo"<td><u><b>Datum</u></b></td>";
-						echo"<tf><u><b>Ticket Nummer</u></b></td>";
-						echo"<tf><u><b>Username</b></u></tf>";
+						echo"<td><u><b>Ticket Nummer</u></b></td>";
+						echo"<td><u><b>Username</b></u></td>";
 						while(!feof($zeiger))
 						{	
 							echo '<tr>';

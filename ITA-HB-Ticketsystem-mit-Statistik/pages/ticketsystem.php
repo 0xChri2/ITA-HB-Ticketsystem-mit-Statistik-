@@ -70,6 +70,7 @@
 		
 		<?php
 			include "../lib/phpqrcode/qrlib.php";
+			include "../lib/form_validation.php";
 			if(isset($_POST['Senden'])==true)
 			{			
 				//countsenden
@@ -88,107 +89,35 @@
 
 				//vorname
 				$vorname = trim($_POST['vorname']);
-				if($vorname=="")
+				if(field_vorname($vorname, $fehler_nachricht) == 0)
 				{
 				$error = true;
-				$fehler_nachricht[]="Geben Sie bitte Ihren Vornamen ein.";
 				}
 				$vorname = ucwords($vorname);
 
+				
 				//nachname
 				$nachname = trim($_POST['nachname']);
-				if($nachname=="")
+				if(field_nachname($nachname, $fehler_nachricht) == 0)
 				{
 				$error = true;
-				$fehler_nachricht[]="Geben Sie bitte Ihren Nachnamen ein.";
 				}
 				$nachname = ucfirst($nachname);
 
+
 				//telefon
 				$telefon = trim($_POST['telefon']);
-				if($telefon=="")
+				if(field_phonenumber($telefon, $fehler_nachricht) == 0)
 				{
-				$error = true;
-				$fehler_nachricht[]="Geben Sie bitte Ihren Telefonnummer an";
+					$error = true;
 				}
-				if(strrpos($telefon, "+")!= strpos($telefon,"+"))
-				{
-				$error = true;
-				$fehler_nachricht[]="Bitte nutzen Sie nur ein Pluszeichen in der Telefonnummer.";
-				}
+
 
 				//email
-				$email = trim($_POST['e-mail']);
-				if($email=="")
-				{
-				$error = true;
-				$fehler_nachricht[]="Geben Sie bitte ihren E-Mail ein";
-				}
-
-				if(strpos($email, "@")== false)
+				$email = strtolower(trim($_POST['e-mail']));
+				if(field_email($email, $fehler_nachricht) == 0)
 				{
 					$error = true;
-					$fehler_nachricht[]="Ihre E-Mail Adresse enthält kein @ Zeichen oder es steht am Anfang. ";
-				}
-
-				if((strpos($email, "@")) != (strrpos($email, "@")))
-				{
-					$error = true;
-					$fehler_nachricht[]="Ihre E-Mail Adresse enthält zu viele @ Zeichen. ";
-				}
-
-				if((strpos($email, "."))== false)
-				{
-					$error = true;
-					$fehler_nachricht[]="Ihre E-Mail Adresse enthält kein Punkt oder er steht am Anfang. ";
-				}
-
-				if((strpos($email, " "))== true)
-				{
-					$error = true;
-					$fehler_nachricht[]="Ihre E-Mail Adresse enthält ein Leerzeichen. Bitte geben Sie ihre E-Mail Adresse ohne Leerzeichen an. ";
-				}
-
-				if(substr($email, -1,1)==".")
-				{
-					$error = true;
-					$fehler_nachricht[]="Ihre E-Mail Adresse enthält einen Punkt am Ende. ";
-				}
-
-				if(substr($email, -1,1)=="@")
-				{
-					$error = true;
-					$fehler_nachricht[]="Ihre E-Mail Adresse enthält einen @ am Ende. ";
-				}
-
-				if(strlen($email) < "6") 
-				{
-					$error = true;
-					$fehler_nachricht[]="Ihre E-Mail Adresse ist zu kurz. ";
-				}
-
-				if(strlen($email) > "320") 
-				{
-					$error = true;
-					$fehler_nachricht[]="Ihre E-Mail Adresse ist zu lang. ";
-				}
-
-				if((strrpos($email, "."))<(strrpos($email, "@")))
-				{
-					$error = true;
-					$fehler_nachricht[]="Ihr letzter Punkt ist nicht an der richtigen Stelle. Bitte schauen Sie sich die E-Mail nocheinmal an.";
-				}
-				
-				 $umlaute = array('ä','Ä','ü','Ü','ö','Ö');
-				for($i = 0; $i >= 5;$i++)
-				{
-					if(strpos($email,$umlaute[$i]))
-					{
-						$error = true;
-						$fehler_nachricht[]="Ihre E-Mail enthält unzulässige Umlaute.";
-						break;
-					}
-					
 				}
 
 				//Textbox

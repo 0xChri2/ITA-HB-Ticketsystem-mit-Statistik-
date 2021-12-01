@@ -1,5 +1,4 @@
 <?php
-    require_once('forum.php');
 
     function field_empty($field, $fieldname, &$fehler_nachricht)
     {
@@ -44,7 +43,7 @@
         $success = 1;
         if (strpos($email, '@') == NULL)
                 {
-                    $fehler_nachricht[] = "In der Mail, '@' gibt es nicht.";
+                    $fehler_nachricht[] = "In der E-Mail ist kein '@' Zeichen vorhanden.";
                     $success = 0;
                 }
 
@@ -52,16 +51,16 @@
 
                 if (strstr($email, '.') == NULL)
                 {
-                    $fehler_nachricht[] = "In der Mail, '.' gibt es nicht.";
+                    $fehler_nachricht[] = "In der E-Mail ist kein '.' vorhanden.";
                     $success = 0;
                     $falchestelle = 1;
                 }
 
                 if($falchestelle == 0)
                 {
-                    if (strpos($_POST['email'],".") == 0)
+                    if (strpos($email,".") == 0)
                     {
-                        $fehler_nachricht[]= "In der Mail, '.' darf nicht an erster Stelle stehen!";
+                        $fehler_nachricht[]= "Der Punkt darf in der E-Mail nicht an der erster Stelle stehen!";
                         $success = 0;
                     }
 
@@ -86,7 +85,7 @@
     
                         if ($condition == 1)
                         {
-                            $fehler_nachricht[] = "In der Mail, '.' ist an der falsche Stelle.";
+                            $fehler_nachricht[] = "In der E-Mail steht der Punkt an der falschen Stelle.";
                             $success = 0;   
                         }
                     }
@@ -94,40 +93,39 @@
 
                 if (strlen($email) - 1 == strrpos($email, '.'))
                 {
-                    $fehler_nachricht[] = "Nach einem '.' ist weiterer Inhalt erforderlich.";
+                    $fehler_nachricht[] = "Nach einem '.' sind weiterer Inhalte erforderlich.";
                     $success = 0;
                 }
 
                 if (strlen($email) < 6)
                 {
-                    $fehler_nachricht[] = "E-Mail darf mindestens 6 Zeichen sein.";
+                    $fehler_nachricht[] = "E-Mail muss mindestens 6 Zeichen lang sein.";
                     $success = 0;
                 }
 
                 if (strlen($email) > 320)
                 {
-                    $fehler_nachricht[] = "E-Mail darf maximal 320 Zeichen sein.";
+                    $fehler_nachricht[] = "E-Mail darf maximal 320 Zeichen lang sein.";
                     $success = 0;
                 }
 
                 if (strpos($email, ' ') != 0)
                 {
-                    $fehler_nachricht[] = "E-Mail darf keine Leerzeichen haben.";
+                    $fehler_nachricht[] = "Die E-Mail darf keine Leerzeichen enthalten.";
                     $success = 0;
                 }
 
-                //Ab hier bin ich schlau 
                 $punkt = strpos($email, '@');
                 if ($email[$punkt - 1] == '.')
                 {
-                    $fehler_nachricht[] = "Neben '@' darf kein '.' vorkommen"; 
+                    $fehler_nachricht[] = "Neben einem '@' darf kein '.' vorkommen"; 
                     $success = 0;
                 }
 
                 $et = strpos($email, '.');
                 if ($email[$et - 1] == '@')
                 {
-                    $fehler_nachricht[] = "Neben '@' darf kein '.' vorkommen"; 
+                    $fehler_nachricht[] = "Neben einem '@' darf kein '.' vorkommen"; 
                     $success = 0;
                 }
 
@@ -170,12 +168,90 @@
                         $email[$i] != '6' &&
                         $email[$i] != '7' &&
                         $email[$i] != '8' &&
-                        $email[$i] != '9')
+                        $email[$i] != '9' &&
+                        $email[$i] != ' ')
                     {
-                        $fehler_nachricht[] = "E-Mail darf keine Sonderzeichen enthalten";
+                        $fehler_nachricht[] = "Die E-Mail darf keine Sonderzeichen oder Umlaute enthalten";
                         $success = 0;
                         break;
                     }
                 }
+                if(substr($email, -1,1)==".")
+				{
+					$success = 0;
+					$fehler_nachricht[]="Ihre E-Mail Adresse enthält einen Punkt am Ende. ";
+				}
+
+				if(substr($email, -1,1)=="@")
+				{
+					$success = 0;
+					$fehler_nachricht[]="Ihre E-Mail Adresse enthält einen @ am Ende. ";
+				}
+                if((strpos($email, "@")) != (strrpos($email, "@")))
+				{
+					$success = 0;
+					$fehler_nachricht[]="Ihre E-Mail Adresse enthält zu viele @ Zeichen. ";
+				}
+        return $success;
+    }
+
+    function field_vorname($vorname, &$fehler_nachricht)
+    {
+        if($vorname=="")
+		{
+				$success = 0;
+				$fehler_nachricht[]="Geben Sie bitte Ihren Vornamen an.";
+		}
+        return $success;
+    }
+
+    function field_nachname($nachname, &$fehler_nachricht)
+    {
+        if($nachname=="")
+		{
+				$success = 0;
+				$fehler_nachricht[]="Geben Sie bitte Ihren Nachnamen an.";
+		}
+        return $success;
+    }
+
+    function field_phonenumber($telefon, &$fehler_nachricht)
+    {
+        if($telefon=="")
+		{
+		    $success = 0;
+	        $fehler_nachricht[]="Geben Sie bitte Ihren Telefonnummer an";
+		}
+
+        if(strpos($telefon, "+") != NULL)
+        {
+            $success = 0;
+            $fehler_nachricht[]="Ihre Telefonnummer muss mit einem Plus beginnen.";
+        }
+
+        if(strpos($telefon, "+") != 0)
+        {
+            $success = 0;
+            $fehler_nachricht[]="Das Plus muss am Anfang stehen.";
+        }
+		
+        if(strrpos($telefon, "+")!= strpos($telefon,"+"))
+	    {
+	        $success = 0;
+	        $fehler_nachricht[]="Bitte nutzen Sie nur ein Pluszeichen in der Telefonnummer.";
+		}
+
+        if(strlen($telefon) >= 15)
+        {
+            $success = 0;
+            $fehler_nachricht[]="Ihre Telefonnummer ist zu lang.";
+        }
+
+        if(strlen($telefon) <= 12)
+        {
+            $succes = 0;
+            $fehler_nachricht[]="Ihre Telefonnummer ist zu kurz.";
+        }
+        
         return $success;
     }

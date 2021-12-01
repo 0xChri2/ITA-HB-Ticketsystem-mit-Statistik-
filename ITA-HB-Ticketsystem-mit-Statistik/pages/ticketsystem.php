@@ -234,7 +234,8 @@
 						$today = time();
 						$today = date("d.m.Y - H:i",$today);
 						$file = "ticketlog.csv";
-						$messagelog = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\n";
+						$username = date("Y-m-d-H:i",time())."-". substr($nachname, 0, 3)."-".substr($vorname, 0, 3)."-".substr($telefon, -3); // weiß ich nich ob das geht
+						$messagelog = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year."\t".$username ."\n";
 						$zeiger = fopen($pfad.$file,"a+");
 						fputs($zeiger,$messagelog);
 						fclose($zeiger);	
@@ -247,7 +248,7 @@
 						$messageticket = $TicketNr ."\t";
 						fputs($zeiger,$messageticket);
 						fclose($zeiger);
-						//}
+	
 						//qrcode
 						$qrlink = "../data/ticketsystem/qrcode/".$TicketNr.".png";
 						QRcode::png($messagelog, $qrlink, 'L', 4, 2);
@@ -275,6 +276,7 @@
 						echo"<td><u><b>Nachricht</u></b></td>";
 						echo"<td><u><b>Datum</u></b></td>";
 						echo"<tf><u><b>Ticket Nummer</u></b></td>";
+						echo"<tf><u><b>Username</b></u></tf>";
 						while(!feof($zeiger))
 						{	
 							echo '<tr>';

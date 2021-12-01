@@ -255,3 +255,27 @@
         
         return $success;
     }
+
+    function field_isTicket($username, &$fehler_nachricht)
+    {
+        $good = true;
+        if(strlen($username) == 28)
+        {
+            if($username[4] != "-" || $username[7] != "-" || $username[10] != "-"
+            || $username[13] != ":" || $username[16] != "-" || $username[20] != "-"
+            || $username[24] != "-")
+            {
+                $good = false;
+            }
+        }
+        else
+        {
+            $good = false;
+        }
+
+        if($good == false)
+        {
+            $fehler_nachricht[] = '<div id="info-box">Username ist nicht valid!<br><a href="Ticketsystem.php">Erstellen Sie hier ein Ticket</a></div>';
+        }
+        return $good;
+    }

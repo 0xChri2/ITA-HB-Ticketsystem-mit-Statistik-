@@ -57,7 +57,7 @@
 
                 if($falchestelle == 0)
                 {
-                    if (strpos($_POST['email'],".") == 0)
+                    if (strpos($email ,".") == 0)
                     {
                         $fehler_nachricht[]= "In der Mail, '.' darf nicht an erster Stelle stehen!";
                         $success = 0;
@@ -168,7 +168,8 @@
                         $email[$i] != '6' &&
                         $email[$i] != '7' &&
                         $email[$i] != '8' &&
-                        $email[$i] != '9')
+                        $email[$i] != '9' &&
+                        $email[$i] != ' ')
                     {
                         $fehler_nachricht[] = "E-Mail darf keine Sonderzeichen enthalten";
                         $success = 0;
@@ -176,4 +177,28 @@
                     }
                 }
         return $success;
+    }
+
+    function field_isTicket($username, &$fehler_nachricht)
+    {
+        $good = true;
+        if(strlen($username) == 28)
+        {
+            if($username[4] != "-" || $username[7] != "-" || $username[10] != "-"
+            || $username[13] != ":" || $username[16] != "-" || $username[20] != "-"
+            || $username[24] != "-")
+            {
+                $good = false;
+            }
+        }
+        else
+        {
+            $good = false;
+        }
+
+        if($good == false)
+        {
+            $fehler_nachricht[] = '<div id="info-box">Username ist nicht valid!<br><a href="Ticketsystem.php">Erstellen Sie hier ein Ticket</a></div>';
+        }
+        return $good;
     }

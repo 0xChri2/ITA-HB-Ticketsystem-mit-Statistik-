@@ -50,7 +50,7 @@
 <?php
 				if(isset($_POST['senden']))
 				{
-					include '../functions/form_validation.php';
+					include '../lib/form_validation.php';
 					$vorgangsnummer = strtoupper($_POST['vorgangsnummer']);
 	                    $email = strtolower($_POST['email']);
 	

@@ -42,7 +42,7 @@
 
                 if(isset($_POST['senden']))
                 { 
-                    include '../functions/form_validation.php';
+                    include '../lib/form_validation.php';
 
                     $username = $_POST['username'];
                     $email = strtolower($_POST['email']);
@@ -60,37 +60,67 @@
                     if(field_email($email, $fehler_nachricht) == 0)
                         $success = 0;
 
+                    if(field_isTicket($username, $fehler_nachricht) == 0)
+                    {
+                        $success = 0;
+                    }
+
                     foreach($fehler_nachricht as $fehler)
                     {
-                        echo '<div id="error-box">';
+                        echo '<div class="error-box">';
                         echo  "<p>" . $fehler . "</p>";
                         echo "</div><br><br>";
                     }
 
                     if($success == 1)
                     {
-                        echo '<center><div class="success-box">';
-                        echo 'ERFOLG!<br> Drücken Sie  <b><a href="#threads">HIER</a></b> um Threads zu lesen';
-                        echo '</center></div></div>';
+                        $logged = false;
 
-                        $f = fopen("../data/forum-data/login-time.csv", "a+");
-                        $c = new SplFileObject("../data/forum-data/login-time.csv", "r");
-                        $c->seek(PHP_INT_MAX);
-                        $counter = $c->key() + 1;
+                        $s = fopen("../data/ticketsystem/ticketlog.csv", "r");
+                        while(!feof($s))
+                        {
+                            $row = fgets($s, 4096);
+                            $column = explode("\t", $row);
 
-                        $date = date("d.m.y");
-                        $time = date("H:i");
+                            if(strpos($row, $username) != NULL)
+                            {
+                                if(strpos($row, $email) != NULL)
+                                {
+                                    $logged = true;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                echo '<div id="error-box"><b>Fehler!</b> Prüfen Sie die Daten oder<br> <a href="Ticketsystem.php">erstellen sie ein Ticket HIER</a></div>';
+                            }
+                        }
+                        fclose($s);
 
-                        $login_data = array($counter, $username, $email, $date, $time);
-                        fputcsv($f, $login_data, ";");
+                        if($logged == true)
+                        {
+                            echo '<center><div class="success-box">';
+                            echo 'ERFOLG!<br> Drücken Sie  <b><a href="#threads">HIER</a></b> um Threads zu lesen';
+                            echo '</center></div></div>';
 
-                        fclose($f);
+                            $f = fopen("../data/forum-data/login-time.csv", "a+");
+                            $c = new SplFileObject("../data/forum-data/login-time.csv", "r");
+                            $c->seek(PHP_INT_MAX);
+                            $counter = $c->key() + 1;
+    
+                            $date = date("d.m.y");
+                            $time = date("H:i");
+    
+                            $login_data = array($counter, $username, $email, $date, $time);
+                            fputcsv($f, $login_data, ";");
+    
+                            fclose($f);
 
-                        $e = fopen("../data/temp/tempuser.txt", "w");
-                        fwrite($e, $username . "\t" . $email);
-                        fclose($e);
+                            $e = fopen("../data/temp/tempuser.txt", "w");
+                            fwrite($e, $username . "\t" . $email);
+                            fclose($e);
 
-                        echo '<div id="forum-section"><div class="thread-add">
+                            echo '<div id="forum-section"><div class="thread-add">
                             <h1>Eintrag erstellen</h1>
                             <div class="thread-add-submit">
                             <form method="post" action="forum.php" name="form" id="form">
@@ -98,12 +128,14 @@
                                 <input type="submit" value="hochladen" name="thread" class="btn">
                             </form>
                             </div></div>';
+                        }
                     }
                 }
 
                 if(isset($_POST['thread']))
                 {
                     $eintrag = htmlspecialchars($_POST['eintrag']);
+                    $date = date('d.m.y');
 
                     $e = fopen("../data/temp/tempuser.txt", "r");
 
@@ -114,7 +146,7 @@
                     fclose($e);
 
                     $f = fopen("../data/forum-data/threads.csv", "a");
-                    $data = array($user, $mail, $eintrag);
+                    $data = array($user, $eintrag, $date, $mail);
                     fputcsv($f, $data, ";");
                     fclose($f);
                     echo '<center><div class="success-box">';
@@ -128,7 +160,10 @@
 
 <!-- ToDo: On login, show class="thread-add", umfrage.php -->
 </div>
-    <div id="forum-section">
+<?php
+    
+
+    echo '<div id="forum-section">
         <div class="thread-box">
             <div class="user">
                 Darko Pizdun<br>
@@ -143,37 +178,8 @@ PHP unterscheidet sich von clientseitigen Sprachen wie Javascript dadurch, dass 
             </div>
             <button>Antworten</button>
         </div>
-
-        <div class="thread-box">
-            <div class="user">
-                Max Mustermann<br>
-            </div>
-            <div class="thread-date">
-                10.11.2021<br>
-            </div>
-            <div class="thread">
-            Anstatt ein Programm mit vielen Anweisungen zur Ausgabe von HTML zu schreiben, schreibt man etwas HTML und bettet einige Anweisungen ein, die irgendetwas tun (wie hier "Hallo, ich bin ein PHP-Skript!" auszugeben). Der PHP-Code steht zwischen speziellen Anfangs- und Abschluss-Verarbeitungsinstruktionen, mit denen man in den "PHP-Modus" und zurück wechseln kann.
-
-PHP unterscheidet sich von clientseitigen Sprachen wie Javascript dadurch, dass der Code auf dem Server ausgeführt wird und dort HTML-Ausgaben generiert, die an den Client gesendet werden. Der Client erhält also nur das Ergebnis der Skriptausführung, ohne dass es möglich ist herauszufinden, wie der eigentliche Code aussieht. Sie können Ihren Webserver auch anweisen, alle Ihre HTML-Dateien mit PHP zu parsen, denn dann gibt es wirklich nichts, das dem Benutzer sagt, was Sie in petto haben.
-            </div>
-            <button>Antworten</button>
-        </div>
-
-        <div class="thread-box">
-            <div class="user">
-                Babura Zlivaca<br>
-            </div>
-            <div class="thread-date">
-                10.11.2021<br>
-            </div>
-            <div class="thread">
-            Anstatt ein Programm mit vielen Anweisungen zur Ausgabe von HTML zu schreiben, schreibt man etwas HTML und bettet einige Anweisungen ein, die irgendetwas tun (wie hier "Hallo, ich bin ein PHP-Skript!" auszugeben). Der PHP-Code steht zwischen speziellen Anfangs- und Abschluss-Verarbeitungsinstruktionen, mit denen man in den "PHP-Modus" und zurück wechseln kann.
-
-PHP unterscheidet sich von clientseitigen Sprachen wie Javascript dadurch, dass der Code auf dem Server ausgeführt wird und dort HTML-Ausgaben generiert, die an den Client gesendet werden. Der Client erhält also nur das Ergebnis der Skriptausführung, ohne dass es möglich ist herauszufinden, wie der eigentliche Code aussieht. Sie können Ihren Webserver auch anweisen, alle Ihre HTML-Dateien mit PHP zu parsen, denn dann gibt es wirklich nichts, das dem Benutzer sagt, was Sie in petto haben.
-            </div>
-            <button>Antworten</button>
-        </div>
-    </div>
+    </div>';
+?>
 
     <div id="footer">
         hallo

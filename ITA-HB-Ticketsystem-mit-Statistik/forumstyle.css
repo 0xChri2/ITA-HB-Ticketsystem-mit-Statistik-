@@ -152,6 +152,11 @@ a:hover
     user-select: none;
 }
 
+#info-box #error-box
+{
+  background-color: rgba(0, 0, 255, 0.703);
+}
+
 .success-box {
     background-color: #659218d0;
     color: white;

@@ -92,15 +92,19 @@
                             }
                             else
                             {
-                                echo '<div id="error-box"><b>Fehler!</b> Prüfen Sie die Daten oder<br> <a href="Ticketsystem.php">erstellen sie ein Ticket HIER</a></div>';
+                                echo '<div id="error-box"><b>Fehler!</b> Prüfen Sie die Daten oder <a href="Ticketsystem.php">erstellen sie ein Ticket HIER</a></div>';
                             }
                         }
                         fclose($s);
 
+                        /*
+                            Beim Erstellen von Ticket, email & username in users.csv speichern+
+                        */
+
                         if($logged == true)
                         {
                             echo '<center><div class="success-box">';
-                            echo 'ERFOLG!<br> Drücken Sie  <b><a href="#threads">HIER</a></b> um Threads zu lesen';
+                            echo 'ERFOLG!<br> Drücken Sie  <b><a href="#eintrag">HIER</a></b> für das Schreiben';
                             echo '</center></div></div>';
 
                             $f = fopen("../data/forum-data/login-time.csv", "a+");
@@ -120,14 +124,14 @@
                             fwrite($e, $username . "\t" . $email);
                             fclose($e);
 
-                            echo '<div id="forum-section"><div class="thread-add">
+                            echo '<section id="eintrag"><div id="forum-section"><div class="thread-add">
                             <h1>Eintrag erstellen</h1>
                             <div class="thread-add-submit">
                             <form method="post" action="forum.php" name="form" id="form">
                                 <textarea name="eintrag" placeholder="HIER EINTIPPEN..."></textarea>
                                 <input type="submit" value="hochladen" name="thread" class="btn">
                             </form>
-                            </div></div>';
+                            </div></div></section>';
                         }
                     }
                 }
@@ -144,9 +148,9 @@
                     $mail = substr($textline, strpos($textline, "\t"));
 
                     fclose($e);
-
+                    //WORK WITH TIMESTAMPS HERE
                     $f = fopen("../data/forum-data/threads.csv", "a");
-                    $data = array($user, $eintrag, $date, $mail);
+                    $data = array($user, $eintrag, $date, time() / 60 / 60, $mail);
                     fputcsv($f, $data, ";");
                     fclose($f);
                     echo '<center><div class="success-box">';
@@ -158,25 +162,37 @@
                 }
             ?>
 
-<!-- ToDo: On login, show class="thread-add", umfrage.php -->
+<!-- ToDo: show $thread_timestamp_info only in hour of the day -->
 </div>
 <?php
-    
+    $today = time();
+    $thread_timestamp = time() - time();
+    $thread_timestamp_info = "";
+
+    if($thread_timestamp == 0)
+    {
+        $thread_timestamp_info = "~ vor ein paar Sekunden";
+    }
 
     echo '<div id="forum-section">
         <div class="thread-box">
+            <img src="../pictures/profile.jpg" alt="profile" class="user-picture">
             <div class="user">
-                Darko Pizdun<br>
+                Darko Pizdun
             </div>
+
+            <div class="thread-timestamp">' .
+                 $thread_timestamp_info . '<br><br>
+            </div>
+
             <div class="thread-date">
-                10.11.2021<br>
+                10.11.2021
             </div>
             <div class="thread">
             Anstatt ein Programm mit vielen Anweisungen zur Ausgabe von HTML zu schreiben, schreibt man etwas HTML und bettet einige Anweisungen ein, die irgendetwas tun (wie hier "Hallo, ich bin ein PHP-Skript!" auszugeben). Der PHP-Code steht zwischen speziellen Anfangs- und Abschluss-Verarbeitungsinstruktionen, mit denen man in den "PHP-Modus" und zurück wechseln kann.
 
 PHP unterscheidet sich von clientseitigen Sprachen wie Javascript dadurch, dass der Code auf dem Server ausgeführt wird und dort HTML-Ausgaben generiert, die an den Client gesendet werden. Der Client erhält also nur das Ergebnis der Skriptausführung, ohne dass es möglich ist herauszufinden, wie der eigentliche Code aussieht. Sie können Ihren Webserver auch anweisen, alle Ihre HTML-Dateien mit PHP zu parsen, denn dann gibt es wirklich nichts, das dem Benutzer sagt, was Sie in petto haben.
             </div>
-            <button>Antworten</button>
         </div>
     </div>';
 ?>

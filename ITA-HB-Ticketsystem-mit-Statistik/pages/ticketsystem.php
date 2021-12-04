@@ -74,6 +74,12 @@
 			if(isset($_POST['Senden'])==true)
 			{			
 				//countsenden
+				$pfad = "../data/ticketsystem/";
+				$datei = "sendcount.txt";
+				$zeiger = fopen($pfad.$datei,"r");
+				$send = fgets($zeiger);
+				fclose($zeiger);
+				
 				$send = $send + 1;
 				$pfad = "../data/ticketsystem";
 				$datei = "sendcount.txt";

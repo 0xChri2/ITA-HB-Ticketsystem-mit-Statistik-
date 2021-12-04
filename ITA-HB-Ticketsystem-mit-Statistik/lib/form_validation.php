@@ -196,7 +196,8 @@
     }
 
     function field_vorname($vorname, &$fehler_nachricht)
-    {
+    {   
+        $success = 1;
         if($vorname=="")
 		{
 				$success = 0;
@@ -207,6 +208,7 @@
 
     function field_nachname($nachname, &$fehler_nachricht)
     {
+        $success = 1;
         if($nachname=="")
 		{
 				$success = 0;
@@ -216,7 +218,8 @@
     }
 
     function field_phonenumber($telefon, &$fehler_nachricht)
-    {
+    {   
+        $success = 1;
         if($telefon=="")
 		{
 		    $success = 0;

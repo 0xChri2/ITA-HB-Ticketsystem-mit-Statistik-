@@ -150,7 +150,7 @@
                     fclose($e);
                     //WORK WITH TIMESTAMPS HERE
                     $f = fopen("../data/forum-data/threads.csv", "a");
-                    $data = array($user, $eintrag, $date, time() / 60 / 60, $mail);
+                    $data = array($user, $eintrag, $date, (time() / 60 / 60), $mail);
                     fputcsv($f, $data, ";");
                     fclose($f);
                     echo '<center><div class="success-box">';
@@ -178,7 +178,7 @@
         <div class="thread-box">
             <img src="../pictures/profile.jpg" alt="profile" class="user-picture">
             <div class="user">
-                Darko Pizdun
+                2021-12-01-08:56-MUS-MAX-679
             </div>
 
             <div class="thread-timestamp">' .

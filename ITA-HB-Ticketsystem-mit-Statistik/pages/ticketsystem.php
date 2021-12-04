@@ -11,7 +11,7 @@
 
 <body bgcolor="#101010">
 
-        <div id="heading">
+        <!--<div id="heading">
             <h1> Maurer </h1>
 
 
@@ -32,42 +32,46 @@
                 
             </ul>
         </div>
-        <div id="banner">
-        </div>
-        <div id="article">
+        <div id="article">-->
 
 		<?php 
 			//if(isset($_POST['Senden'])==0)
 			//{
 		?>
-
-        <form action="" method="post">
-		<div class="headline"><h1><u>Maurer</u></h1></div>
-		<div class="form">
-			<center>	
-			<p>
-				Anrede <select name="Anrede" size="1" value="<?php echo $_POST['Anrede'] ?>">
-				<option>Herr</option>
-				<option>Frau</option>
-				</select>
-				<br /><br />
-				<h3>Vorname: <input type="text" name="vorname"  <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['vorname']. '"';} else {echo "placeholder='Max'";} ?> /></h3>
-				<h3>Nachname: <input type="text" name="nachname" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['nachname']. '"';} else {echo "placeholder='Mustermann'";} ?>/></h3>   
-				<h3>Telefon: <input type="tel" size="16" name="telefon"<?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['telefon']. '"';} else {echo "placeholder='+12345678'";} ?> require/></h3>
-				<h3>E-Mail: <input type="text" name="e-mail" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['e-mail']. '"';} else {echo "placeholder='Muster.mail@mail.com'";} ?>/></h3>
-				<h3>Nachricht</h3>
-				<textarea name="message" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['message']. '"';} else {echo "placeholder='Malen Sie bitte alle Wände in Weiß an.'";} ?>cols="50" rows="10" require> 
-				</textarea>
-				
-			<hr />
-			<input type="submit" name="Senden" value="Anfrage abschicken!"/>
-			<input type="reset"/>
-			<input type="submit" name="Logdata" value="Log Datei"/>
-			</p>
-			</center>
-		</div>
-        </form>
 		
+		<div class="formbackground">
+		<a href="../index.php"><img src="../pictures/chris-industriesscaled.png" class="img"/></a>
+		<div class="form">
+			<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+				<div class="headline"><h1>Anmeldung</h1></div>	
+						<div class="salutation">
+							<div class="mr">
+							<input type="radio" name="Anrede">Herr</input>
+							</div>
+							<div class="mrs">
+							<input type="radio" name="Anrede">Frau</input>
+							</div>
+						</div>
+						<br /> <br/ > 
+						<h3>Vorname  <input type="text" name="vorname"/></h3>
+						<h3>Nachname <input type="text" name="nachname" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['nachname']. '"';} else {echo "placeholder='Mustermann'";} ?>/></h3>   
+						<h3>Telefon  <input type="tel" size="16" name="telefon"<?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['telefon']. '"';} else {echo "placeholder='+12345678'";} ?> require/></h3>
+						<h3>E-Mail   <input type="text" name="e-mail" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['e-mail']. '"';} else {echo "placeholder='Muster.mail@mail.com'";} ?>/></h3>
+						<h3>Nachricht</h3>
+						<textarea name="message" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['message']. '"';} else {echo "placeholder='Malen Sie bitte alle Wände in Weiß an.'";} ?>cols="50" rows="10" require> 
+						</textarea>
+						<br />
+					
+					
+						<input type="submit" name="Senden" value="Senden" class="btn"/>
+						<input type="reset"/>
+						<input type="submit" name="Logdata" value="Log Datei" class="logdata"/>
+				</div>	
+		
+					
+				
+			</form>
+		</div>
 		<?php
 			include "../lib/phpqrcode/qrlib.php";
 			include "../lib/form_validation.php";
@@ -78,9 +82,10 @@
 				$datei = "sendcount.txt";
 				$zeiger = fopen($pfad.$datei,"r");
 				$send = fgets($zeiger);
+				$sendarray = explode("\t",$send);
 				fclose($zeiger);
-				
-				$send = $send + 1;
+
+				$send = $sendarray[0] + 1;
 				$pfad = "../data/ticketsystem";
 				$datei = "sendcount.txt";
 				$message = $send ."\t";
@@ -92,7 +97,6 @@
 				$error = false;
 				$fehler_nachricht=array();
 			
-
 				//vorname
 				$vorname = trim($_POST['vorname']);
 				if(field_vorname($vorname, $fehler_nachricht) == 0)
@@ -235,10 +239,11 @@
 			$datei = "usercount.txt";
 			$zeiger = fopen($pfad.$datei,"r");
 			$usercount = fgets($zeiger);
+			$usercountarray = explode("\t",$usercount);
 			fclose($zeiger);
 
 			//BeucherGesamt write
-			$usercount = $usercount + 1;
+			$usercount = $usercountarray[0] + 1;
 			$message = $usercount ."\t";
 			$zeiger = fopen($pfad.$datei,"w");
 			fputs($zeiger,$message);
@@ -268,15 +273,16 @@
 				//Besucher per day write
 				$pfad = "../data/ticketsystem/";
 				$datei = "useraday.txt";
-				$useraday = $useraday + 1;
-				$message = $today ."\t". $useraday. "\n";
+				$useradayold = explode("\t",$useraday);
+				$useradaynew = intval($useraday[1]) + 1;
+				$message = $today ."\t". $useradaynew. "\n";
 				$zeiger = fopen($pfad.$datei,"w+");
 				fputs($zeiger,$message);
 				fclose($zeiger);
 
 
-			//Besucher per week
-			$month = date("m",time());
+				//Besucher per week
+				$month = date("m",time());
 
 				//Besucher per week read
 				$pfad = "../data/ticketsystem/";
@@ -292,11 +298,12 @@
 					$useraweek = 0;
 				}
 				
-				//Besucher per day write
+				//Besucher per week write
+				$useraweekold = explode("\t",$useraweek);
 				$pfad = "../data/ticketsystem/";
 				$datei = "useraweek.txt";
-				$useraweek = $useraweek + 1;
-				$message = $today ."\t". $useraweek. "\n";
+				$useraweeknew = intval($useraweekold[1]) + 1;
+				$message = $today ."\t". $useraweeknew. "\n";
 				$zeiger = fopen($pfad.$datei,"w+");
 				fputs($zeiger,$message);
 				fclose($zeiger);
@@ -306,10 +313,11 @@
 
         </div>
 
-
+		<!--
        <div id="footer">
               <a href="Impressum.php">Impressum</a> | <a href="Kontakte.php"> Kontakt </a>
-        </div>
+        </div>-->
+		<?php //if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['vorname']. '"';} else {echo "placeholder='Max'";} ?>
 
    
 </body>

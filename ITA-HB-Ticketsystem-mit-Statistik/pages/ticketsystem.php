@@ -71,7 +71,7 @@
 					
 				
 			</form>
-		</div>
+		
 		<?php
 			include "../lib/phpqrcode/qrlib.php";
 			include "../lib/form_validation.php";
@@ -208,7 +208,7 @@
 					{	
 
 						echo'<center><table border = "3">';
-						echo"<td><u><b>Varname</u></b></td>";
+						echo"<td><u><b>Vorname</u></b></td>";
 						echo"<td><u><b>Nachname</u></b></td>";
 						echo"<td><u><b>Telefon</u></b></td>";
 						echo"<td><u><b>E-Mail</u></b></td>";
@@ -312,7 +312,7 @@
 
 
         </div>
-
+		</div>
 		<!--
        <div id="footer">
               <a href="Impressum.php">Impressum</a> | <a href="Kontakte.php"> Kontakt </a>

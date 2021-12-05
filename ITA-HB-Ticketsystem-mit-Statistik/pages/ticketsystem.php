@@ -10,34 +10,6 @@
 	</head>
 
 <body bgcolor="#101010">
-
-        <!--<div id="heading">
-            <h1> Maurer </h1>
-
-
-        </div>
-        <div id="menu">
-            <ul>
-                <li class="topmenu">
-                    <a href=""><img src="../pictures/Drei Striche.png" alt="Drei Striche"/></a>
-                    
-					<ul>
-					<li class="submenu"><a href="../index.php">Startseite</a></li>
-						<li class="submenu"><a href="ticketsystem.php">Ticketsystem</a></li>
-						<li class="submenu"><a href="forum.php">Forum</a></li>
-						<li class="submenu"><a href="umfrage.php">Umfrage</a></li>
-						<li class="submenu"><a href="statistik.php">Statistik</a></li>
-                    </ul>
-                </li>
-                
-            </ul>
-        </div>
-        <div id="article">-->
-
-		<?php 
-			//if(isset($_POST['Senden'])==0)
-			//{
-		?>
 		
 		<div class="formbackground">
 		<a href="../index.php"><img src="../pictures/chris-industriesscaled.png" class="img"/></a>
@@ -317,12 +289,6 @@
 
         </div>
 		</div>
-		<!--
-       <div id="footer">
-              <a href="Impressum.php">Impressum</a> | <a href="Kontakte.php"> Kontakt </a>
-        </div>-->
-		<?php //if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['vorname']. '"';} else {echo "placeholder='Max'";} ?>
-
    
 </body>
 </html>

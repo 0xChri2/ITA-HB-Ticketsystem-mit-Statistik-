@@ -116,14 +116,16 @@
                 }
 
                 $punkt = strpos($email, '@');
-                if ($email[$punkt - 1] == '.')
+                $punkt = $punkt  - 1;
+                if ($email[$punkt] == '.')
                 {
                     $fehler_nachricht[] = "Neben einem '@' darf kein '.' vorkommen"; 
                     $success = 0;
                 }
 
                 $et = strpos($email, '.');
-                if ($email[$et - 1] == '@')
+                $et = $et -1;
+                if ($email[$et] == '@')
                 {
                     $fehler_nachricht[] = "Neben einem '@' darf kein '.' vorkommen"; 
                     $success = 0;
@@ -252,7 +254,7 @@
 
         if(strlen($telefon) <= 12)
         {
-            $succes = 0;
+            $success = 0;
             $fehler_nachricht[]="Ihre Telefonnummer ist zu kurz.";
         }
         

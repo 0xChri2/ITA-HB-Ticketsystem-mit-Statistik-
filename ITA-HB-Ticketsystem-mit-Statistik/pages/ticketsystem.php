@@ -46,10 +46,10 @@
 				<div class="headline"><h1>Anmeldung</h1></div>	
 						<div class="salutation">
 							<div class="mr">
-							<input type="radio" name="Anrede">Herr</input>
+							<input type="radio" name="Anrede" value="Herr" required>Herr</input>
 							</div>
 							<div class="mrs">
-							<input type="radio" name="Anrede">Frau</input>
+							<input type="radio" name="Anrede" value="Frau" required>Frau</input>
 							</div>
 						</div>
 						<br /> <br/ > 
@@ -96,7 +96,11 @@
 				//error message 
 				$error = false;
 				$fehler_nachricht=array();
-			
+				
+				//Anrede 
+				$anrede = $_POST['Anrede'];
+				
+
 				//vorname
 				$vorname = trim($_POST['vorname']);
 				if(field_vorname($vorname, $fehler_nachricht) == 0)
@@ -146,10 +150,10 @@
 				
 
 					//success message
-					$anrede = $_POST['Anrede'];
+					
 					if($error == false)
 					{
-						echo"<br /><br /><div class='centertext'><h2> Vielen Dank, ". $_POST['Anrede'] . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
+						echo"<br /><br /><div class='centertext'><h2> Vielen Dank, ". $anrede . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
 						echo "<h4>Wenn Sie fragen oder Probleme haben Kontakieren sie uns über +49 12345678</h4>";
 						echo"<br /><h3>Ihre Nachricht an uns ist: <br />".$message."</h3>";
 						echo"<br /><h3>Ihre Name ist: ".$vorname." ".$nachname."</h3>";
@@ -274,7 +278,7 @@
 				$pfad = "../data/ticketsystem/";
 				$datei = "useraday.txt";
 				$useradayold = explode("\t",$useraday);
-				$useradaynew = intval($useraday[1]) + 1;
+				$useradaynew = intval($useradayold[1]) + 1;
 				$message = $today ."\t". $useradaynew. "\n";
 				$zeiger = fopen($pfad.$datei,"w+");
 				fputs($zeiger,$message);

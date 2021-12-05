@@ -12,6 +12,29 @@
         scroll-behavior: smooth;
     }
 
+    .formbackground 
+    {
+        background: url(pictures/forumbg.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        position: relative;
+        text-align: center;
+        padding-top: 15%;
+        padding-bottom: 50%;
+        margin: -8px;
+    }
+
+    .formbackground .img
+    {
+        width: 5%;
+        float: left;
+        position: absolute;
+        left: 10px;
+        top:5px;
+    }
+
     .form
     {
         background-color: rgba(0, 0, 0, 0.9);
@@ -38,14 +61,6 @@
         color: white;
     }
 
-    .formbackground .img
-    {
-        width: 5%;
-        float: left;
-        position: absolute;
-        left: 10px;
-        top:5px;
-    }
     .salutation .mr 
     {
         float: left;
@@ -56,14 +71,6 @@
         float: right;
     }
 
-    .from input:focus
-    { 
-        border:none;
-        outline:none;
-        border:solid 1px #e74c3c;
-    }
-     
-
     .form input
     { 
         border: solid 1px rgb(255, 255, 255);
@@ -72,11 +79,18 @@
         padding:8px 0 5px 0;
         font-size:16px;
         color:#fff;
-      }
+    }
+
+      .from input:focus
+    { 
+        border:solid 1px #e74c3c;
+        width: 100%;
+    }
+
       .form textarea
     { 
         color:#fff;
-        border: solid 1px rgb(255, 255, 255);
+        border:1px solid rgb(255, 255, 255);
         background:transparent;
         width:100%;
         padding:8px 0 5px 0;
@@ -88,7 +102,7 @@
       { 
        border:none;
        outline:none;
-       border:solid 1px #e74c3c;
+       border:1px solid #e74c3c;
       }
 
     .form label
@@ -97,36 +111,27 @@
         color:#fff;
     }
 
-    .form input[type ="text"]
+    /*.form input[type ="text"]
     {
         width: 100%;
+        border: 1px solid rgb(255, 255, 255);
         
     }
 
     .form input[type="tel"]
     {
         width: 100%;
-    }
+        border: 1px solid rgb(255, 255, 255);
+    }*/
     
     .form textarea
     {
         width: 100%;
         color: whitesmoke;
+        border: 1px solid rgb(255, 255, 255);
     }
     
-    .formbackground 
-    {
-        background: url(pictures/forumbg.jpg) no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        position: relative;
-        text-align: center;
-        padding-top: 15%;
-        padding-bottom: 50%;
-        margin: -8px;
-    }
+    
 
     .form .btn{
         color:#fff;

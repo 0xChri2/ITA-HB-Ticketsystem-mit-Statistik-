@@ -73,8 +73,8 @@
 			</form>
 		
 		<?php
-			include "../lib/phpqrcode/qrlib.php";
-			include "../lib/form_validation.php";
+			include ("../lib/phpqrcode/qrlib.php");
+			include ("../lib/form_validation.php");
 			if(isset($_POST['Senden'])==true)
 			{			
 				//countsenden
@@ -194,7 +194,7 @@
 	
 						//qrcode
 						$qrlink = "../data/ticketsystem/qrcode/".$TicketNr.".png";
-						QRcode::png($messagelog, $qrlink, 'L', 4, 2);
+						QRcode::png($messagelog, $qrlink, 'Q', 4, 2);
 					}					
 
 				

@@ -125,7 +125,7 @@
 					
 					if($error == false)
 					{
-						echo"<br /><br /><div class='centertext'><h2> Vielen Dank, ". $anrede . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
+						echo"<div class='form'><br /><br /><div class='centertext'><h2> Vielen Dank, ". $anrede . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
 						echo "<h4>Wenn Sie fragen oder Probleme haben Kontakieren sie uns über +49 12345678</h4>";
 						echo"<br /><h3>Ihre Nachricht an uns ist: <br />".$message."</h3>";
 						echo"<br /><h3>Ihre Name ist: ".$vorname." ".$nachname."</h3>";
@@ -141,7 +141,7 @@
 						$zeiger = fopen($pfad.$file,"r");
 						$dieseZeile = fgets($zeiger,4096);
 						$zeilenarray = explode("\t",$dieseZeile);
-						echo'<br /><br /><div class="centertext"><h2>Ticket Nummer:<br />'.$year.'.'.$zeilenarray[0].'</h2></div>';
+						echo'<br /><br /><div class="centertext"><h2>Ticket Nummer:<br />'.$year.'.'.$zeilenarray[0].'</h2></div></div>';
 						fclose($zeiger);
 						$TicketNr = $zeilenarray[0];
 
@@ -155,6 +155,10 @@
 						fputs($zeiger,$messagelog);
 						fclose($zeiger);	
 
+						//qrcode
+						$qrlink = "../data/ticketsystem/qrcode/".$TicketNr.".png";
+						QRcode::png($messagelog, $qrlink, 'Q', 4, 2);
+
 						//Write Ticket
 						$pfad = "../data/ticketsystem/";
 						$file = "ticket.docx";
@@ -164,9 +168,7 @@
 						fputs($zeiger,$messageticket);
 						fclose($zeiger);
 	
-						//qrcode
-						$qrlink = "../data/ticketsystem/qrcode/".$TicketNr.".png";
-						QRcode::png($messagelog, $qrlink, 'Q', 4, 2);
+						
 					}					
 
 				

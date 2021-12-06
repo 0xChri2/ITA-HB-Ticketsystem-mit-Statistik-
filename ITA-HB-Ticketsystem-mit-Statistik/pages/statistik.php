@@ -9,7 +9,9 @@
 
         <body bgcolor="#101010">
        <div class="formbackground">
+       <a href="../index.php"><img src="../pictures/chris-industriesscaled.png" class="img"/></a>
            <div class="stats">
+               
             <h1> Statistik </h1>
       
         <!--<div id="menu">

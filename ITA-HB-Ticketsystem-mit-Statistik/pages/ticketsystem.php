@@ -113,7 +113,7 @@
 					//error message
 					if($error == true)
 					{
-						echo"<div class='centertext'><h1>Fehlermeldung</h1></div><br/>";
+						echo"<div class='output'><div class='centertext'><h1>Fehlermeldung</h1></div><br/>";
 					}
 					foreach ($fehler_nachricht as $fehler)
 					{		
@@ -125,7 +125,7 @@
 					
 					if($error == false)
 					{
-						echo"<div class='form'><br /><br /><div class='centertext'><h2> Vielen Dank, ". $anrede . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
+						echo"<div class='output'><br /><br /><div class='centertext'><h2> Vielen Dank, ". $anrede . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
 						echo "<h4>Wenn Sie fragen oder Probleme haben Kontakieren sie uns über +49 12345678</h4>";
 						echo"<br /><h3>Ihre Nachricht an uns ist: <br />".$message."</h3>";
 						echo"<br /><h3>Ihre Name ist: ".$vorname." ".$nachname."</h3>";
@@ -184,8 +184,8 @@
 					$zeiger = fopen($pfad.$file,"r");
 					if($zeiger)
 					{	
-
-						echo'<center><table border = "3">';
+					
+						echo'<div class="output"><center><table border = "3">';
 						echo"<td><u><b>Vorname</u></b></td>";
 						echo"<td><u><b>Nachname</u></b></td>";
 						echo"<td><u><b>Telefon</u></b></td>";
@@ -206,7 +206,7 @@
 							echo'</tr>';	
 						}
 						
-						echo'</table></center><br />';
+						echo'</table></center><br /></div>';
 						fclose($zeiger);
 				
 				}

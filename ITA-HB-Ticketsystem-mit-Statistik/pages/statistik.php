@@ -8,10 +8,13 @@
     </header>
 
         <body bgcolor="#101010">
-        <div id="heading">
+       <div class="formbackground">
+       <a href="../index.php"><img src="../pictures/chris-industriesscaled.png" class="img"/></a>
+           <div class="stats">
+               
             <h1> Statistik </h1>
-        </div>
-        <div id="menu">
+      
+        <!--<div id="menu">
             <ul>
                 <li class="topmenu">
                     <a href=""><img src="../pictures/Drei Striche.png" alt="Drei Striche"/></a>
@@ -26,7 +29,7 @@
                 </li>
             </ul>
         </div>
-        <br />
+        <br />-->
 
         <?php 
         //Besuchergesamt
@@ -71,7 +74,8 @@
         echo"<h3>Besucherzahl pro Woche: ".$useraweek."</h3>"
 
         ?>
-       
+         </div>
+        </div>
         </body>
 
 

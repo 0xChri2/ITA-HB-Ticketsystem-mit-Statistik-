@@ -10,67 +10,43 @@
 	</head>
 
 <body bgcolor="#101010">
-
-        <div id="heading">
-            <h1> Maurer </h1>
-
-
-        </div>
-        <div id="menu">
-            <ul>
-                <li class="topmenu">
-                    <a href=""><img src="../pictures/Drei Striche.png" alt="Drei Striche"/></a>
-                    
-					<ul>
-					<li class="submenu"><a href="../index.php">Startseite</a></li>
-						<li class="submenu"><a href="ticketsystem.php">Ticketsystem</a></li>
-						<li class="submenu"><a href="forum.php">Forum</a></li>
-						<li class="submenu"><a href="umfrage.php">Umfrage</a></li>
-						<li class="submenu"><a href="statistik.php">Statistik</a></li>
-                    </ul>
-                </li>
-                
-            </ul>
-        </div>
-        <div id="banner">
-        </div>
-        <div id="article">
-
-		<?php 
-			//if(isset($_POST['Senden'])==0)
-			//{
-		?>
-
-        <form action="" method="post">
-		<div class="headline"><h1><u>Maurer</u></h1></div>
+		
+		<div class="formbackground">
+		<a href="../index.php"><img src="../pictures/chris-industriesscaled.png" class="img"/></a>
 		<div class="form">
-			<center>	
-			<p>
-				Anrede <select name="Anrede" size="1" value="<?php echo $_POST['Anrede'] ?>">
-				<option>Herr</option>
-				<option>Frau</option>
-				</select>
-				<br /><br />
-				<h3>Vorname: <input type="text" name="vorname"  <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['vorname']. '"';} else {echo "placeholder='Max'";} ?> /></h3>
-				<h3>Nachname: <input type="text" name="nachname" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['nachname']. '"';} else {echo "placeholder='Mustermann'";} ?>/></h3>   
-				<h3>Telefon: <input type="tel" size="16" name="telefon"<?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['telefon']. '"';} else {echo "placeholder='+12345678'";} ?> require/></h3>
-				<h3>E-Mail: <input type="text" name="e-mail" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['e-mail']. '"';} else {echo "placeholder='Muster.mail@mail.com'";} ?>/></h3>
-				<h3>Nachricht</h3>
-				<textarea name="message" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['message']. '"';} else {echo "placeholder='Malen Sie bitte alle Wände in Weiß an.'";} ?>cols="50" rows="10" require> 
-				</textarea>
+			<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+				<div class="headline"><h1>Anmeldung</h1></div>	
+						<div class="salutation">
+							<div class="mr">
+							<input type="radio" name="Anrede" value="Herr" required>Herr</input>
+							</div>
+							<div class="mrs">
+							<input type="radio" name="Anrede" value="Frau" required>Frau</input>
+							</div>
+						</div>
+						<br /> <br/ > 
+						<h3>Vorname  <input type="text" name="vorname"/></h3>
+						<h3>Nachname <input type="text" name="nachname" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['nachname']. '"';} else {echo "placeholder='Mustermann'";} ?>/></h3>   
+						<h3>Telefon  <input type="tel" size="16" name="telefon"<?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['telefon']. '"';} else {echo "placeholder='+12345678'";} ?> require/></h3>
+						<h3>E-Mail   <input type="text" name="e-mail" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['e-mail']. '"';} else {echo "placeholder='Muster.mail@mail.com'";} ?>/></h3>
+						<h3>Nachricht</h3>
+						<textarea name="message" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['message']. '"';} else {echo "placeholder='Malen Sie bitte alle Wände in Weiß an.'";} ?>cols="50" rows="10" require> 
+						</textarea>
+						<br />
+					
+					
+						<input type="submit" name="Senden" value="Senden" class="btn"/>
+						<input type="reset"/>
+						<input type="submit" name="Logdata" value="Log Datei" class="logdata"/>
+				</div>	
+		
+					
 				
-			<hr />
-			<input type="submit" name="Senden" value="Anfrage abschicken!"/>
-			<input type="reset"/>
-			<input type="submit" name="Logdata" value="Log Datei"/>
-			</p>
-			</center>
-		</div>
-        </form>
+			</form>
 		
 		<?php
-			include "../lib/phpqrcode/qrlib.php";
-			include "../lib/form_validation.php";
+			include ("../lib/phpqrcode/qrlib.php");
+			include ("../lib/form_validation.php");
 			if(isset($_POST['Senden'])==true)
 			{			
 				//countsenden
@@ -92,7 +68,10 @@
 				//error message 
 				$error = false;
 				$fehler_nachricht=array();
-			
+				
+				//Anrede 
+				$anrede = $_POST['Anrede'];
+				
 
 				//vorname
 				$vorname = trim($_POST['vorname']);
@@ -134,7 +113,7 @@
 					//error message
 					if($error == true)
 					{
-						echo"<div class='centertext'><h1>Fehlermeldung</h1></div><br/>";
+						echo"<div class='output'><div class='centertext'><h1>Fehlermeldung</h1></div><br/>";
 					}
 					foreach ($fehler_nachricht as $fehler)
 					{		
@@ -143,10 +122,10 @@
 				
 
 					//success message
-					$anrede = $_POST['Anrede'];
+					
 					if($error == false)
 					{
-						echo"<br /><br /><div class='centertext'><h2> Vielen Dank, ". $_POST['Anrede'] . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
+						echo"<div class='output'><br /><br /><div class='centertext'><h2> Vielen Dank, ". $anrede . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
 						echo "<h4>Wenn Sie fragen oder Probleme haben Kontakieren sie uns über +49 12345678</h4>";
 						echo"<br /><h3>Ihre Nachricht an uns ist: <br />".$message."</h3>";
 						echo"<br /><h3>Ihre Name ist: ".$vorname." ".$nachname."</h3>";
@@ -162,7 +141,7 @@
 						$zeiger = fopen($pfad.$file,"r");
 						$dieseZeile = fgets($zeiger,4096);
 						$zeilenarray = explode("\t",$dieseZeile);
-						echo'<br /><br /><div class="centertext"><h2>Ticket Nummer:<br />'.$year.'.'.$zeilenarray[0].'</h2></div>';
+						echo'<br /><br /><div class="centertext"><h2>Ticket Nummer:<br />'.$year.'.'.$zeilenarray[0].'</h2></div></div>';
 						fclose($zeiger);
 						$TicketNr = $zeilenarray[0];
 
@@ -176,6 +155,10 @@
 						fputs($zeiger,$messagelog);
 						fclose($zeiger);	
 
+						//qrcode
+						$qrlink = "../data/ticketsystem/qrcode/".$TicketNr.".png";
+						QRcode::png($messagelog, $qrlink, 'Q', 4, 2);
+
 						//Write Ticket
 						$pfad = "../data/ticketsystem/";
 						$file = "ticket.docx";
@@ -185,9 +168,7 @@
 						fputs($zeiger,$messageticket);
 						fclose($zeiger);
 	
-						//qrcode
-						$qrlink = "../data/ticketsystem/qrcode/".$TicketNr.".png";
-						QRcode::png($messagelog, $qrlink, 'L', 4, 2);
+						
 					}					
 
 				
@@ -203,9 +184,9 @@
 					$zeiger = fopen($pfad.$file,"r");
 					if($zeiger)
 					{	
-
-						echo'<center><table border = "3">';
-						echo"<td><u><b>Varname</u></b></td>";
+					
+						echo'<div class="output"><center><table border = "3">';
+						echo"<td><u><b>Vorname</u></b></td>";
 						echo"<td><u><b>Nachname</u></b></td>";
 						echo"<td><u><b>Telefon</u></b></td>";
 						echo"<td><u><b>E-Mail</u></b></td>";
@@ -225,7 +206,7 @@
 							echo'</tr>';	
 						}
 						
-						echo'</table></center><br />';
+						echo'</table></center><br /></div>';
 						fclose($zeiger);
 				
 				}
@@ -271,7 +252,7 @@
 				$pfad = "../data/ticketsystem/";
 				$datei = "useraday.txt";
 				$useradayold = explode("\t",$useraday);
-				$useradaynew = $useraday[1] + 1;
+				$useradaynew = intval($useradayold[1]) + 1;
 				$message = $today ."\t". $useradaynew. "\n";
 				$zeiger = fopen($pfad.$datei,"w+");
 				fputs($zeiger,$message);
@@ -299,7 +280,7 @@
 				$useraweekold = explode("\t",$useraweek);
 				$pfad = "../data/ticketsystem/";
 				$datei = "useraweek.txt";
-				$useraweeknew = intval($useraweekold[1])	+ 1;
+				$useraweeknew = intval($useraweekold[1]) + 1;
 				$message = $today ."\t". $useraweeknew. "\n";
 				$zeiger = fopen($pfad.$datei,"w+");
 				fputs($zeiger,$message);
@@ -309,12 +290,8 @@
 
 
         </div>
-
-
-       <div id="footer">
-              <a href="Impressum.php">Impressum</a> | <a href="Kontakte.php"> Kontakt </a>
-        </div>
-
+		</div>
    
 </body>
 </html>
+

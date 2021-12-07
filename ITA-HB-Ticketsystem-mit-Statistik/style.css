@@ -4,8 +4,317 @@
         height: 100%;
         width: auto;
         color: whitesmoke;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
 
+    html
+    {
+        scroll-behavior: smooth;
+    }
+
+    .formbackground 
+    {
+        background: url(pictures/forumbg.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        position: relative;
+        text-align: center;
+        padding-top: 15%;
+        padding-bottom: 50%;
+        margin: -8px;
+        height: 100%;
+    }
+    
+    .formbackground .img
+    {
+        width: 5%;
+        float: left;
+        position: absolute;
+        left: 10px;
+        top:5px;
+    }
+
+    .form
+    {
+        background-color: rgba(0, 0, 0, 0.9);
+        max-width: 60%;
+        min-width: 50%;
+        height: auto;
+        position:relative;
+        margin-bottom:25px;
+        top: 300px;
+        left: 50%;
+        padding: 3%;
+        padding-left: 8%;
+        padding-right: 8%;
+        margin-right: -50%;
+        margin-top: 100px;
+
+        transform: translate(-50%, -50%);
+        box-shadow: 5px 8px 30px 8px rgba(0, 0, 0, 0.664);
+        border: solid 400 rgba(0, 0, 0, 0.466);
+        text-align: left;
+        /*align-items: center;
+        overflow-wrap: break-word;*/
+        font-size: large;
+        color: white;
+    }
+
+    .salutation .mr 
+    {
+        float: left;
+    }
+
+    .salutation .mrs
+    {
+        float: right;
+    }
+
+    .form input
+    { 
+        border: solid 10px rgb(255, 255, 255);
+        background:transparent;
+        width:100%;
+        padding:8px 0 5px 0;
+        font-size:16px;
+        color:white;
+    }
+
+      .from input:focus
+    { 
+        border:solid 1px #e74c3c;
+        width: 100%;
+    }
+
+      .form textarea
+    { 
+        color:#fff;
+        border:1px solid rgb(255, 255, 255);
+        background:transparent;
+        width:100%;
+        padding:8px 0 5px 0;
+        font-size:16px;
+      }
+
+        
+      .from textarea:focus
+      { 
+       border:none;
+       outline:none;
+       border:1px solid #e74c3c;
+      }
+
+    .form label
+    {
+        font-size:16px;
+        color:#fff;
+    }
+
+    /*.form input[type ="text"]
+    {
+        width: 100%;
+        border: 1px solid rgb(255, 255, 255);
+        
+    }
+
+    .form input[type="tel"]
+    {
+        width: 100%;
+        border: 1px solid rgb(255, 255, 255);
+    }*/
+    
+    .form textarea
+    {
+        width: 100%;
+        color: whitesmoke;
+        border: 1px solid rgb(255, 255, 255);
+    }
+    
+    
+
+    .form .btn{
+        color:#fff;
+        background-color: transparent;
+        outline: none;
+        border: solid 1px green;
+        color: #fff;
+        padding:10px 20px;
+        text-transform:uppercase;
+        margin-top:35px;
+        border-radius:2px;
+        cursor:pointer;
+        position:relative;
+        transition: all 0.3s ease 0s;
+        width: 100%;
+    }
+    
+    .btn:hover
+    {
+        
+        background-color:#00ff0d;
+        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.671);
+        transform: translateY(-7px);
+    }
+
+    .form input[type="reset"]
+    {
+        width: 100%;
+        color:#fff;
+        background-color: transparent;
+        outline: none;
+        border: solid 1px red;
+        color: #fff;
+        padding:10px 20px;
+        margin-top:10px;
+        margin-bottom: 10px;
+        border-radius:2px;
+        text-transform: uppercase;
+        cursor:pointer;
+        position:relative;
+        transition: all 0.3s ease 0s;
+    }
+    .form input[type="reset"]:hover
+    {
+        background-color: red;
+        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.671);
+        transform: translateY(-10px);
+    }
+
+    .form .logdata
+    {
+        width: 100%;
+        color:#fff;
+        background-color: transparent;
+        outline: none;
+        border: solid 1px rgb(255, 255, 255);
+        color: #fff;
+        padding:10px 20px;
+        margin-top:10px;
+        margin-bottom: 10px;
+        border-radius:2px;
+        text-transform: uppercase;
+        cursor:pointer;
+        position:relative;
+        transition: all 0.3s ease 0s;
+    }
+    .logdata:hover
+    {
+        
+        background-color: transparent;
+        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.671);
+        transform: translateY(-7px);
+    }
+
+    .from .headline h1
+   {
+       text-align: center;
+       font-size: 20px;
+       color:whitesmoke
    }
+
+   .output
+   {
+    background-color: rgba(0, 0, 0, 0.9);
+    max-width: 60%;
+    min-width: 50%;
+    height: auto;
+    position:absolute;
+    margin-bottom:25px;
+    top: 2200px;
+    left: 50%;
+    padding: 3%;
+    padding-left: 8%;
+    padding-right: 8%;
+    margin-right: -50%;
+    margin-top: 100px;
+
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 8px 30px 8px rgba(0, 0, 0, 0.664);
+    border: solid 400 rgba(0, 0, 0, 0.466);
+    text-align: left;
+    /*align-items: center;
+    overflow-wrap: break-word;*/
+    font-size: large;
+    color: white;
+   }
+
+    .stats
+    {
+        background-color: rgba(0, 0, 0, 0.9);
+        max-width: 60%;
+        min-width: 50%;
+        height: auto;
+        position:absolute;
+        margin-bottom:25px;
+        top: 200px;
+        left: 50%;
+        padding: 3%;
+        padding-left: 8%;
+        padding-right: 8%;
+        margin-right: -50%;
+        margin-top: 100px;
+
+        transform: translate(-50%, -50%);
+        box-shadow: 5px 8px 30px 8px rgba(0, 0, 0, 0.664);
+        border: solid 400 rgba(0, 0, 0, 0.466);
+        text-align: left;
+        /*align-items: center;
+        overflow-wrap: break-word;*/
+        font-size: large;
+        color: white;
+    }
+
+    .stats h1 
+    {
+        text-align: center;
+    }
+    /*index.php*/
+    .indexbackground
+    {
+        background: url(pictures/wall.jpeg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        /*position: relative;*/
+        /*text-align: center;*/
+        overflow: hidden;
+        padding-top: 15%;
+        padding-bottom: 50%;
+        margin: -8px;
+    }
+
+    .index-container
+    {
+        background-color: rgba(0, 0, 0, 0.8);
+        max-width: 60%;
+        min-width: 50%;
+        height: auto;
+        position: relative;
+        top: 20%;
+        left: 50%;
+        padding: 3%;
+        padding-left: 8%;
+        padding-right: 8%;
+        margin-right: -50%;
+        margin-top: 100px;
+
+        transform: translate(-50%, -50%);
+        box-shadow: 5px 8px 30px 8px rgba(0, 0, 0, 0.664);
+        border: solid 400 rgba(0, 0, 0, 0.466);
+        text-align: center;
+        align-items: center;
+        overflow-wrap: break-word;
+        font-size: large;
+        color: white;
+    }
+    .indexbackground .topmenu
+    {
+        position: relative;
+    }
+
    .centertext
    {
        text-align: center;
@@ -115,7 +424,6 @@
        position: fixed;
        bottom: 0%;
        margin-left: -15px;
-
    }
 
    #footer a 
@@ -194,4 +502,9 @@
        color: rgb(255, 255, 255); 
    }
 
-   /*Forum Styles ab hier*/
+   /* Ticketsystem */
+
+   input[type="text"]{ padding: 10px 10px; line-height: 10px; border: thin solid rgba(0, 0, 0, 0.267); }
+   input[type="tel"]{ padding: 10px 10px; line-height: 10px; border: thin solid rgba(0, 0, 0, 0.267); }
+
+

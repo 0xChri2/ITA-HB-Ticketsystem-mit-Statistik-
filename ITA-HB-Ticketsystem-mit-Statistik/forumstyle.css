@@ -152,6 +152,11 @@ a:hover
     user-select: none;
 }
 
+#info-box #error-box
+{
+  background-color: rgba(0, 0, 255, 0.703);
+}
+
 .success-box {
     background-color: #659218d0;
     color: white;
@@ -242,25 +247,48 @@ a:hover
   margin-top: 5px;
 }
 
-
 .user
 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: rgb(235, 233, 233);
   font-size: larger;
   font-weight: 600;
+  color: #069ff8;
   right: 2px;
+  float:left;
+  top: 2px;
+  position: relative;
+}
+
+.user-picture
+{
+  float: left;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.thread-timestamp
+{
+  color: rgb(235, 233, 233);
+  font-size: small;
+  top: 7px;
+  position: relative;
 }
 
 .thread-date
 {
   color: rgb(235, 233, 233);
   font-size: small;
+  bottom: 5px;
+  position: relative;
 }
 
 .thread
 {
   border-top: solid thin rgb(94, 86, 86);
-  border-bottom: solid thin rgb(94, 86, 86);
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 10px;
@@ -269,7 +297,6 @@ a:hover
   padding-bottom: 10px;
   color: rgb(235, 233, 233);
   word-break: normal;
-  word-spacing: 3px;
 }
 
 /*///////////////////////////////////////////////////////////*/

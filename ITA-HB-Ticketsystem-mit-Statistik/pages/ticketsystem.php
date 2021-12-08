@@ -108,6 +108,9 @@
 
 				//Textbox
 				$message = trim($_POST['message']);
+
+				//username 
+				$username = date("Y-m-d-H:i",time())."-". strtoupper(substr($nachname, 0, 3))."-".strtoupper(substr($vorname, 0, 3))."-".substr($telefon, -3); 
 					
 
 					//error message
@@ -120,17 +123,19 @@
 						echo "<div class='centertext'><h2>".$fehler."</h2></div>";
 					}
 				
-
+					
 					//success message
 					
 					if($error == false)
-					{
-						echo"<div class='output'><br /><br /><div class='centertext'><h2> Vielen Dank, ". $anrede . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
+					{	
+						//echo"<div class='output'>";
+						echo"<br /><br /><div class='centertext'><h2> Vielen Dank, ". $anrede . " " . $_POST['nachname'] . ". Wir melden uns bald bei Ihnen!</h4>";
 						echo "<h4>Wenn Sie fragen oder Probleme haben Kontakieren sie uns über +49 12345678</h4>";
 						echo"<br /><h3>Ihre Nachricht an uns ist: <br />".$message."</h3>";
 						echo"<br /><h3>Ihre Name ist: ".$vorname." ".$nachname."</h3>";
 						echo"<h3>Ihre Telfonnummer ist: ".$telefon."</h3>";
 						echo"<h3>Ihre E-Mail ist: ".$email."</h3>";
+						echo"<h3>Ihr Username ist: ".$username."</h3>";
 
 						//Ticket System
 						//Read
@@ -149,7 +154,6 @@
 						$today = time();
 						$today = date("d.m.Y - H:i",$today);
 						$file = "ticketlog.csv";
-						$username = date("Y-m-d-H:i",time())."-". strtoupper(substr($nachname, 0, 3))."-".strtoupper(substr($vorname, 0, 3))."-".substr($telefon, -3); // weiß ich nich ob das geht
 						$messagelog = $vorname ."\t". $nachname ."\t".$telefon."\t".$email."\t".$message."\t".$today."\t".$year.".".$TicketNr."\t".$username ."\n";
 						$zeiger = fopen($pfad.$file,"a+");
 						fputs($zeiger,$messagelog);
@@ -185,7 +189,7 @@
 					if($zeiger)
 					{	
 					
-						echo'<div class="output"><center><table border = "3">';
+						echo'<center><table border = "3">';
 						echo"<td><u><b>Vorname</u></b></td>";
 						echo"<td><u><b>Nachname</u></b></td>";
 						echo"<td><u><b>Telefon</u></b></td>";
@@ -206,7 +210,7 @@
 							echo'</tr>';	
 						}
 						
-						echo'</table></center><br /></div>';
+						echo'</table></center><br />';
 						fclose($zeiger);
 				
 				}
@@ -289,7 +293,7 @@
 		?>      
 
 
-        </div>
+        
 		</div>
    
 </body>

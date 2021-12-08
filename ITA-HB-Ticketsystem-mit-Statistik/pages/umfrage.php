@@ -2,22 +2,13 @@
 <html>
 <header>
     <title>Umfrage</title>
-    <style>
-        fieldset {
-            border: none;
-        }
- 
-        label::after {
-            content: "";
-            display: block;
-        }
-    </style>
 </header>
 
 <head>
 	<meta http-equiv="content-type" content="text/plain; charset=utf-8" />
     <meta http-equiv="content-language" content="de" />
     <link type="text/css" rel="stylesheet" href="../forumstyle.css" />
+	<meta name="viewport" content="width=device-width" inital-scale="1">
 </head>
 <body>
 
@@ -27,7 +18,7 @@
 
             <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" name="myForm" id="myForm">
                 <div class="input-container">
-                    <input type="text" name="vorgangsnummer" required="" />
+                    <input type="text" name="username" required="" />
                     <label>Username</label>
                 </div>
 
@@ -45,49 +36,93 @@
                 Make class="input-container" responsive
             -->
 
-        </div>
+		</div>
+	</div>
 
 <?php
 				if(isset($_POST['senden']))
 				{
-					//require __DIR__ . '/../functions/form_validation.php';
-					$vorgangsnummer = strtoupper($_POST['vorgangsnummer']);
-	                    $email = strtolower($_POST['email']);
+					include '../lib/form_validation.php';
+					$username = $_POST['username'];
+						$email = strtolower($_POST['email']);
 	
-	                    $vorgangsnummer = trim($vorgangsnummer, " ");
+	                    $username = trim($username, " ");
 	                    $email = trim($email, " ");
 	                   
 	                    $success = 1;
 	               
-											$fehler_nachricht = array();
+						$fehler_nachricht = array();
 	               
-	                    /*if(field_empty($vorgangsnummer, "Vorgangsnummer", $fehler_nachricht) == 0)
+	                    if(field_empty($username, "Username", $fehler_nachricht) == 0)
 	                        $success = 0;
 	
 	                    if(field_email($email, $fehler_nachricht) == 0)
-	                        $success = 0;*/
+							$success = 0;
+							
+							foreach($fehler_nachricht as $fehler)
+							{
+								echo '<div id="error-box">';
+								echo  "<p>" . $fehler . "</p>";
+								echo "</div><br><br>";
+							}
 	
 	                    if($success == 1)
 	                    {
-	                        echo '<center><div class="success-box">';
-	                        echo 'ERFOLG!<br> Drücken Sie  <b><a href="#rating">HIER</a></b> um uns zu bewerten.';
-	                        echo '</center></div>';
+							$logged = false;
+
+                        $s = fopen("../data/ticketsystem/ticketlog.csv", "r");
+                        while(!feof($s))
+                        {
+                            $row = fgets($s, 4096);
+                            $column = explode("\t", $row);
+
+                            if(strpos($row, $username) != NULL)
+                            {
+                                if(strpos($row, $email) != NULL)
+                                {
+                                    $logged = true;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                echo '<div id="error-box"><b>Fehler!</b> Prüfen Sie die Daten oder <a href="Ticketsystem.php">erstellen sie ein Ticket HIER</a></div>';
+                            }
+                        }
+                        fclose($s);
+							
+						if($logged == true)
+						{
+                            $f = fopen("../data/forum-data/login-time.csv", "a+");
+                            $c = new SplFileObject("../data/forum-data/login-time.csv", "r");
+                            $c->seek(PHP_INT_MAX);
+                            $counter = $c->key() + 1;
+    
+                            $date = date("d.m.y");
+                            $time = date("H:i");
+    
+                            $login_data = array($counter, $username, $email, $date, $time);
+							fputcsv($f, $login_data, ";");
+
+							$e = fopen("../data/temp/tempuser.txt", "w");
+                            fwrite($e, $username . "\t" . $email);
+                            fclose($e);
 	
 	                        echo '    <div id="rating-section">
 	                        <section id ="rating">
 	                        <div class="rating-container">
 	                      <div class="feedback">
-	                      <form method="post" action="forum.php" name="rating">
+	                      <form method="post" action="umfrage.php" name="rating">
 	                        <div class="rating">
-	                          <input type="radio" name="rating" id="rating-5" required>
+	                          <input type="radio" name="rating" id="rating-5" value="5" required>
 	                          <label for="rating-5"></label>
-	                          <input type="radio" name="rating" id="rating-4" required>
+	                          <input type="radio" name="rating" id="rating-4" value="4"required>
 	                          <label for="rating-4"></label>
-	                          <input type="radio" name="rating" id="rating-3" required>
+	                          <input type="radio" name="rating" id="rating-3" value="3" required>
 	                          <label for="rating-3"></label>
-	                          <input type="radio" name="rating" id="rating-2" required>
+	                          <input type="radio" name="rating" id="rating-2" value="2" required>
 	                          <label for="rating-2"></label>
-	                          <input type="radio" name="rating" id="rating-1" required>
+	                          <input type="radio" name="rating" id="rating-1" value="1" required>
 	                          <label for="rating-1"></label>
 	                          <div class="emoji-wrapper">
 	                            <div class="emoji">
@@ -177,17 +212,55 @@
 	                            </div>
 	                          </div>
 	                        </div>
-													<textarea name="comment" placeholder="Euer Kommentar" required></textarea><br>
-													<textarea name="comment" placeholder="War die Website leicht zu bedinen?" required></textarea><br>
-	                        <input type="submit" name="send" value="submit" class="btn">
+								<textarea name="comment" placeholder="Erzählen Sie uns kurz, wie Sie mit uns zufrieden sind" required></textarea><br>
+	                        	<input type="submit" name="send" value="submit" class="btn">
 	                        </form>
 	                      </div>
 	                    </div>
 	                        </section>
 	                        </div>';
-	                    }
+						}
+					}
 				}
-						?>
+			?>
+
+		<?php 
+			if(isset($_POST['send']))
+			{
+				$e = fopen("../data/temp/tempuser.txt", "r");
+                $textline = fread($e, 4096);
+                $user = substr($textline, 0, strpos($textline, "\t"));
+				$mail = substr($textline, strpos($textline, "\t"));
+				$rating = $_POST['rating'];
+				$comment = $_POST['comment'];
+                fclose($e);
+				
+				echo '<center><div class="success-box">';
+                echo 'ERFOLG!<br> Drücken Sie  <b><a href="../">HIER</a></b> um zurück auf die Homepage';
+                echo '</center></div></div>';
+
+                $f = fopen("../data/ratings.csv", "a+");
+                $c = new SplFileObject("../data/forum-data/login-time.csv", "r");
+                $c->seek(PHP_INT_MAX);
+                $counter = $c->key() + 1;
+    
+                $date = date("d.m.y");
+                $time = date("H:i");
+    
+                $login_data = array($counter, $user, $mail, $date, $time);
+                fputcsv($f, $login_data, ";");
+    
+            	fclose($f);
+
+                $user = substr($textline, 0, strpos($textline, "\t"));
+        		$mail = substr($textline, strpos($textline, "\t"));
+                $f = fopen("../data/forum-data/threads.csv", "a");
+                $data = array($rating, $user, $mail, $date, $time,  str_replace("\r\n", "<br />", $comment));
+                fputcsv($f, $data, ";", chr(127));
+                fclose($f);
+				
+			}
+		?>
  
 </body>
 </html>

@@ -3,12 +3,11 @@
 
 <head>
     <title>Maurer | Forum</title>
-    <meta name="viewport" content="width=devide-width, intital-scale=1.0">
+    <meta name="viewport" content="width=device-width" inital-scale="1">
     <meta http-equiv="content-type" content="text/plain; charset=utf-8" />
     <meta http-equiv="content-language" content="de" />
     <link type="text/css" rel="stylesheet" href="../forumstyle.css" />
 </head>
-<!-- dakro-->
 
 <body>
     <div id="login-section">
@@ -22,36 +21,35 @@
                 </div>
 
                 <div class="input-container">
-                    <input type="mail" name="email" required="" />
+                    <input type="text" name="email" required="" />
                     <label>Email</label>
                 </div>
 
                 <input type="submit" name="senden" value="submit" class="btn"/>
             </form>
-
+            
             <!-- 
                 TODO:
-
+                
                 Add picture transition
                 Make class="input-container" responsive
             -->
-
+            
         </div>
 
         <?php
-          $show_forum = false;
-          $username_valid = "";
-          $email_valid = "";
+            $show_forum = false;
+
                 if(isset($_POST['senden']))
                 { 
-                    require __DIR__ . '/../functions/form_validation.php';
+                    include '../lib/form_validation.php';
 
                     $username = $_POST['username'];
                     $email = strtolower($_POST['email']);
 
                     $username = trim($username, " ");
                     $email = trim($email, " ");
-                    
+
                     $success = 1;
                 
                     $fehler_nachricht = array();
@@ -62,125 +60,168 @@
                     if(field_email($email, $fehler_nachricht) == 0)
                         $success = 0;
 
-                    if($success == 1)
+                    if(field_isTicket($username, $fehler_nachricht) == 0)
                     {
-                      $show_forum = true;
-                        echo '<center><div class="success-box">';
-                        echo 'ERFOLG!<br> Drücken Sie  <b><a href="#threads">HIER</a></b> um Threads zu lesen';
-                        echo '</center></div>';
-
-                        $f = fopen("../data/forum-data/login-time.csv", "a+");
-                        $c = new SplFileObject("../data/forum-data/login-time.csv", "r");
-                        $c->seek(PHP_INT_MAX);
-                        $counter = $c->key() + 1;
-
-                        $date = date("d.m.y");
-                        $time = date("H:i");
-
-                        $login_data = array($counter, $username, $email, $date, $time);
-                        fputcsv($f, $login_data, ";");
-
-                        fclose($f);
-
-                        $username_valid = $username;
-                        $email_valid = $email;
+                        $success = 0;
                     }
-                
+
                     foreach($fehler_nachricht as $fehler)
                     {
-                        echo '<div id="error-box">';
+                        echo '<div class="error-box">';
                         echo  "<p>" . $fehler . "</p>";
                         echo "</div><br><br>";
                     }
+
+                    if($success == 1)
+                    {
+                        $logged = false;
+
+                        $s = fopen("../data/ticketsystem/ticketlog.csv", "r");
+                        while(!feof($s))
+                        {
+                            $row = fgets($s, 4096);
+                            $column = explode("\t", $row);
+
+                            if(strpos($row, $username) != NULL)
+                            {
+                                if(strpos($row, $email) != NULL)
+                                {
+                                    $logged = true;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                echo '<div id="error-box"><b>Fehler!</b> Prüfen Sie die Daten oder <a href="Ticketsystem.php">erstellen sie ein Ticket HIER</a></div>';
+                            }
+                        }
+                        fclose($s);
+
+                        if($logged == true)
+                        {
+                            echo '<center><div class="success-box">';
+                            echo 'ERFOLG!<br> Drücken Sie  <b><a href="#eintrag">HIER</a></b> für das Schreiben';
+                            echo '</center></div></div>';
+
+                            $f = fopen("../data/forum-data/login-time.csv", "a+");
+                            $c = new SplFileObject("../data/forum-data/login-time.csv", "r");
+                            $c->seek(PHP_INT_MAX);
+                            $counter = $c->key() + 1;
+    
+                            $date = date("d.m.y");
+                            $time = date("H:i");
+    
+                            $login_data = array($counter, $username, $email, $date, $time);
+                            fputcsv($f, $login_data, ";");
+    
+                            fclose($f);
+
+                            $e = fopen("../data/temp/tempuser.txt", "w");
+                            fwrite($e, $username . "\t" . $email);
+                            fclose($e);
+
+                            echo '<section id="eintrag"><div id="forum-section"><div class="thread-add">
+                            <h1>Eintrag erstellen</h1>
+                            <div class="thread-add-submit">
+                            <form method="post" action="forum.php" name="form" id="form">
+                                <textarea name="eintrag" placeholder="HIER EINTIPPEN..."></textarea>
+                                <input type="submit" value="hochladen" name="thread" class="btn">
+                            </form>
+                            </div></div></section>';
+                        }
+                    }
                 }
-                
+
+                if(isset($_POST['thread']))
+                {
+                    $eintrag = htmlspecialchars($_POST['eintrag']);
+                    $date = date('d.m.Y');
+
+                    $e = fopen("../data/temp/tempuser.txt", "r");
+
+                    $textline = fread($e, 4096);
+                    $user = substr($textline, 0, strpos($textline, "\t"));
+                    $mail = substr($textline, strpos($textline, "\t"));
+
+                    fclose($e);
+                    $f = fopen("../data/forum-data/threads.csv", "a");
+                    $data = array($user, str_replace("\r\n", "<br />", $eintrag), $date, time(), $mail);
+                    fputcsv($f, $data, ";", chr(127));
+                    fclose($f);
+                    echo '<center><div class="success-box">';
+                    echo 'ERFOLG!';
+                    echo '</center></div>';
+                    
+                    $show_forum = true;
+                    //echo "Username: " . $user . "<br>" . "Email: " . $mail; 
+                }
             ?>
-    </div>
 
-    <div id="forum-section">
-    <?php
-        $lol = false;
-        if($show_forum == true)
+<!-- ToDo: show $thread_timestamp_info only in hour of the day -->
+<?php
+$t = fopen("../data/forum-data/threads.csv", "r");
+$today = time();
+while(!feof($t))
+{
+    $row = fgets($t, 4096);
+    $column = explode(";", $row);
+    $thread_timestamp_info = "";
+
+    if(sizeof($column) == 5)
+    {
+        //$days = floor(($today / 60 / 60 / 24) - ($column[3] / 60 / 60 / 24));
+        $hours = floor(($today / 60 / 60) - ($column[3] / 60 / 60));
+        $minutes = floor(($today / 60) - ($column[3] / 60));
+        //echo $days . "<br>";
+        //echo $hours . "<br>";
+        //echo $minutes . "<br>";
+        if($hours == 0 && $minutes == 0)
         {
-            echo '<div class="thread-add">
-                <h1>Eintrag erstellen</h1>
-                <div class="thread-add-submit">
-                <form method="post" action="forum.php" name="form" id="form">
-                    <textarea name="eintrag" placeholder="HIER EINTIPPEN..."></textarea>
-                    <input type="submit" value="hochladen" name="thread" class="btn">
-                </form></div></div>';
-
-            if(isset($_POST['thread']))
+            $thread_timestamp_info = " ~ vor ein paar Sekunden";
+        }
+    
+        elseif($hours == 0)
+        {
+            $thread_timestamp_info = " ~ vor " . $minutes . " Minuten";
+            if($minutes == 1)
             {
-                $eintrag = htmlspecialchars($_POST['eintrag']);
-                $f = fopen("../data/forum-data/threads.csv", "a");
-                $data = array($username_valid, $email_valid, $eintrag);
-                fputcsv($f, $data);
-                fclose($f);
-                echo '<center><div class="success-box">';
-                echo 'ERFOLG!';
-                echo '</center></div>';
-                $lol = true;
+                $thread_timestamp_info = " ~ vor eine Minute";
             }
         }
-    ?>
 
-    <?php 
-        if($lol == true)
+        elseif($hours > 0 && $hours < 24)
         {
-            echo "NICE";
-        } 
-        else
-            echo "fuck";
-    ?>
-
-<!-- ToDo: On login, show class="thread-add", umfrage.php -->
-
+            $thread_timestamp_info = " ~ vor " . $hours . " Stunden";
+            if($hours == 1)
+            {
+                $thread_timestamp_info = " ~ vor eine Stunde";
+            }
+        }
+    
+        echo '<div id="forum-section">
         <div class="thread-box">
-            <div class="user">
-                Darko Pizdun<br>
+            <img src="../pictures/profile.jpg" alt="profile" class="user-picture">
+            <div class="user">'.
+                $column[0] . '
             </div>
-            <div class="thread-date">
-                10.11.2021<br>
+    
+            <div class="thread-timestamp">' .
+                 $thread_timestamp_info . '<br><br>
             </div>
-            <div class="thread">
-            Anstatt ein Programm mit vielen Anweisungen zur Ausgabe von HTML zu schreiben, schreibt man etwas HTML und bettet einige Anweisungen ein, die irgendetwas tun (wie hier "Hallo, ich bin ein PHP-Skript!" auszugeben). Der PHP-Code steht zwischen speziellen Anfangs- und Abschluss-Verarbeitungsinstruktionen, mit denen man in den "PHP-Modus" und zurück wechseln kann.
-
-PHP unterscheidet sich von clientseitigen Sprachen wie Javascript dadurch, dass der Code auf dem Server ausgeführt wird und dort HTML-Ausgaben generiert, die an den Client gesendet werden. Der Client erhält also nur das Ergebnis der Skriptausführung, ohne dass es möglich ist herauszufinden, wie der eigentliche Code aussieht. Sie können Ihren Webserver auch anweisen, alle Ihre HTML-Dateien mit PHP zu parsen, denn dann gibt es wirklich nichts, das dem Benutzer sagt, was Sie in petto haben.
+    
+            <div class="thread-date">'.
+                $column[2].'
             </div>
-            <button>Antworten</button>
+            <div class="thread">'.
+                $column[1] . '
+            </div>
         </div>
-
-        <div class="thread-box">
-            <div class="user">
-                Max Mustermann<br>
-            </div>
-            <div class="thread-date">
-                10.11.2021<br>
-            </div>
-            <div class="thread">
-            Anstatt ein Programm mit vielen Anweisungen zur Ausgabe von HTML zu schreiben, schreibt man etwas HTML und bettet einige Anweisungen ein, die irgendetwas tun (wie hier "Hallo, ich bin ein PHP-Skript!" auszugeben). Der PHP-Code steht zwischen speziellen Anfangs- und Abschluss-Verarbeitungsinstruktionen, mit denen man in den "PHP-Modus" und zurück wechseln kann.
-
-PHP unterscheidet sich von clientseitigen Sprachen wie Javascript dadurch, dass der Code auf dem Server ausgeführt wird und dort HTML-Ausgaben generiert, die an den Client gesendet werden. Der Client erhält also nur das Ergebnis der Skriptausführung, ohne dass es möglich ist herauszufinden, wie der eigentliche Code aussieht. Sie können Ihren Webserver auch anweisen, alle Ihre HTML-Dateien mit PHP zu parsen, denn dann gibt es wirklich nichts, das dem Benutzer sagt, was Sie in petto haben.
-            </div>
-            <button>Antworten</button>
-        </div>
-
-        <div class="thread-box">
-            <div class="user">
-                Babura Zlivaca<br>
-            </div>
-            <div class="thread-date">
-                10.11.2021<br>
-            </div>
-            <div class="thread">
-            Anstatt ein Programm mit vielen Anweisungen zur Ausgabe von HTML zu schreiben, schreibt man etwas HTML und bettet einige Anweisungen ein, die irgendetwas tun (wie hier "Hallo, ich bin ein PHP-Skript!" auszugeben). Der PHP-Code steht zwischen speziellen Anfangs- und Abschluss-Verarbeitungsinstruktionen, mit denen man in den "PHP-Modus" und zurück wechseln kann.
-
-PHP unterscheidet sich von clientseitigen Sprachen wie Javascript dadurch, dass der Code auf dem Server ausgeführt wird und dort HTML-Ausgaben generiert, die an den Client gesendet werden. Der Client erhält also nur das Ergebnis der Skriptausführung, ohne dass es möglich ist herauszufinden, wie der eigentliche Code aussieht. Sie können Ihren Webserver auch anweisen, alle Ihre HTML-Dateien mit PHP zu parsen, denn dann gibt es wirklich nichts, das dem Benutzer sagt, was Sie in petto haben.
-            </div>
-            <button>Antworten</button>
-        </div>
-    </div>
+    </div>';
+    }
+}
+fclose($t);
+?>
+</div>
 
     <div id="footer">
         hallo

@@ -255,7 +255,7 @@ header#top nav ul li a.nav-cta {
 
 #banner {
 	height: 800px;
-	background: #222 url(../images/header-image.jpg) no-repeat center;
+	background: #222 url(pictures/header-image.jpg) no-repeat center;
 	position: relative;
 	padding: 1px 0 0 0;
 }
@@ -507,7 +507,7 @@ header#top nav ul li a.nav-cta {
 ul.list-checkmarks li {
 	text-align: left;
 	list-style-image: none;
-	background: url(../images/checkmark.png) top left no-repeat;
+	background: url(pictures/checkmark.png) top left no-repeat;
 	background-position: 0 2px;
 	margin: 10px 0;
 	padding: 0 10px 10px 40px;
@@ -859,13 +859,13 @@ footer .footer-right a.social:hover {
 }
 
 footer a.social.facebook {
-	background-image: url(../images/social-facebook.png);
+	background-image: url(pictures/social-facebook.png);
 }
 footer a.social.twitter {
-	background-image: url(../images/social-twitter.png);
+	background-image: url(pictures/social-twitter.png);
 }
 footer a.social.google {
-	background-image: url(../images/social-google.png);
+	background-image: url(pictures/social-google.png);
 }
 
 @media only screen and (max-width: 960px) {

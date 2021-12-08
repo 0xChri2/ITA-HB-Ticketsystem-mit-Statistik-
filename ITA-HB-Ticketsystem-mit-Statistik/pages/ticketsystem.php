@@ -12,7 +12,7 @@
 <body bgcolor="#101010">
 		
 		<div class="formbackground">
-		<a href="../index.php"><img src="../pictures/chris-industriesscaled.png" class="img"/></a>
+		<a href="../"><img src="../pictures/chris-industriesscaled.png" class="img"/></a>
 		<div class="form">
 			<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
 				<div class="headline"><h1>Anmeldung</h1></div>	

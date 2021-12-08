@@ -11,6 +11,7 @@
 
 <body>
     <div id="login-section">
+    <a href="../"><img src="../pictures/chris-industriesscaled.png" class="img"/></a>
         <div class="login-container">
             <h1>LOGIN</h1>
 

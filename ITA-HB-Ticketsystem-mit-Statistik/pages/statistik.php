@@ -9,27 +9,10 @@
 
         <body bgcolor="#101010">
        <div class="formbackground">
-       <a href="../index.php"><img src="../pictures/chris-industriesscaled.png" class="img"/></a>
+       <a href="../"><img src="../pictures/chris-industriesscaled.png" class="img"/></a>
            <div class="stats">
                
             <h1> Statistik </h1>
-      
-        <!--<div id="menu">
-            <ul>
-                <li class="topmenu">
-                    <a href=""><img src="../pictures/Drei Striche.png" alt="Drei Striche"/></a>
-                    
-					<ul>
-					<li class="submenu"><a href="../index.php">Startseite</a></li>
-						<li class="submenu"><a href="ticketsystem.php">Ticketsystem</a></li>
-						<li class="submenu"><a href="forum.php">Forum</a></li>
-						<li class="submenu"><a href="umfrage.php">Umfrage</a></li>
-						<li class="submenu"><a href="statistik.php">Statistik</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <br />-->
 
         <?php 
         //Besuchergesamt

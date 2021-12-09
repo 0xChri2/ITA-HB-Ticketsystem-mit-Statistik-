@@ -38,7 +38,6 @@
             -->
 
 		</div>
-	</div>
 
 <?php
 				if(isset($_POST['senden']))
@@ -213,7 +212,6 @@
 	                            </div>
 	                          </div>
 	                        </div>
-								<textarea name="comment" placeholder="Erzählen Sie uns kurz, wie Sie mit uns zufrieden sind" required></textarea><br>
 	                        	<input type="submit" name="send" value="submit" class="btn">
 	                        </form>
 	                      </div>
@@ -232,36 +230,32 @@
                 $textline = fread($e, 4096);
                 $user = substr($textline, 0, strpos($textline, "\t"));
 				$mail = substr($textline, strpos($textline, "\t"));
+				fclose($e);
 				$rating = $_POST['rating'];
-				$comment = $_POST['comment'];
-                fclose($e);
 				
 				echo '<center><div class="success-box">';
                 echo 'ERFOLG!<br> Drücken Sie  <b><a href="../">HIER</a></b> um zurück auf die Homepage';
                 echo '</center></div></div>';
-
-                $f = fopen("../data/ratings.csv", "a+");
-                $c = new SplFileObject("../data/forum-data/login-time.csv", "r");
-                $c->seek(PHP_INT_MAX);
-                $counter = $c->key() + 1;
     
                 $date = date("d.m.y");
-                $time = date("H:i");
-    
-                $login_data = array($counter, $user, $mail, $date, $time);
-                fputcsv($f, $login_data, ";");
+				$time = date("H:i");
+				echo $rating;
+				
+				$f = fopen("../data/ratings.csv", "a");
+                $rating_data = array($rating, $user, $mail, $date, $time);
+                fputcsv($f, $rating_data, ";");
     
             	fclose($f);
 
                 $user = substr($textline, 0, strpos($textline, "\t"));
         		$mail = substr($textline, strpos($textline, "\t"));
                 $f = fopen("../data/forum-data/threads.csv", "a");
-                $data = array($rating, $user, $mail, $date, $time,  str_replace("\r\n", "<br />", $comment));
+                $data = array($rating, $user, $mail, $date, $time);
                 fputcsv($f, $data, ";", chr(127));
                 fclose($f);
 				
 			}
 		?>
- 
+		</div>
 </body>
 </html>

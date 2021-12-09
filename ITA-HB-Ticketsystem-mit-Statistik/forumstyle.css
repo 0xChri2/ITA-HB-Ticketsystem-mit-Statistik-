@@ -337,7 +337,7 @@ a:hover
     padding: 0 20px;
   }
 
-  textarea
+  .p textarea
   {
     background-color: rgba(16, 18, 19);
     color: white;

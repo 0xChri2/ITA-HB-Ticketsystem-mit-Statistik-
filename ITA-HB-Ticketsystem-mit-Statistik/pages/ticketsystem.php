@@ -1,50 +1,67 @@
 <!-- ImChri2 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
-	 <head>
-		  <title>Maurer</title>
-		  <meta http-equiv="content-type" content="text/plain; charset=utf-8" />
-		  <meta http-equiv="content-language" content="de" />
-		  <link type = "text/css" rel = "stylesheet" href = "../style.css" />
-	</head>
+
+<head>
+    <title>Maurer</title>
+    <meta http-equiv="content-type" content="text/plain; charset=utf-8" />
+	<meta http-equiv="content-language" content="de" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link type="text/css" rel="stylesheet" href="../style.css" />
+	<link type="text/css" rel="stylesheet" href="../forumstyle.css" />
+</head>
 
 <body bgcolor="#101010">
-		
-		<div class="formbackground">
-		<a href="../"><img src="../pictures/chris-industriesscaled.png" class="img"/></a>
-		<div class="form">
-			<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-				<div class="headline"><h1>Anmeldung</h1></div>	
-						<div class="salutation">
-							<div class="mr">
-							<input type="radio" name="Anrede" value="Herr" required>Herr</input>
-							</div>
-							<div class="mrs">
-							<input type="radio" name="Anrede" value="Frau" required>Frau</input>
-							</div>
-						</div>
-						<br /> <br/ > 
-						<h3>Vorname  <input type="text" name="vorname"/></h3>
-						<h3>Nachname <input type="text" name="nachname" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['nachname']. '"';} else {echo "placeholder='Mustermann'";} ?>/></h3>   
-						<h3>Telefon  <input type="tel" size="16" name="telefon"<?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['telefon']. '"';} else {echo "placeholder='+12345678'";} ?> require/></h3>
-						<h3>E-Mail   <input type="text" name="e-mail" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['e-mail']. '"';} else {echo "placeholder='Muster.mail@mail.com'";} ?>/></h3>
-						<h3>Nachricht</h3>
-						<textarea name="message" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['message']. '"';} else {echo "placeholder='Malen Sie bitte alle Wände in Weiß an.'";} ?>cols="50" rows="10" require> 
-						</textarea>
-						<br />
-					
-					
-						<input type="submit" name="Senden" value="Senden" class="btn"/>
-						<input type="reset"/>
-						<input type="submit" name="Logdata" value="Log Datei" class="logdata"/>
-				</div>	
-		
-					
-				
+
+    <div class="formbackground">
+        <a href="../"><img src="../pictures/chris-industriesscaled.png" class="img" /></a>
+        <div class="form">
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                <div class="headline">
+                    <h1>REGISTER</h1><br>
+                </div>
+                <div class="salutation">
+                    <div class="mr">
+                        <input type="radio" name="Anrede" value="Herr" required>Herr</input>
+                    </div>
+                    <div class="mrs">
+                        <input type="radio" name="Anrede" value="Frau" required>Frau</input>
+                    </div><br>
+                </div>
+                <br /> <br />
+				<div class="input-container">
+                    <input type="text" name="vorname" required="" />
+                    <label>Vorname</label>
+                </div>
+				<div class="input-container">
+                    <input type="text" name="nachname" required="" />
+                    <label>Nachname</label>
+                </div>
+				<div class="input-container">
+                    <input type="text" name="telefon" required="" />
+                    <label>Telefon</label>
+                </div>
+                <div class="input-container">
+                    <input type="text" name="e-mail" required="" />
+                    <label>Email</label>
+                </div><br>
+                Nachricht<br><br>
+                <textarea name="message"></textarea>
+                <br />
+
+                <input type="submit" name="Senden" value="Senden" class="btn" />
+                <input type="reset" />
 			</form>
-		
-		<?php
+
+			<form action="log-table.php">
+				<input type="submit" name="log" class="logdata" value="Log Datei" />
+			</form>
+        </div>
+
+
+
+
+        <?php
 			include ("../lib/phpqrcode/qrlib.php");
 			include ("../lib/form_validation.php");
 			if(isset($_POST['Senden'])==true)
@@ -177,44 +194,7 @@
 
 				
 
-			}	
-
-
-			//Log Datei ausgabe
-				if(isset($_POST['Logdata'])==true)
-				{
-					$pfad = "../data/ticketsystem/";
-					$file = "ticketlog.csv";
-					$zeiger = fopen($pfad.$file,"r");
-					if($zeiger)
-					{	
-					
-						echo'<center><table border = "3">';
-						echo"<td><u><b>Vorname</u></b></td>";
-						echo"<td><u><b>Nachname</u></b></td>";
-						echo"<td><u><b>Telefon</u></b></td>";
-						echo"<td><u><b>E-Mail</u></b></td>";
-						echo"<td><u><b>Nachricht</u></b></td>";
-						echo"<td><u><b>Datum</u></b></td>";
-						echo"<td><u><b>Ticket Nummer</u></b></td>";
-						echo"<td><u><b>Username</b></u></td>";
-						while(!feof($zeiger))
-						{	
-							echo '<tr>';
-							$dieseZeile = fgets($zeiger,4096);
-							$zeilenarray = explode("\t",$dieseZeile);
-							foreach($zeilenarray as $TicketNr)
-							{
-								echo'<td>'.$TicketNr.'</td>';
-							}
-							echo'</tr>';	
-						}
-						
-						echo'</table></center><br />';
-						fclose($zeiger);
-				
-				}
-			}	
+			}		
 
 			//BesucherGesamt read
 			$pfad = "../data/ticketsystem/";
@@ -290,12 +270,12 @@
 				fputs($zeiger,$message);
 				fclose($zeiger);
 
-		?>      
+		?>
 
 
-        
-		</div>
-   
+
+    </div>
+
 </body>
-</html>
 
+</html>

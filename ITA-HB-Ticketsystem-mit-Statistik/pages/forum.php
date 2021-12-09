@@ -1,11 +1,13 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
 
 <head>
     <title>Maurer | Forum</title>
-    <meta name="viewport" content="width=device-width" inital-scale="1">
+    <meta name="viewport" content="width=devide-width, intital-scale=1.0">
     <meta http-equiv="content-type" content="text/plain; charset=utf-8" />
     <meta http-equiv="content-language" content="de" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="../forumstyle.css" />
 </head>
 
@@ -61,11 +63,6 @@
                     if(field_email($email, $fehler_nachricht) == 0)
                         $success = 0;
 
-                    if(field_isTicket($username, $fehler_nachricht) == 0)
-                    {
-                        $success = 0;
-                    }
-
                     foreach($fehler_nachricht as $fehler)
                     {
                         echo '<div class="error-box">';
@@ -82,21 +79,24 @@
                         {
                             $row = fgets($s, 4096);
                             $column = explode("\t", $row);
+                            $failure = true;
 
                             if(strpos($row, $username) != NULL)
                             {
                                 if(strpos($row, $email) != NULL)
                                 {
                                     $logged = true;
+                                    $failure = false;
                                     break;
                                 }
                             }
-                            else
-                            {
-                                echo '<div id="error-box"><b>Fehler!</b> Prüfen Sie die Daten oder <a href="Ticketsystem.php">erstellen sie ein Ticket HIER</a></div>';
-                            }
                         }
                         fclose($s);
+
+                        if($failure == true)
+                        {
+                            echo '<div id="error-box"><b>Fehler!</b> Prüfen Sie die Daten oder <a href="Ticketsystem.php">erstellen sie ein Ticket HIER</a></div>';
+                        }
 
                         if($logged == true)
                         {
@@ -159,6 +159,7 @@
             ?>
 
 <!-- ToDo: show $thread_timestamp_info only in hour of the day -->
+</div>
 <?php
 $t = fopen("../data/forum-data/threads.csv", "r");
 $today = time();
@@ -222,11 +223,5 @@ while(!feof($t))
 }
 fclose($t);
 ?>
-</div>
-
-    <div id="footer">
-        hallo
-    </div>
-</body>
 
 </html>

@@ -34,15 +34,14 @@
             <!-- 
                 TODO:
                 
-                Add picture transition
+                Fix <textarea> at "Eintrag hinzufügen"
+                add errors in class="error"
                 Make class="input-container" responsive
             -->
             
         </div>
 
         <?php
-            $show_forum = false;
-
                 if(isset($_POST['senden']))
                 { 
                     include '../lib/form_validation.php';
@@ -65,7 +64,7 @@
 
                     foreach($fehler_nachricht as $fehler)
                     {
-                        echo '<div class="error-box">';
+                        echo '<div id="error-box">';
                         echo  "<p>" . $fehler . "</p>";
                         echo "</div><br><br>";
                     }
@@ -109,7 +108,7 @@
                             $c->seek(PHP_INT_MAX);
                             $counter = $c->key() + 1;
     
-                            $date = date("d.m.y");
+                            $date = date("d.m.Y");
                             $time = date("H:i");
     
                             $login_data = array($counter, $username, $email, $date, $time);
@@ -125,7 +124,7 @@
                             <h1>Eintrag erstellen</h1>
                             <div class="thread-add-submit">
                             <form method="post" action="forum.php" name="form" id="form">
-                                <textarea name="eintrag" placeholder="HIER EINTIPPEN..."></textarea>
+                                <textarea name="eintrag" class="thread-add" placeholder="HIER EINTIPPEN..."></textarea>
                                 <input type="submit" value="hochladen" name="thread" class="btn">
                             </form>
                             </div></div></section>';
@@ -152,13 +151,9 @@
                     echo '<center><div class="success-box">';
                     echo 'ERFOLG!';
                     echo '</center></div>';
-                    
-                    $show_forum = true;
                     //echo "Username: " . $user . "<br>" . "Email: " . $mail; 
                 }
             ?>
-
-<!-- ToDo: show $thread_timestamp_info only in hour of the day -->
 </div>
 <?php
 $t = fopen("../data/forum-data/threads.csv", "r");

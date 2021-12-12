@@ -38,6 +38,14 @@
             -->
 
 		</div>
+		<?php 
+			function printSuccess()
+			{
+				echo '<center><div class="success-box">';
+                echo 'ERFOLG!<br> Drücken Sie  <b><a href="../">HIER</a></b> um zurück auf die Homepage';
+                echo '</center></div></div>';
+			}
+		?>
 
 <?php
 				if(isset($_POST['senden']))
@@ -67,7 +75,7 @@
 							}
 	
 	                    if($success == 1)
-	                    {
+	                    {	
 							$logged = false;
 
                         $s = fopen("../data/ticketsystem/ticketlog.csv", "r");
@@ -93,6 +101,10 @@
 							
 						if($logged == true)
 						{
+							echo '<center><div class="success-box">';
+                            echo 'ERFOLG!<br> Drücken Sie  <b><a href="#rating">HIER</a></b> um zu bewerten';
+							echo '</center></div></div>';
+							echo "</div>";
                             $f = fopen("../data/forum-data/login-time.csv", "a+");
                             $c = new SplFileObject("../data/forum-data/login-time.csv", "r");
                             $c->seek(PHP_INT_MAX);
@@ -232,14 +244,10 @@
 				$mail = substr($textline, strpos($textline, "\t"));
 				fclose($e);
 				$rating = $_POST['rating'];
-				
-				echo '<center><div class="success-box">';
-                echo 'ERFOLG!<br> Drücken Sie  <b><a href="../">HIER</a></b> um zurück auf die Homepage';
-                echo '</center></div></div>';
+				printSuccess();
     
                 $date = date("d.m.y");
 				$time = date("H:i");
-				echo $rating;
 				
 				$f = fopen("../data/ratings.csv", "a");
                 $rating_data = array($rating, $user, $mail, $date, $time);
@@ -249,6 +257,5 @@
 				
 			}
 		?>
-		</div>
 </body>
 </html>

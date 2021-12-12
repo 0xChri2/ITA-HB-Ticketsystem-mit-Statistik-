@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
 
 <head>
-    <title>Maurer</title>
+    <title>Ticket</title>
     <meta http-equiv="content-type" content="text/plain; charset=utf-8" />
 	<meta http-equiv="content-language" content="de" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,23 +30,23 @@
                 </div>
                 <br /> <br />
 				<div class="input-container">
-                    <input type="text" name="vorname" required="" />
+                    <input type="text" name="vorname" required="" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['vorname']. '"';}?> />
                     <label>Vorname</label>
                 </div>
 				<div class="input-container">
-                    <input type="text" name="nachname" required="" />
+                    <input type="text" name="nachname" required="" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['nachname']. '"';}?> />
                     <label>Nachname</label>
                 </div>
 				<div class="input-container">
-                    <input type="text" name="telefon" required="" />
+                    <input type="text" name="telefon" required="" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['telefon']. '"';}?> />
                     <label>Telefon</label>
                 </div>
                 <div class="input-container">
-                    <input type="text" name="e-mail" required="" />
+                    <input type="text" name="e-mail" required="" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['e-mail']. '"';}?>/>
                     <label>Email</label>
                 </div><br>
                 Nachricht<br><br>
-                <textarea name="message"></textarea>
+                <textarea name="message" <?php if(isset($_POST['Senden'])==true){echo 'value="'.$_POST['message']. '"';}?>></textarea>
                 <br />
 
                 <input type="submit" name="Senden" value="Senden" class="btn" />

@@ -252,7 +252,7 @@
             $fehler_nachricht[]="Ihre Telefonnummer ist zu lang.";
         }
 
-        if(strlen($telefon) <= 12)
+        if(strlen($telefon) <= 8)
         {
             $success = 0;
             $fehler_nachricht[]="Ihre Telefonnummer ist zu kurz.";

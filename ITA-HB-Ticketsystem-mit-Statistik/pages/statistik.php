@@ -1,20 +1,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 
-    <header>
+<header>
     <title>Statistik</title>
-    <link type = "text/css" rel = "stylesheet" href = "../style.css" />
-    <meta charset="utf-8"/>
-    </header>
+    <link type="text/css" rel="stylesheet" href="../style.css" />
+    <meta charset="utf-8" />
+</header>
 
-        <body bgcolor="#101010">
-       <div class="formbackground">
-       <a href="../"><img src="../pictures/chris-industriesscaled.png" class="img"/></a>
-           <div class="stats">
-               
+<body bgcolor="#101010">
+    <div class="formbackground" style="padding-top: 1px;">
+        <a href="../"><img src="../pictures/chris-industriesscaled.png" class="img" /></a>
+        <div class="form">
+
             <h1> Statistik </h1>
 
-        <?php 
+            <?php 
         //Besuchergesamt
          $pfad = "../data/ticketsystem/";
          $datei = "usercount.txt";
@@ -57,9 +57,9 @@
         echo"<h3>Besucherzahl pro Woche: ".$useraweek."</h3>"
 
         ?>
-         </div>
         </div>
-        </body>
+    </div>
+</body>
 
 
 

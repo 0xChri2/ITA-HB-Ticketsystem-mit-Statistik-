@@ -246,13 +246,6 @@
                 fputcsv($f, $rating_data, ";");
     
             	fclose($f);
-
-                $user = substr($textline, 0, strpos($textline, "\t"));
-        		$mail = substr($textline, strpos($textline, "\t"));
-                $f = fopen("../data/forum-data/threads.csv", "a");
-                $data = array($rating, $user, $mail, $date, $time);
-                fputcsv($f, $data, ";", chr(127));
-                fclose($f);
 				
 			}
 		?>

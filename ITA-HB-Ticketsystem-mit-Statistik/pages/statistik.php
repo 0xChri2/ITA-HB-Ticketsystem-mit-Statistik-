@@ -3,7 +3,7 @@
 
 <header>
     <title>Statistik</title>
-    <link type="text/css" rel="stylesheet" href="../style.css" />
+    <link type="text/css" rel="stylesheet" href="../css/style.css" />
     <meta charset="utf-8" />
 </header>
 

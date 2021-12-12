@@ -8,7 +8,7 @@
     <meta http-equiv="content-type" content="text/plain; charset=utf-8" />
     <meta http-equiv="content-language" content="de" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" rel="stylesheet" href="../forumstyle.css" />
+    <link type="text/css" rel="stylesheet" href="../css/forumstyle.css" />
 </head>
 
 <body>

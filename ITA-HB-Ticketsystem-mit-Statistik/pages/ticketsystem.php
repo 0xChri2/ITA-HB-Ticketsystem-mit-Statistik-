@@ -56,10 +56,8 @@
 			<form action="log-table.php">
 				<input type="submit" name="log" class="logdata" value="Log Datei" />
 			</form>
-        </div>
 
-
-
+			</div>
 
         <?php
 			include ("../lib/phpqrcode/qrlib.php");
@@ -271,8 +269,6 @@
 				fclose($zeiger);
 
 		?>
-
-
 
     </div>
 
